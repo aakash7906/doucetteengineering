@@ -25,7 +25,7 @@
       <!-- Step 1 -->
       <circle cx="15" cy="20" r="12" fill="#10bc00" />
       <path d="M 10 20 L 14 24 L 20 16" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      <text x="38" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="700" fill="#0f172a">Soil Perc & Test Pit</text>
+      <text x="38" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="700" fill="#0f172a">Soil Perc &amp; Test Pit</text>
 
       <!-- Connecting line -->
       <line x1="15" y1="32" x2="15" y2="58" stroke="#10bc00" stroke-width="3" />

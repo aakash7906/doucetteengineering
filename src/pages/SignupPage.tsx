@@ -30,7 +30,7 @@ export const SignupPage: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col justify-between bg-card text-foreground px-6 py-6 pb-10 overflow-y-auto select-none">
-      
+
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
@@ -47,7 +47,7 @@ export const SignupPage: React.FC = () => {
 
       {/* Main Signup Form Card */}
       <div className="w-full max-w-sm mx-auto my-auto space-y-5 py-4">
-        
+
         {/* Title & Tagline */}
         <div className="space-y-1 text-center">
           <h1 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight">
@@ -58,7 +58,7 @@ export const SignupPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Persona Switch (Homeowner vs Contractor Pro) */}
+        {/* Persona Switch (Homeowner vs contractors) */}
         <div className="app-segmented-group w-full justify-center">
           <button
             type="button"
@@ -74,13 +74,13 @@ export const SignupPage: React.FC = () => {
             className={`flex-1 justify-center app-segmented-pill ${currentRole === 'contractor' ? 'app-segmented-pill-pro' : ''}`}
           >
             <HardHat className="w-3.5 h-3.5" />
-            <span>Contractor Pro</span>
+            <span>contractors</span>
           </button>
         </div>
 
         {/* Form Inputs */}
         <form onSubmit={handleSignup} className="space-y-3.5">
-          
+
           <div className="space-y-1">
             <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
               Full Name

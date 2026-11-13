@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { 
-  MapPin, 
-  Clock, 
-  CheckCircle2, 
-  ArrowRight, 
-  HardHat, 
-  Home, 
-  Building2, 
-  Trees, 
-  Shovel, 
-  Compass, 
-  ChevronRight, 
-  Layers, 
-  Search, 
+import {
+  MapPin,
+  Clock,
+  CheckCircle2,
+  ArrowRight,
+  HardHat,
+  Home,
+  Building2,
+  Trees,
+  Shovel,
+  Compass,
+  ChevronRight,
+  Layers,
+  Search,
   Wrench,
   ClipboardList,
   Filter,
@@ -34,7 +34,7 @@ export const HomePage: React.FC = () => {
   const { currentRole, setCurrentRole, projects } = useProjects()
   const { showToast } = useToast()
   const navigate = useNavigate()
-  
+
   const [addressInput, setAddressInput] = useState('')
   const [selectedService, setSelectedService] = useState('septic-design')
   const [urgencyLevel, setUrgencyLevel] = useState('standard')
@@ -69,11 +69,11 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="space-y-8 sm:space-y-12 px-4 sm:px-6 max-w-7xl mx-auto pt-6 pb-28">
-      
+
       {/* 1. DASHBOARD GREETING HEADER */}
       <div className="space-y-1.5 sm:space-y-2">
         <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
-          Welcome back, {currentRole === 'contractor' ? 'Contractor Pro' : 'Aakash'} !
+          Welcome back, {currentRole === 'contractor' ? 'contractors' : 'Aakash'} !
         </h1>
         <p className="text-xs sm:text-sm text-muted-foreground">
           Manage your home service requests, site development and septic projects
@@ -182,7 +182,7 @@ export const HomePage: React.FC = () => {
               className={`app-segmented-pill ${currentRole === 'contractor' ? 'app-segmented-pill-pro' : ''}`}
             >
               <HardHat className="w-3.5 h-3.5" />
-              <span>Contractor Pro</span>
+              <span>contractors</span>
             </button>
           </div>
         </div>
@@ -241,8 +241,8 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-bold text-xs sm:text-sm shadow-sm hover:bg-primary-hover active:scale-[0.99] transition-all flex items-center justify-between px-5 cursor-pointer mt-2"
           >
             <span>Create Your Request & Get Free Quote</span>
@@ -420,4 +420,3 @@ export const HomePage: React.FC = () => {
 }
 
 export default HomePage
- 

@@ -2,8 +2,6 @@ import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { 
   ArrowLeft,
-  ClipboardList, 
-  MessageSquare, 
   Bell
 } from 'lucide-react'
 import { useToast } from '@/context/ToastContext'
@@ -58,27 +56,6 @@ export const Header: React.FC = () => {
         {/* RIGHT: Quick App Action Icons (Responsive & Touch-Friendly) */}
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
           
-          {/* Requests Icon */}
-          <Link
-            to="/track"
-            className="h-10 w-10 rounded-xl flex items-center justify-center text-slate-600 hover:text-foreground hover:bg-muted active:scale-95 transition-all cursor-pointer"
-            title="My Requests"
-            aria-label="Requests"
-          >
-            <ClipboardList className="w-5 h-5 stroke-[1.8]" />
-          </Link>
-
-          {/* Messages Icon */}
-          <Link
-            to="/track"
-            onClick={() => showToast('Messaging available inside each active project.', 'info')}
-            className="h-10 w-10 rounded-xl flex items-center justify-center text-slate-600 hover:text-foreground hover:bg-muted active:scale-95 transition-all cursor-pointer"
-            title="Messages"
-            aria-label="Messages"
-          >
-            <MessageSquare className="w-5 h-5 stroke-[1.8]" />
-          </Link>
-
           {/* Notifications Icon */}
           <button
             type="button"

@@ -28,7 +28,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col justify-between bg-card text-foreground px-6 py-8 pb-10 overflow-y-auto select-none">
-      
+
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
@@ -37,15 +37,11 @@ export const LoginPage: React.FC = () => {
           </div>
           <span className="font-extrabold text-sm text-foreground">Doucette Engineering</span>
         </div>
-
-        <Link to="/" className="text-xs font-bold text-muted-foreground hover:text-primary">
-          Guest Preview →
-        </Link>
       </div>
 
       {/* Main Login Card */}
       <div className="w-full max-w-sm mx-auto my-auto space-y-6 py-6">
-        
+
         {/* Title & Microcopy */}
         <div className="space-y-1.5 text-center">
           <h1 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight">
@@ -56,7 +52,7 @@ export const LoginPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Persona Switch (Homeowner vs Contractor Pro) */}
+        {/* Persona Switch (Homeowner vs contractors) */}
         <div className="app-segmented-group w-full justify-center">
           <button
             type="button"
@@ -72,13 +68,13 @@ export const LoginPage: React.FC = () => {
             className={`flex-1 justify-center app-segmented-pill ${currentRole === 'contractor' ? 'app-segmented-pill-pro' : ''}`}
           >
             <HardHat className="w-3.5 h-3.5" />
-            <span>Contractor Pro</span>
+            <span>contractors</span>
           </button>
         </div>
 
         {/* Form Inputs */}
         <form onSubmit={handleLogin} className="space-y-4">
-          
+
           <div className="space-y-1">
             <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
               Email Address
@@ -141,18 +137,10 @@ export const LoginPage: React.FC = () => {
         </form>
 
         {/* Quick Demo Fill button */}
-        <div className="pt-1 text-center">
-          <button
-            type="button"
-            onClick={() => {
-              setEmail('david.henderson@example.com')
-              setPassword('doucette2026')
-              showToast('Demo credentials autofilled', 'info')
-            }}
-            className="text-xs text-muted-foreground hover:text-primary font-medium underline"
-          >
-            Autofill Demo Credentials
-          </button>
+        <div className="flex justify-center pt-1">
+          <Link to="/" className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors">
+            Guest login →
+          </Link>
         </div>
 
       </div>

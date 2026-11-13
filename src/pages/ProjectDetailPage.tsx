@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { 
-  ArrowLeft, 
-  MapPin, 
-  FileText, 
-  ShieldCheck, 
-  Download, 
-  Send, 
-  Clock, 
-  Check, 
-  AlertCircle, 
-  Building, 
-  Phone, 
-  Mail, 
-  Copy, 
-  Eye, 
+import {
+  ArrowLeft,
+  MapPin,
+  FileText,
+  ShieldCheck,
+  Download,
+  Send,
+  Clock,
+  Check,
+  AlertCircle,
+  Building,
+  Phone,
+  Mail,
+  Copy,
+  Eye,
   MessageSquare
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
@@ -72,7 +72,7 @@ export const ProjectDetailPage: React.FC = () => {
     addMessageToProject(project.id, {
       sender: 'client',
       senderName: project.contactName || 'Property Owner',
-      roleTitle: project.role === 'contractor' ? 'Contractor Pro' : 'Homeowner',
+      roleTitle: project.role === 'contractor' ? 'contractors' : 'Homeowner',
       content: newMessageText.trim()
     })
 
@@ -81,24 +81,24 @@ export const ProjectDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-5 sm:space-y-6 pb-28">
-      
+
       {/* Top Actions Row (Cleaner app bar) */}
       <div className="flex items-center justify-between gap-3 text-xs">
         <Link to="/track" className="text-muted-foreground hover:text-primary flex items-center gap-1 font-semibold transition-colors">
           <ArrowLeft className="w-4 h-4" /> <span>All Projects</span>
         </Link>
         <div className="flex items-center gap-2">
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => setRequestExpediteOpen(true)}
             className="text-xs font-semibold h-8.5 rounded-xl"
           >
             Expedite
           </Button>
-          <Button 
-            variant="secondary" 
-            size="sm" 
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={() => setActiveTab('messages')}
             className="text-xs font-semibold h-8.5 rounded-xl flex items-center gap-1.5"
           >
@@ -110,7 +110,7 @@ export const ProjectDetailPage: React.FC = () => {
 
       {/* Main Project Card (Matching Screenshot Hierarchy) */}
       <div className="bg-card rounded-3xl p-5 sm:p-6 border border-border shadow-xs space-y-5">
-        
+
         {/* Badges Header Row */}
         <div className="flex flex-wrap items-center gap-2">
           <button
@@ -122,9 +122,9 @@ export const ProjectDetailPage: React.FC = () => {
             <span>{project.trackingNumber}</span>
             {copied ? <Check className="w-3.5 h-3.5 text-primary" /> : <Copy className="w-3.5 h-3.5 text-primary" />}
           </button>
-          
+
           <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted px-2.5 py-1 rounded-full border border-border">
-            {project.role === 'contractor' ? 'Contractor Pro' : 'Homeowner'}
+            {project.role === 'contractor' ? 'contractors' : 'Homeowner'}
           </span>
 
           <span className="text-xs font-semibold text-primary bg-primary-light px-3 py-1 rounded-full border border-primary/25">
@@ -187,11 +187,10 @@ export const ProjectDetailPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setActiveTab('timeline')}
-          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-            activeTab === 'timeline'
+          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${activeTab === 'timeline'
               ? 'bg-primary text-primary-foreground shadow-2xs ring-1 ring-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-          }`}
+            }`}
         >
           <Clock className="w-3.5 h-3.5 shrink-0" />
           <span className="truncate">Milestones ({project.milestones.length})</span>
@@ -200,11 +199,10 @@ export const ProjectDetailPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setActiveTab('documents')}
-          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-            activeTab === 'documents'
+          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${activeTab === 'documents'
               ? 'bg-primary text-primary-foreground shadow-2xs ring-1 ring-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-          }`}
+            }`}
         >
           <FileText className="w-3.5 h-3.5 shrink-0" />
           <span className="truncate">Docs ({project.documents.length})</span>
@@ -213,11 +211,10 @@ export const ProjectDetailPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setActiveTab('messages')}
-          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-            activeTab === 'messages'
+          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${activeTab === 'messages'
               ? 'bg-primary text-primary-foreground shadow-2xs ring-1 ring-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-          }`}
+            }`}
         >
           <MessageSquare className="w-3.5 h-3.5 shrink-0" />
           <span className="truncate">Messages ({project.messages.length})</span>
@@ -226,11 +223,10 @@ export const ProjectDetailPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setActiveTab('team')}
-          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-            activeTab === 'team'
+          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${activeTab === 'team'
               ? 'bg-primary text-primary-foreground shadow-2xs ring-1 ring-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-          }`}
+            }`}
         >
           <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
           <span className="truncate">Town / P.E.</span>
@@ -264,14 +260,13 @@ export const ProjectDetailPage: React.FC = () => {
                 return (
                   <div key={m.id} className="relative group">
                     {/* Circle icon on timeline line */}
-                    <div 
-                      className={`absolute -left-[31px] sm:-left-[39px] top-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full flex items-center justify-center border-2 transition-all ${
-                        isCompleted
+                    <div
+                      className={`absolute -left-[31px] sm:-left-[39px] top-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full flex items-center justify-center border-2 transition-all ${isCompleted
                           ? 'bg-primary border-primary text-primary-foreground shadow-2xs'
                           : isInProgress
-                          ? 'bg-primary border-primary text-primary-foreground ring-4 ring-primary-light shadow-2xs'
-                          : 'bg-card border-border text-muted-foreground'
-                      }`}
+                            ? 'bg-primary border-primary text-primary-foreground ring-4 ring-primary-light shadow-2xs'
+                            : 'bg-card border-border text-muted-foreground'
+                        }`}
                     >
                       {isCompleted ? (
                         <Check className="w-4 h-4 stroke-[3]" />
@@ -281,18 +276,17 @@ export const ProjectDetailPage: React.FC = () => {
                     </div>
 
                     {/* Milestone Card */}
-                    <div className={`p-4 rounded-2xl border transition-all ${
-                      isInProgress 
-                        ? 'border-primary/40 bg-primary-light/40 ring-1 ring-primary/20' 
+                    <div className={`p-4 rounded-2xl border transition-all ${isInProgress
+                        ? 'border-primary/40 bg-primary-light/40 ring-1 ring-primary/20'
                         : isCompleted
-                        ? 'border-border bg-card'
-                        : 'border-border bg-muted/40 opacity-80'
-                    }`}>
+                          ? 'border-border bg-card'
+                          : 'border-border bg-muted/40 opacity-80'
+                      }`}>
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1.5">
                         <h3 className="font-bold text-foreground text-sm">
                           {m.title}
                         </h3>
-                        
+
                         <div className="flex items-center gap-2">
                           {isCompleted && (
                             <Badge variant="success" className="text-[10px]">
@@ -346,7 +340,7 @@ export const ProjectDetailPage: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {project.documents.map((doc) => (
-                <div 
+                <div
                   key={doc.id}
                   className="p-4 rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-2xs transition-all flex flex-col justify-between space-y-3"
                 >
@@ -369,9 +363,9 @@ export const ProjectDetailPage: React.FC = () => {
                   </div>
 
                   <div className="flex items-center gap-2 pt-2 border-t border-border">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
+                    <Button
+                      variant="outline"
+                      size="sm"
                       onClick={() => setPreviewDocTitle(doc.title)}
                       className="flex-1 text-xs font-semibold flex items-center justify-center gap-1"
                     >
@@ -379,9 +373,9 @@ export const ProjectDetailPage: React.FC = () => {
                       <span>Preview</span>
                     </Button>
 
-                    <Button 
-                      variant="secondary" 
-                      size="sm" 
+                    <Button
+                      variant="secondary"
+                      size="sm"
                       onClick={() => {
                         showToast(`Downloading stamped vector PDF for "${doc.title}"`, 'success')
                       }}
@@ -420,19 +414,18 @@ export const ProjectDetailPage: React.FC = () => {
                 return (
                   <div
                     key={msg.id}
-                    className={`p-3.5 rounded-xl border text-xs leading-relaxed space-y-1.5 ${
-                      isEngineer
+                    className={`p-3.5 rounded-xl border text-xs leading-relaxed space-y-1.5 ${isEngineer
                         ? 'bg-primary-light/60 border-primary/25 text-foreground'
                         : isTown
-                        ? 'bg-warning/15 border-warning/30 text-foreground'
-                        : 'bg-card border-border text-foreground ml-4 sm:ml-8'
-                    }`}
+                          ? 'bg-warning/15 border-warning/30 text-foreground'
+                          : 'bg-card border-border text-foreground ml-4 sm:ml-8'
+                      }`}
                   >
                     <div className="flex items-center justify-between text-[11px]">
                       <div className="flex items-center gap-2">
                         <span className="font-bold text-foreground">{msg.senderName}</span>
-                        <Badge 
-                          variant={isEngineer ? 'primary' : isTown ? 'warning' : 'secondary'} 
+                        <Badge
+                          variant={isEngineer ? 'primary' : isTown ? 'warning' : 'secondary'}
                           className="text-[9px] py-0 px-1.5"
                         >
                           {msg.roleTitle}
@@ -469,7 +462,7 @@ export const ProjectDetailPage: React.FC = () => {
       {activeTab === 'team' && (
         <div className="space-y-4 animate-in fade-in-50 duration-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            
+
             {/* Engineer Profile Card */}
             <Card className="border-border">
               <CardHeader>
@@ -543,8 +536,8 @@ export const ProjectDetailPage: React.FC = () => {
       )}
 
       {/* Blueprint Preview BottomSheet */}
-      <BottomSheet 
-        isOpen={!!previewDocTitle} 
+      <BottomSheet
+        isOpen={!!previewDocTitle}
         onClose={() => setPreviewDocTitle(null)}
         title={previewDocTitle || 'Plan Viewer'}
       >
@@ -564,7 +557,7 @@ export const ProjectDetailPage: React.FC = () => {
             <Button variant="outline" className="flex-1 min-h-[2.75rem]" onClick={() => setPreviewDocTitle(null)}>
               Close
             </Button>
-            <Button 
+            <Button
               className="flex-1 min-h-[2.75rem]"
               onClick={() => {
                 showToast(`Downloaded vector CAD PDF for "${previewDocTitle}"`, 'success')
@@ -578,8 +571,8 @@ export const ProjectDetailPage: React.FC = () => {
       </BottomSheet>
 
       {/* Expedite Request BottomSheet */}
-      <BottomSheet 
-        isOpen={requestExpediteOpen} 
+      <BottomSheet
+        isOpen={requestExpediteOpen}
         onClose={() => setRequestExpediteOpen(false)}
         title="Request Expedited Action"
       >
@@ -595,7 +588,7 @@ export const ProjectDetailPage: React.FC = () => {
             <Button variant="outline" className="flex-1 min-h-[2.75rem]" onClick={() => setRequestExpediteOpen(false)}>
               Cancel
             </Button>
-            <Button 
+            <Button
               className="flex-1 min-h-[2.75rem]"
               onClick={() => {
                 showToast('Expedited request received. Engineer will contact you shortly.', 'success')

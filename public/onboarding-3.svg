@@ -18,8 +18,8 @@
     <path d="M 36 54 C 36 44 44 38 48 38 C 52 38 60 44 60 54 Z" fill="#ffffff" />
     <rect x="33" y="53" width="30" height="4" rx="2" fill="#ffffff" />
 
-    <text x="84" y="44" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="900" fill="#ffffff">Trade Pro & Owners</text>
-    <text x="84" y="62" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="700" fill="#10bc00">Instant Quotes & Permits</text>
+    <text x="84" y="44" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="900" fill="#ffffff">Trade Pro &amp; Owners</text>
+    <text x="84" y="62" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="700" fill="#10bc00">Instant Quotes &amp; Permits</text>
 
     <!-- Pricing Row Box -->
     <rect x="25" y="95" width="270" height="60" rx="16" fill="#0f172a" stroke="#334155" />
@@ -29,6 +29,6 @@
 
     <!-- Bottom Button Shape -->
     <rect x="25" y="175" width="270" height="48" rx="14" fill="#10bc00" />
-    <text x="160" y="205" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">Connect With P.E. Engineer →</text>
+    <text x="160" y="205" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">Connect With P.E. Engineer &#8594;</text>
   </g>
 </svg>
