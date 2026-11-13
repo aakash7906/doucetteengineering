@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Mail, Lock, ArrowRight, ShieldCheck, HardHat, Home, Eye, EyeOff } from 'lucide-react'
+import { Mail, Lock, ArrowRight, HardHat, Home, Eye, EyeOff } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
 import { useToast } from '@/context/ToastContext'
 import { Button } from '@/components/ui/button'
@@ -152,10 +152,6 @@ export const LoginPage: React.FC = () => {
           <Link to="/signup" className="text-primary font-bold hover:underline">
             Create Account
           </Link>
-        </div>
-        <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
-          <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-          <span>Encrypted Civil Engineering Records</span>
         </div>
       </div>
 

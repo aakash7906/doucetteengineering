@@ -4,6 +4,7 @@ import { ProjectProvider } from '@/context/ProjectContext'
 import { ToastProvider } from '@/context/ToastContext'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
+import { DesktopDeviceFrame } from '@/components/layout/DesktopDeviceFrame'
 import { SplashScreen } from '@/pages/SplashScreen'
 import { OnboardingPage } from '@/pages/OnboardingPage'
 import { LoginPage } from '@/pages/LoginPage'
@@ -40,7 +41,7 @@ const AppLayout: React.FC = () => {
     location.pathname === '/signup'
 
   return (
-    <div className="min-h-screen flex flex-col bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
+    <div className="min-h-screen md:min-h-full flex flex-col bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
       {!isAuthOrSplashFlow && <Header />}
       <main className={`flex-1 ${!isAuthOrSplashFlow ? 'app-content-bottom-space' : ''}`}>
         <Routes>
@@ -74,7 +75,9 @@ export const App: React.FC = () => {
     <ProjectProvider>
       <ToastProvider>
         <BrowserRouter>
-          <AppLayout />
+          <DesktopDeviceFrame>
+            <AppLayout />
+          </DesktopDeviceFrame>
         </BrowserRouter>
       </ToastProvider>
     </ProjectProvider>
