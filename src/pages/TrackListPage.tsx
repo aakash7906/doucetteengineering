@@ -51,19 +51,19 @@ export const TrackListPage: React.FC = () => {
   })
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8 pb-28">
+    <div className="max-w-lg mx-auto px-4 py-4 space-y-5 pb-32">
       
       {/* 1. APP HEADER */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3.5">
-          <div className="app-squircle-icon">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-primary-light text-primary flex items-center justify-center shrink-0">
             <ClipboardList className="w-5 h-5 text-primary" />
           </div>
           <div className="space-y-0.5">
-            <h1 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight">
+            <h1 className="text-2xl font-black text-foreground tracking-tight">
               My Requests
             </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground font-medium">
+            <p className="text-xs text-muted-foreground font-medium">
               {projects.length} {projects.length === 1 ? 'request' : 'requests'} for quotes
             </p>
           </div>
@@ -207,7 +207,7 @@ export const TrackListPage: React.FC = () => {
           </Link>
         </div>
       ) : (
-        <div className={viewMode === 'grid' ? "grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6" : "space-y-5"}>
+        <div className="space-y-4">
           {filteredProjects.map((project) => (
             <Card 
               key={project.id} 

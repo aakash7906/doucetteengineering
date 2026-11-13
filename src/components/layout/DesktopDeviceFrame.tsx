@@ -73,12 +73,7 @@ export const DesktopDeviceFrame: React.FC<DesktopDeviceFrameProps> = ({ children
           
           {/* Internal Phone Screen Container */}
           <div className="relative w-full h-full flex flex-col bg-background text-foreground overflow-hidden [transform:translateZ(0)]">
-            
-            {/* Scrollable Live App Body (Clean, Unobstructed Screen) */}
-            <div className="flex-1 w-full h-full overflow-y-auto overflow-x-hidden relative [transform:translateZ(0)] no-scrollbar">
-              {children}
-            </div>
-
+            {children}
           </div>
 
         </Iphone>

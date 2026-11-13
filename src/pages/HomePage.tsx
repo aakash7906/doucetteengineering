@@ -27,7 +27,7 @@ import { useToast } from '@/context/ToastContext'
 import { SERVICES_CATALOG } from '@/data/services'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import { formatCurrency } from '@/lib/utils'
 
 export const HomePage: React.FC = () => {
@@ -68,79 +68,76 @@ export const HomePage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-8 sm:space-y-12 px-4 sm:px-6 max-w-7xl mx-auto pt-6 pb-28">
+    <div className="space-y-6 px-4 max-w-lg mx-auto pt-4 pb-32">
 
       {/* 1. DASHBOARD GREETING HEADER */}
-      <div className="space-y-1.5 sm:space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
+      <div className="space-y-1">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-800">
           Welcome back, {currentRole === 'contractor' ? 'contractors' : 'Aakash'} !
         </h1>
-        <p className="text-xs sm:text-sm text-muted-foreground">
-          Manage your home service requests, site development and septic projects
-        </p>
       </div>
 
-      {/* 2. DASHBOARD 4 STAT CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div className="bg-card px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div className="flex flex-col justify-center space-y-0.5">
-            <span className="text-xs text-muted-foreground font-semibold leading-tight">Total Requests</span>
-            <span className="text-2xl font-black text-foreground tracking-tight leading-tight">{projects.length}</span>
-            <span className="text-[11px] text-muted-foreground leading-tight">All time</span>
+      {/* 2. DASHBOARD 4 STAT CARDS (Responsive 2x2 Mobile Grid) */}
+      <div className="grid grid-cols-2 gap-2.5">
+        <div className="bg-card p-3 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center min-w-0 pr-1">
+            <span className="text-[11px] text-muted-foreground font-semibold leading-tight truncate">Total Requests</span>
+            <span className="text-xl font-bold text-slate-800 tracking-tight leading-tight mt-0.5">{projects.length}</span>
+            <span className="text-[10px] text-muted-foreground leading-tight mt-0.5">All time</span>
           </div>
-          <div className="app-squircle-icon">
-            <ClipboardList className="w-5 h-5 text-primary" />
+          <div className="w-8 h-8 rounded-xl bg-primary-light text-primary flex items-center justify-center shrink-0">
+            <ClipboardList className="w-4 h-4 text-primary" />
           </div>
         </div>
 
-        <div className="bg-card px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div className="flex flex-col justify-center space-y-0.5">
-            <span className="text-xs text-muted-foreground font-semibold leading-tight">Active Jobs</span>
-            <span className="text-2xl font-black text-foreground tracking-tight leading-tight">
+        <div className="bg-card p-3 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center min-w-0 pr-1">
+            <span className="text-[11px] text-muted-foreground font-semibold leading-tight truncate">Active Jobs</span>
+            <span className="text-xl font-bold text-slate-800 tracking-tight leading-tight mt-0.5">
               {projects.filter(p => p.percentComplete < 100).length}
             </span>
-            <span className="text-[11px] text-muted-foreground leading-tight">Currently ongoing</span>
+            <span className="text-[10px] text-muted-foreground leading-tight mt-0.5">Ongoing</span>
           </div>
-          <div className="app-squircle-icon">
-            <Wrench className="w-5 h-5 text-primary" />
+          <div className="w-8 h-8 rounded-xl bg-primary-light text-primary flex items-center justify-center shrink-0">
+            <Wrench className="w-4 h-4 text-primary" />
           </div>
         </div>
 
-        <div className="bg-card px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div className="flex flex-col justify-center space-y-0.5">
-            <span className="text-xs text-muted-foreground font-semibold leading-tight">Completed Jobs</span>
-            <span className="text-2xl font-black text-foreground tracking-tight leading-tight">
+        <div className="bg-card p-3 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center min-w-0 pr-1">
+            <span className="text-[11px] text-muted-foreground font-semibold leading-tight truncate">Completed Jobs</span>
+            <span className="text-xl font-bold text-slate-800 tracking-tight leading-tight mt-0.5">
               {projects.filter(p => p.percentComplete === 100).length}
             </span>
-            <span className="text-[11px] text-muted-foreground leading-tight">Successfully finished</span>
+            <span className="text-[10px] text-muted-foreground leading-tight mt-0.5">Finished</span>
           </div>
-          <div className="app-squircle-icon">
-            <CheckCircle2 className="w-5 h-5 text-primary" />
+          <div className="w-8 h-8 rounded-xl bg-primary-light text-primary flex items-center justify-center shrink-0">
+            <CheckCircle2 className="w-4 h-4 text-primary" />
           </div>
         </div>
 
-        <div className="bg-card px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div className="flex flex-col justify-center space-y-0.5">
-            <span className="text-xs text-muted-foreground font-semibold leading-tight">BOH Approvals</span>
-            <span className="text-2xl font-black text-primary tracking-tight leading-tight">100%</span>
-            <span className="text-[11px] text-muted-foreground leading-tight">Town pass rate</span>
+        <div className="bg-card p-3 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center min-w-0 pr-1">
+            <span className="text-[11px] text-muted-foreground font-semibold leading-tight truncate">BOH Approvals</span>
+            <span className="text-xl font-bold text-primary tracking-tight leading-tight mt-0.5">100%</span>
+            <span className="text-[10px] text-muted-foreground leading-tight mt-0.5">Pass rate</span>
           </div>
-          <div className="app-squircle-icon">
-            <ShieldCheck className="w-5 h-5 text-primary" />
+          <div className="w-8 h-8 rounded-xl bg-primary-light text-primary flex items-center justify-center shrink-0">
+            <ShieldCheck className="w-4 h-4 text-primary" />
           </div>
         </div>
       </div>
 
       {/* 3. SEARCH + FILTER ROW */}
-      <form onSubmit={handleTrackSubmit} className="flex items-center gap-3">
+      <form onSubmit={handleTrackSubmit} className="flex items-center gap-2.5">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-muted-foreground absolute left-4 top-3.5" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3.5" />
           <input
             type="text"
             placeholder="Search requests or enter Zip..."
             value={homeownerTrackInput}
             onChange={(e) => setHomeownerTrackInput(e.target.value)}
-            className="w-full h-11 pl-11 pr-4 rounded-xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
+            className="w-full h-11 pl-10 pr-3 rounded-xl border border-input bg-card text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
           />
         </div>
         <button
@@ -153,25 +150,25 @@ export const HomePage: React.FC = () => {
       </form>
 
       {/* 4. QUICK INTAKE CARD */}
-      <div className="bg-card rounded-2xl p-5 sm:p-8 border border-border shadow-xs space-y-5 sm:space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-border/60">
-          <div className="flex items-center gap-3.5">
-            <div className="app-squircle-icon">
+      <div className="bg-card rounded-2xl p-5 border border-border shadow-xs space-y-4">
+        <div className="flex flex-col gap-3 pb-3 border-b border-border/60">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-primary-light text-primary flex items-center justify-center shrink-0">
               <ClipboardList className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <h2 className="font-extrabold text-foreground text-base sm:text-lg">
+              <h2 className="font-bold text-slate-800 text-base">
                 Request Engineering & Septic Design
               </h2>
             </div>
           </div>
 
           {/* Persona Switch Segmented Control */}
-          <div className="app-segmented-group shrink-0 self-start sm:self-auto">
+          <div className="app-segmented-group w-full justify-center">
             <button
               type="button"
               onClick={() => setCurrentRole('homeowner')}
-              className={`app-segmented-pill ${currentRole === 'homeowner' ? 'app-segmented-pill-active' : ''}`}
+              className={`flex-1 justify-center app-segmented-pill ${currentRole === 'homeowner' ? 'app-segmented-pill-active' : ''}`}
             >
               <Home className="w-3.5 h-3.5" />
               <span>Homeowner</span>
@@ -179,7 +176,7 @@ export const HomePage: React.FC = () => {
             <button
               type="button"
               onClick={() => setCurrentRole('contractor')}
-              className={`app-segmented-pill ${currentRole === 'contractor' ? 'app-segmented-pill-pro' : ''}`}
+              className={`flex-1 justify-center app-segmented-pill ${currentRole === 'contractor' ? 'app-segmented-pill-pro' : ''}`}
             >
               <HardHat className="w-3.5 h-3.5" />
               <span>contractors</span>
@@ -197,7 +194,6 @@ export const HomePage: React.FC = () => {
               <MapPin className="w-4 h-4 text-primary absolute left-3.5 top-3.5" />
               <input
                 type="text"
-                required
                 placeholder="e.g. 142 Highland Rd, Acton or 01720"
                 value={addressInput}
                 onChange={(e) => setAddressInput(e.target.value)}
@@ -206,7 +202,7 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-3.5">
             <div className="space-y-1.5">
               <label className="block text-xs font-bold text-foreground uppercase tracking-wider">
                 Service Needed
@@ -255,7 +251,7 @@ export const HomePage: React.FC = () => {
       <div className="space-y-4 sm:space-y-5">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg sm:text-xl font-extrabold text-foreground tracking-tight">
+            <h2 className="text-lg font-bold text-slate-800 tracking-tight">
               Engineering Services Catalog
             </h2>
           </div>
@@ -266,66 +262,63 @@ export const HomePage: React.FC = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        <div className="space-y-3.5">
           {SERVICES_CATALOG.map((service) => (
-            <Card key={service.id} className="hover:border-primary/50 transition-all flex flex-col justify-between p-1">
-              <CardHeader className="space-y-3 pb-3">
-                <div className="flex items-center justify-between">
-                  <div className="app-squircle-icon">
+            <Card key={service.id} className="hover:border-primary/50 transition-all flex flex-col justify-between p-4 rounded-2xl border border-border shadow-xs bg-card space-y-3.5">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary-light text-primary flex items-center justify-center shrink-0">
                     {iconMap[service.iconName] || <Compass className="w-5 h-5 text-primary" />}
                   </div>
-                  {service.badge && (
-                    <Badge variant={service.badge === 'Most Popular' ? 'success' : 'secondary'} className="text-[10px]">
-                      {service.badge}
-                    </Badge>
-                  )}
-                </div>
-
-                <div className="space-y-1">
-                  <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors">
-                    {service.title}
-                  </CardTitle>
-                  <CardDescription className="line-clamp-2 text-xs leading-relaxed">
-                    {service.tagline}
-                  </CardDescription>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-4 pt-0">
-                <div className="pt-3 border-t border-border flex items-center justify-between text-xs">
                   <div>
-                    <span className="text-muted-foreground block text-[10px] uppercase font-bold">Starting At</span>
-                    <span className="text-base font-extrabold text-foreground">
-                      {formatCurrency(service.priceStartingAt)}
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-muted-foreground block text-[10px] uppercase font-bold">Timeline</span>
-                    <span className="font-semibold text-foreground flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-muted-foreground" /> {service.typicalTimeline}
-                    </span>
+                    <h3 className="font-bold text-slate-800 text-sm sm:text-base leading-tight">
+                      {service.title}
+                    </h3>
+                    <p className="text-[11px] text-muted-foreground line-clamp-1 mt-0.5">
+                      {service.tagline}
+                    </p>
                   </div>
                 </div>
+                {service.badge && (
+                  <Badge variant={service.badge === 'Most Popular' ? 'success' : 'secondary'} className="text-[10px] shrink-0">
+                    {service.badge}
+                  </Badge>
+                )}
+              </div>
 
-                <Link to={`/request?service=${service.id}`} className="block">
-                  <Button variant="secondary" size="sm" className="w-full h-10 text-xs font-bold hover:bg-primary hover:text-primary-foreground transition-all">
-                    <span>Request Details</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                  </Button>
-                </Link>
-              </CardContent>
+              <div className="pt-2 border-t border-border/60 flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">Starting At</span>
+                  <span className="text-base font-black text-foreground">
+                    {formatCurrency(service.priceStartingAt)}
+                  </span>
+                </div>
+                <div className="text-right">
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">Timeline</span>
+                  <span className="font-semibold text-foreground flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-muted-foreground" /> {service.typicalTimeline}
+                  </span>
+                </div>
+              </div>
+
+              <Link to={`/request?service=${service.id}`} className="block">
+                <Button variant="secondary" size="sm" className="w-full h-10 text-xs font-bold hover:bg-primary hover:text-primary-foreground transition-all">
+                  <span>Request Details</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                </Button>
+              </Link>
             </Card>
           ))}
         </div>
       </div>
 
       {/* 6. QUICK ACTIONS */}
-      <div className="bg-card rounded-2xl p-5 sm:p-7 border border-border shadow-2xs space-y-5">
-        <div className="space-y-1">
-          <h2 className="text-base sm:text-lg font-bold text-foreground">
+      <div className="bg-card rounded-2xl p-5 border border-border shadow-2xs space-y-4">
+        <div className="space-y-0.5">
+          <h2 className="text-base font-bold text-slate-800">
             Quick Actions
           </h2>
-          <p className="text-xs sm:text-sm text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             What would you like to do?
           </p>
         </div>

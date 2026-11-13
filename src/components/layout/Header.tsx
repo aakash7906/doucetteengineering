@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
 
   // Dynamic contextual title for header
   const getHeaderTitle = () => {
-    if (location.pathname === '/') return 'Dashboard'
+    if (location.pathname === '/') return 'Home'
     if (location.pathname === '/request') return 'Service Request'
     if (location.pathname === '/track') return 'My Requests'
     if (location.pathname.startsWith('/project/')) return 'Project Details'
@@ -48,7 +48,7 @@ export const Header: React.FC = () => {
             </Link>
           )}
 
-          <h1 className="font-extrabold text-base sm:text-lg md:text-xl tracking-tight text-foreground leading-tight truncate">
+          <h1 className="font-bold text-base sm:text-lg tracking-tight text-slate-800 leading-tight truncate">
             {getHeaderTitle()}
           </h1>
         </div>

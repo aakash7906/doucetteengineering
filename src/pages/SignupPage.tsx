@@ -23,9 +23,10 @@ export const SignupPage: React.FC = () => {
 
     setTimeout(() => {
       setLoading(false)
-      showToast('Account created successfully! Welcome to Doucette Engineering.', 'success')
+      const userDisplayName = fullName.trim() || (currentRole === 'contractor' ? 'Contractor' : 'Homeowner')
+      showToast(`Account created! Welcome, ${userDisplayName}.`, 'success')
       navigate('/', { replace: true })
-    }, 600)
+    }, 400)
   }
 
   return (
@@ -78,8 +79,8 @@ export const SignupPage: React.FC = () => {
           </button>
         </div>
 
-        {/* Form Inputs */}
-        <form onSubmit={handleSignup} className="space-y-3.5">
+        {/* Form Inputs (Validation Removed) */}
+        <form onSubmit={handleSignup} noValidate className="space-y-3.5">
 
           <div className="space-y-1">
             <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
@@ -89,7 +90,6 @@ export const SignupPage: React.FC = () => {
               <User className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3.5" />
               <input
                 type="text"
-                required
                 placeholder="e.g. David Henderson"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
@@ -105,8 +105,7 @@ export const SignupPage: React.FC = () => {
             <div className="relative">
               <Mail className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3.5" />
               <input
-                type="email"
-                required
+                type="text"
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -159,7 +158,6 @@ export const SignupPage: React.FC = () => {
               <Lock className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3.5" />
               <input
                 type="password"
-                required
                 placeholder="Create secure password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

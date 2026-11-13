@@ -82,7 +82,7 @@ export const BottomNav: React.FC = () => {
   }, [isDragging, handleTouchMove, handleTouchEnd])
 
   const isTabActive = (tab: string) => {
-    if (tab === 'dashboard' && location.pathname === '/') return true
+    if (tab === 'home' && location.pathname === '/') return true
     if (tab === 'track' && location.pathname === '/track') return true
     if (tab === 'request' && location.pathname === '/request') return true
     if (tab === 'jobs' && location.pathname === '/contractor') return true
@@ -93,7 +93,7 @@ export const BottomNav: React.FC = () => {
   return (
     <>
       {/* FLOATING PILL BOTTOM NAVIGATION BAR WITH ELEVATED REQUEST BUTTON */}
-      <div className="fixed bottom-4 left-0 right-0 z-40 flex justify-center pointer-events-none px-4 pb-[env(safe-area-inset-bottom,0px)]">
+      <div className="fixed md:absolute bottom-4 left-0 right-0 z-40 flex justify-center pointer-events-none px-4 pb-[env(safe-area-inset-bottom,0px)]">
         <nav className="pointer-events-auto bg-card/95 backdrop-blur-md border border-border/80 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-full px-2 py-1.5 flex items-center justify-between gap-1 w-full max-w-[390px] transition-all relative overflow-visible">
 
           {/* Tab 1: Dashboard */}
@@ -108,7 +108,7 @@ export const BottomNav: React.FC = () => {
               }`}>
               <LayoutGrid className="w-5 h-5 stroke-[2.2]" />
               <span className="text-[10px] leading-tight font-bold mt-0.5">
-                Dashboard
+                Home
               </span>
             </div>
           </Link>
@@ -188,12 +188,12 @@ export const BottomNav: React.FC = () => {
         </nav>
       </div>
 
-      {/* ZIPFIXER "MORE" BOTTOM SHEET MODAL (Exact layout from user's screenshots 5 & 6) */}
+      {/* "MORE" BOTTOM SHEET MODAL */}
       {moreDrawerOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col justify-end md:hidden animate-in fade-in duration-200">
+        <div className="fixed md:absolute inset-0 z-50 flex flex-col justify-end animate-in fade-in duration-200">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-xs"
+            className="fixed md:absolute inset-0 bg-black/40 backdrop-blur-xs"
             onClick={() => setMoreDrawerOpen(false)}
           />
 

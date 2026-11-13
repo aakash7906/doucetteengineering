@@ -271,7 +271,7 @@ export const RequestPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 sm:py-8 space-y-6 pb-24">
+    <div className="max-w-lg mx-auto px-4 py-4 space-y-6 pb-32">
       
       {/* Wizard Header & Stepper */}
       <div className="space-y-3">
@@ -371,7 +371,7 @@ export const RequestPage: React.FC = () => {
             <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
               Required Engineering Service:
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-3">
               {SERVICES_CATALOG.map((s) => (
                 <button
                   key={s.id}

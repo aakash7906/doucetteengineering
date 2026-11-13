@@ -21,9 +21,10 @@ export const LoginPage: React.FC = () => {
 
     setTimeout(() => {
       setLoading(false)
-      showToast(`Welcome back, ${email.split('@')[0] || 'User'}!`, 'success')
+      const userDisplayName = email ? email.split('@')[0] : (currentRole === 'contractor' ? 'Contractor' : 'Homeowner')
+      showToast(`Welcome back, ${userDisplayName}!`, 'success')
       navigate('/', { replace: true })
-    }, 600)
+    }, 400)
   }
 
   return (
@@ -72,8 +73,8 @@ export const LoginPage: React.FC = () => {
           </button>
         </div>
 
-        {/* Form Inputs */}
-        <form onSubmit={handleLogin} className="space-y-4">
+        {/* Form Inputs (Validation Removed) */}
+        <form onSubmit={handleLogin} noValidate className="space-y-4">
 
           <div className="space-y-1">
             <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
@@ -82,8 +83,7 @@ export const LoginPage: React.FC = () => {
             <div className="relative">
               <Mail className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3.5" />
               <input
-                type="email"
-                required
+                type="text"
                 autoComplete="email"
                 placeholder="name@company.com"
                 value={email}
@@ -110,7 +110,6 @@ export const LoginPage: React.FC = () => {
               <Lock className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3.5" />
               <input
                 type={showPassword ? 'text' : 'password'}
-                required
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

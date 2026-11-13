@@ -41,9 +41,9 @@ const AppLayout: React.FC = () => {
     location.pathname === '/signup'
 
   return (
-    <div className="min-h-screen md:min-h-full flex flex-col bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
+    <div className="h-full w-full min-h-screen md:min-h-0 md:h-full flex flex-col bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground relative overflow-hidden [transform:translateZ(0)]">
       {!isAuthOrSplashFlow && <Header />}
-      <main className={`flex-1 ${!isAuthOrSplashFlow ? 'app-content-bottom-space' : ''}`}>
+      <main className={`flex-1 overflow-y-auto overflow-x-hidden no-scrollbar relative ${!isAuthOrSplashFlow ? 'app-content-bottom-space' : ''}`}>
         <Routes>
           {/* Mobile App Initial Flow: /splash -> /onboarding -> /login -> /home */}
           <Route path="/splash" element={<SplashScreen />} />
