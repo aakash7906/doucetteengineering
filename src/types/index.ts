@@ -96,6 +96,7 @@ export interface ProjectItem {
     agentName: string
     status: 'Scheduled' | 'Submitted' | 'Under Review' | 'Approved' | 'Conditional'
     hearingDate?: string
+    phone?: string
   }
   milestones: ProjectMilestone[]
   documents: ProjectDocument[]

@@ -22,11 +22,13 @@ import {
   Compass
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
+import { useToast } from '@/context/ToastContext'
 import { Badge } from '@/components/ui/badge'
 
 export const BottomNav: React.FC = () => {
   const location = useLocation()
   const { currentRole, setCurrentRole } = useProjects()
+  const { showToast } = useToast()
   const [moreDrawerOpen, setMoreDrawerOpen] = useState(false)
 
   const isTabActive = (tab: string) => {
@@ -234,7 +236,7 @@ export const BottomNav: React.FC = () => {
 
               <button
                 type="button"
-                onClick={() => { alert('No new engineering notifications.'); setMoreDrawerOpen(false); }}
+                onClick={() => { showToast('No new engineering notifications.', 'info'); setMoreDrawerOpen(false); }}
                 className="flex flex-col items-center justify-center p-3 rounded-2xl bg-card border border-border text-muted-foreground hover:text-foreground font-semibold text-xs gap-1.5 hover:bg-muted transition-all text-center shadow-2xs"
               >
                 <Bell className="w-5 h-5 text-primary" />
@@ -400,15 +402,15 @@ export const BottomNav: React.FC = () => {
               </div>
             </div>
 
-            {/* Bottom Sign Out / Reset button (ZipFixer exact style) */}
+            {/* Bottom Sign Out / Reset button */}
             <div className="pt-2">
               <button
                 type="button"
                 onClick={() => {
-                  alert('Signed out of session.')
+                  showToast('Signed out of session.', 'info')
                   setMoreDrawerOpen(false)
                 }}
-                className="w-full h-11 rounded-2xl border border-destructive/30 text-destructive font-bold text-xs flex items-center justify-center gap-2 hover:bg-destructive/5 transition-colors"
+                className="w-full h-11 rounded-2xl border border-destructive/30 text-destructive font-bold text-xs flex items-center justify-center gap-2 hover:bg-destructive/5 transition-colors cursor-pointer"
               >
                 <LogOut className="w-4 h-4" />
                 <span>Sign Out of Account</span>

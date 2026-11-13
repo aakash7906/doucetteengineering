@@ -18,16 +18,18 @@ import {
   MessageSquare
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
+import { useToast } from '@/context/ToastContext'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
+import { BottomSheet } from '@/components/ui/bottom-sheet'
 import { formatDate } from '@/lib/utils'
 
 export const ProjectDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const { getProjectByTrackingNumber, getProjectById, addMessageToProject } = useProjects()
+  const { showToast } = useToast()
 
   const project = id ? (getProjectByTrackingNumber(id) || getProjectById(id)) : undefined
 
@@ -59,6 +61,7 @@ export const ProjectDetailPage: React.FC = () => {
   const handleCopyTracking = () => {
     navigator.clipboard.writeText(project.trackingNumber)
     setCopied(true)
+    showToast(`Copied ${project.trackingNumber} to clipboard!`)
     setTimeout(() => setCopied(false), 2000)
   }
 
@@ -393,7 +396,7 @@ export const ProjectDetailPage: React.FC = () => {
                       variant="secondary" 
                       size="sm" 
                       onClick={() => {
-                        alert(`Downloading "${doc.title}". In production this streams the high-resolution vector PDF stamped by Robert Doucette, P.E.`)
+                        showToast(`Downloading stamped vector PDF for "${doc.title}"`, 'success')
                       }}
                       className="text-xs font-semibold flex items-center gap-1"
                     >
@@ -552,79 +555,71 @@ export const ProjectDetailPage: React.FC = () => {
         </div>
       )}
 
-      {/* Blueprint Preview Dialog */}
-      <Dialog open={!!previewDocTitle} onOpenChange={() => setPreviewDocTitle(null)}>
-        <DialogContent className="max-w-2xl bg-card border-border">
-          <DialogHeader>
-            <DialogTitle className="text-foreground">{previewDocTitle}</DialogTitle>
-            <DialogDescription className="text-muted-foreground">
-              Project #{project.trackingNumber} • Stamped by Robert Doucette, P.E.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-3">
-            <div className="aspect-video bg-muted border border-border rounded-xl flex items-center justify-center relative overflow-hidden">
-              <div className="text-center p-6 space-y-2">
-                <FileText className="w-12 h-12 text-primary mx-auto" />
-                <div className="font-mono text-xs text-foreground font-bold">
-                  MASSACHUSETTS TITLE 5 DISPOSAL SYSTEM DESIGN
-                </div>
-                <div className="text-[11px] text-muted-foreground">
-                  Scale: 1" = 20' • Datum: NAVD 88 • PE License #48921-CIVIL
-                </div>
+      {/* Blueprint Preview BottomSheet */}
+      <BottomSheet 
+        isOpen={!!previewDocTitle} 
+        onClose={() => setPreviewDocTitle(null)}
+        title={previewDocTitle || 'Plan Viewer'}
+      >
+        <div className="space-y-4">
+          <div className="aspect-video bg-muted border border-border rounded-xl flex items-center justify-center relative overflow-hidden">
+            <div className="text-center p-6 space-y-2">
+              <FileText className="w-12 h-12 text-primary mx-auto" />
+              <div className="font-mono text-xs text-foreground font-bold">
+                MASSACHUSETTS TITLE 5 DISPOSAL SYSTEM DESIGN
+              </div>
+              <div className="text-[11px] text-muted-foreground">
+                Scale: 1" = 20' • Datum: NAVD 88 • PE License #48921-CIVIL
               </div>
             </div>
-            <div className="flex justify-end gap-2 pt-2">
-              <Button variant="outline" size="sm" onClick={() => setPreviewDocTitle(null)}>
-                Close
-              </Button>
-              <Button 
-                size="sm"
-                onClick={() => {
-                  alert(`Downloading vector CAD PDF for "${previewDocTitle}"`)
-                  setPreviewDocTitle(null)
-                }}
-              >
-                Download Stamped PDF
-              </Button>
-            </div>
           </div>
-        </DialogContent>
-      </Dialog>
+          <div className="flex gap-2 pt-2">
+            <Button variant="outline" className="flex-1 min-h-[2.75rem]" onClick={() => setPreviewDocTitle(null)}>
+              Close
+            </Button>
+            <Button 
+              className="flex-1 min-h-[2.75rem]"
+              onClick={() => {
+                showToast(`Downloaded vector CAD PDF for "${previewDocTitle}"`, 'success')
+                setPreviewDocTitle(null)
+              }}
+            >
+              Download PDF
+            </Button>
+          </div>
+        </div>
+      </BottomSheet>
 
-      {/* Expedite Request Dialog */}
-      <Dialog open={requestExpediteOpen} onOpenChange={setRequestExpediteOpen}>
-        <DialogContent className="bg-card border-border">
-          <DialogHeader>
-            <DialogTitle className="text-foreground">Request Expedited Engineering</DialogTitle>
-            <DialogDescription className="text-muted-foreground">
-              Have a sudden real estate closing date or urgent town hearing deadline?
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-3 text-xs text-muted-foreground">
-            <p>
-              Our team can provide priority review and emergency backhoe perc test scheduling for Project <span className="font-mono font-bold text-foreground">{project.trackingNumber}</span>.
-            </p>
-            <textarea
-              className="w-full h-20 p-2.5 rounded-xl border border-input bg-card text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-              placeholder="State your deadline date and reason (e.g. Bank mortgage commitment requires septic permit by Nov 25)..."
-            />
-          </div>
-          <div className="flex justify-end gap-2 pt-2">
-            <Button variant="outline" size="sm" onClick={() => setRequestExpediteOpen(false)}>
+      {/* Expedite Request BottomSheet */}
+      <BottomSheet 
+        isOpen={requestExpediteOpen} 
+        onClose={() => setRequestExpediteOpen(false)}
+        title="Request Expedited Action"
+      >
+        <div className="space-y-4">
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Our engineering team can prioritize review and backhoe soil testing scheduling for Project <span className="font-mono font-bold text-foreground">{project.trackingNumber}</span>.
+          </p>
+          <textarea
+            className="w-full h-24 p-3 rounded-xl border border-input bg-card text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            placeholder="State your deadline date and reason (e.g. Bank mortgage commitment requires septic permit by Nov 25)..."
+          />
+          <div className="flex gap-2 pt-2">
+            <Button variant="outline" className="flex-1 min-h-[2.75rem]" onClick={() => setRequestExpediteOpen(false)}>
               Cancel
             </Button>
             <Button 
-              size="sm" 
+              className="flex-1 min-h-[2.75rem]"
               onClick={() => {
-                alert('Expedited request received. Lead engineer Robert Doucette will contact you within 2 hours.')
+                showToast('Expedited request received. Engineer will contact you shortly.', 'success')
                 setRequestExpediteOpen(false)
               }}
             >
-              Submit Expedited Request
+              Submit Request
             </Button>
           </div>
-        </DialogContent>
-      </Dialog>
+        </div>
+      </BottomSheet>
 
     </div>
   )

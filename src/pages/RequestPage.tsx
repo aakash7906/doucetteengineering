@@ -18,6 +18,7 @@ import {
   FileCheck2
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
+import { useToast } from '@/context/ToastContext'
 import { SERVICES_CATALOG } from '@/data/services'
 import type { ServiceCategory, UserRole, ProjectUrgency } from '@/types'
 import { Button } from '@/components/ui/button'
@@ -36,6 +37,7 @@ interface UploadedFileItem {
 export const RequestPage: React.FC = () => {
   const [searchParams] = useSearchParams()
   const { currentRole, setCurrentRole, addProjectRequest, setActiveTrackingId } = useProjects()
+  const { showToast } = useToast()
 
   // Pre-fill from URL queries if available
   const initialLocation = searchParams.get('location') || ''
@@ -995,7 +997,7 @@ export const RequestPage: React.FC = () => {
             type="button"
             onClick={() => {
               if (currentStep === 2 && !address.trim()) {
-                alert('Please enter a street address to continue.')
+                showToast('Please enter a street address to continue.', 'error')
                 return
               }
               setCurrentStep(prev => Math.min(totalSteps, prev + 1))

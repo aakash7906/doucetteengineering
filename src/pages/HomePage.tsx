@@ -23,6 +23,7 @@ import {
   MessageSquare
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
+import { useToast } from '@/context/ToastContext'
 import { SERVICES_CATALOG } from '@/data/services'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -31,6 +32,7 @@ import { formatCurrency } from '@/lib/utils'
 
 export const HomePage: React.FC = () => {
   const { currentRole, setCurrentRole, projects } = useProjects()
+  const { showToast } = useToast()
   const navigate = useNavigate()
   
   const [addressInput, setAddressInput] = useState('')
@@ -373,10 +375,10 @@ export const HomePage: React.FC = () => {
             <ArrowRight className="w-4 h-4 text-secondary-foreground group-hover:translate-x-0.5 transition-transform shrink-0" />
           </Link>
 
-          {/* Action 3: Leave a Review (ZipFixer Dark Slate) */}
+          {/* Action 3: Leave a Review */}
           <button
             type="button"
-            onClick={() => alert('Thank you! Project review portal opens upon municipal permit completion.')}
+            onClick={() => showToast('Review portal unlocks upon municipal permit completion.', 'info')}
             className="w-full p-4 rounded-xl bg-secondary text-secondary-foreground hover:bg-secondary/90 active:scale-[0.99] transition-all flex items-center justify-between shadow-2xs group cursor-pointer"
           >
             <div className="flex items-center gap-3">
@@ -424,3 +426,4 @@ export const HomePage: React.FC = () => {
 }
 
 export default HomePage
+ 
