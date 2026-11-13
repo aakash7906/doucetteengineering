@@ -13,8 +13,7 @@ import {
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { formatDate } from '@/lib/utils'
 
@@ -25,7 +24,7 @@ export const TrackListPage: React.FC = () => {
   const queryFromUrl = searchParams.get('query') || ''
   const [searchQuery, setSearchQuery] = useState(queryFromUrl)
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'permitting' | 'completed'>('all')
-  const [roleFilter, _setRoleFilter] = useState<'all' | 'homeowner' | 'contractor'>('all')
+  const [roleFilter] = useState<'all' | 'homeowner' | 'contractor'>('all')
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid')
 
   // Filter projects
@@ -52,80 +51,80 @@ export const TrackListPage: React.FC = () => {
   })
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 pb-28">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8 pb-28">
       
-      {/* 1. ZIPFIXER TOP TITLE ROW (Screenshot 1 & 2) */}
+      {/* 1. APP HEADER */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3.5">
           <div className="app-squircle-icon">
             <ClipboardList className="w-5 h-5 text-primary" />
           </div>
-          <div>
-            <h1 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
+          <div className="space-y-0.5">
+            <h1 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight">
               My Requests
             </h1>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground font-medium">
               {projects.length} {projects.length === 1 ? 'request' : 'requests'} for quotes
             </p>
           </div>
         </div>
 
-        {/* Square Green + Button (ZipFixer exact style) */}
+        {/* Square Green + Button */}
         <Link to="/request">
           <button
             type="button"
-            className="h-10 w-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary-hover active:scale-95 transition-all shadow-2xs cursor-pointer"
+            className="h-11 w-11 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center hover:bg-primary-hover active:scale-95 transition-all shadow-xs cursor-pointer"
             title="Create New Request"
+            aria-label="New Request"
           >
             <Plus className="w-5 h-5 stroke-[2.5]" />
           </button>
         </Link>
       </div>
 
-      {/* 2. SEARCH + GREEN FILTER BUTTON + LAYOUT TOGGLE (Screenshot 1 & 2) */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
+      {/* 2. SEARCH & HORIZONTAL FILTER CHIPS */}
+      <div className="space-y-3.5">
+        <div className="flex items-center gap-3">
           {/* Search Input */}
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3" />
+            <Search className="w-4 h-4 text-muted-foreground absolute left-4 top-3.5 pointer-events-none" />
             <input
               type="text"
               placeholder="Search requests..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-10 pl-10 pr-3 rounded-xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
+              className="w-full h-11 pl-11 pr-14 rounded-2xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-2.5 text-xs text-muted-foreground hover:text-foreground font-bold"
+                className="absolute right-3.5 top-3 text-xs text-muted-foreground hover:text-foreground font-bold cursor-pointer"
               >
                 Clear
               </button>
             )}
           </div>
 
-          {/* Green Filter Button (ZipFixer style) */}
           <button
             type="button"
-            className="app-btn-filter cursor-pointer"
+            className="app-btn-filter cursor-pointer shrink-0"
           >
             <Filter className="w-4 h-4" />
             <span>Filter</span>
           </button>
         </div>
 
-        {/* Status Filters & View Toggle */}
-        <div className="flex items-center justify-between text-xs text-muted-foreground pt-1">
-          <div className="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0">
+        {/* Horizontally Scrollable Filter Pills */}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
             <button
               type="button"
               onClick={() => setStatusFilter('all')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                 statusFilter === 'all'
                   ? 'bg-primary text-primary-foreground shadow-2xs'
-                  : 'bg-muted text-muted-foreground hover:text-foreground'
+                  : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
               }`}
             >
               All ({projects.length})
@@ -133,10 +132,10 @@ export const TrackListPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setStatusFilter('active')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                 statusFilter === 'active'
                   ? 'bg-primary text-primary-foreground shadow-2xs'
-                  : 'bg-muted text-muted-foreground hover:text-foreground'
+                  : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
               }`}
             >
               In Progress
@@ -144,10 +143,10 @@ export const TrackListPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setStatusFilter('permitting')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                 statusFilter === 'permitting'
                   ? 'bg-primary text-primary-foreground shadow-2xs'
-                  : 'bg-muted text-muted-foreground hover:text-foreground'
+                  : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
               }`}
             >
               Town Review
@@ -155,39 +154,41 @@ export const TrackListPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setStatusFilter('completed')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                 statusFilter === 'completed'
                   ? 'bg-primary text-primary-foreground shadow-2xs'
-                  : 'bg-muted text-muted-foreground hover:text-foreground'
+                  : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
               }`}
             >
               Completed
             </button>
           </div>
 
-          {/* List vs Grid icons */}
-          <div className="hidden sm:flex items-center border border-border rounded-lg p-0.5 bg-card shrink-0">
+          {/* List vs Grid icons (desktop only) */}
+          <div className="hidden sm:flex items-center border border-border rounded-xl p-1 bg-card shrink-0">
             <button
               type="button"
               onClick={() => setViewMode('list')}
-              className={`p-1 rounded ${viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground'}`}
+              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground'}`}
+              aria-label="List view"
             >
-              <List className="w-3.5 h-3.5" />
+              <List className="w-4 h-4" />
             </button>
             <button
               type="button"
               onClick={() => setViewMode('grid')}
-              className={`p-1 rounded ${viewMode === 'grid' ? 'bg-muted text-foreground' : 'text-muted-foreground'}`}
+              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-muted text-foreground' : 'text-muted-foreground'}`}
+              aria-label="Grid view"
             >
-              <LayoutGrid className="w-3.5 h-3.5" />
+              <LayoutGrid className="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* 3. EMPTY STATE OR REQUESTS LIST (Screenshot 1 & 2) */}
+      {/* 3. REQUESTS LIST */}
       {filteredProjects.length === 0 ? (
-        <div className="bg-card rounded-2xl p-10 sm:p-14 text-center border border-border shadow-2xs space-y-4 max-w-lg mx-auto my-6">
+        <div className="bg-card rounded-3xl p-10 sm:p-14 text-center border border-border shadow-2xs space-y-4 max-w-md mx-auto my-6">
           <div className="h-16 w-16 rounded-2xl bg-muted text-muted-foreground/50 flex items-center justify-center mx-auto">
             <ClipboardList className="w-8 h-8" />
           </div>
@@ -195,107 +196,85 @@ export const TrackListPage: React.FC = () => {
             <h2 className="font-extrabold text-foreground text-lg">
               No Requests Found
             </h2>
-            <p className="text-xs text-muted-foreground max-w-sm mx-auto leading-relaxed">
-              You haven't created any service requests yet. Create your first request to get quotes from professionals.
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              You haven't created any service requests matching this query.
             </p>
           </div>
           <Link to="/request">
-            <button
-              type="button"
-              className="px-6 h-11 rounded-xl bg-primary text-primary-foreground font-bold text-xs sm:text-sm hover:bg-primary-hover active:scale-95 transition-all shadow-2xs cursor-pointer"
-            >
+            <Button className="font-bold text-xs">
               Create Your First Request
-            </button>
+            </Button>
           </Link>
         </div>
       ) : (
-        <div className={viewMode === 'grid' ? "grid grid-cols-1 md:grid-cols-2 gap-3" : "space-y-3"}>
+        <div className={viewMode === 'grid' ? "grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6" : "space-y-5"}>
           {filteredProjects.map((project) => (
             <Card 
               key={project.id} 
-              className="hover:border-primary/50 transition-all flex flex-col justify-between overflow-hidden shadow-2xs"
+              className="rounded-3xl border border-border shadow-xs hover:border-primary/50 transition-all overflow-hidden flex flex-col justify-between p-6 sm:p-7 space-y-5 bg-card"
             >
-              <CardHeader className="space-y-2 pb-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-md border border-primary/20">
-                      {project.trackingNumber}
-                    </span>
-                    <Badge 
-                      variant={
-                        project.role === 'contractor' ? 'warning' : 'secondary'
-                      }
-                      className="text-[10px] uppercase font-semibold"
-                    >
-                      {project.role === 'contractor' ? 'Pro' : 'Owner'}
-                    </Badge>
-                  </div>
+              {/* Header: Status Pill */}
+              <div>
+                <span className={`inline-flex text-xs font-semibold px-3 py-1 rounded-full border ${
+                  project.percentComplete === 100 
+                    ? 'bg-primary-light text-primary border-primary/25' 
+                    : project.urgency === 'emergency' 
+                    ? 'bg-destructive/10 text-destructive border-destructive/20' 
+                    : 'bg-primary-light text-primary border-primary/25'
+                }`}>
+                  {project.percentComplete === 100 ? 'Approved & Closed' : project.currentStatusLabel}
+                </span>
+              </div>
 
-                  <Badge
-                    variant={
-                      project.percentComplete === 100 
-                        ? 'success' 
-                        : project.urgency === 'emergency' 
-                          ? 'destructive' 
-                          : 'primary'
-                    }
-                    className="text-[10px]"
-                  >
-                    {project.percentComplete === 100 ? 'Approved & Closed' : project.currentStatusLabel}
-                  </Badge>
+              {/* Title & Location (Extra breathing room between title and location) */}
+              <div className="space-y-3">
+                <h3 className="font-bold text-sm sm:text-base text-foreground tracking-tight leading-snug">
+                  {project.title}
+                </h3>
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground pt-0.5">
+                  <MapPin className="w-3.5 h-3.5 text-primary shrink-0" />
+                  <span className="truncate">{project.propertyAddress}, {project.city}, {project.state}</span>
                 </div>
+              </div>
 
-                <div>
-                  <CardTitle className="text-sm sm:text-base">
-                    {project.title}
-                  </CardTitle>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
-                    <MapPin className="w-3 h-3 text-primary shrink-0" />
-                    <span>{project.propertyAddress}, {project.city}, {project.state}</span>
-                  </div>
+              {/* Milestone Progress Bar */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground font-medium">Milestone Progress</span>
+                  <span className="font-bold text-foreground">{project.percentComplete}%</span>
                 </div>
-              </CardHeader>
+                <Progress value={project.percentComplete} className="h-2 rounded-full" />
+              </div>
 
-              <CardContent className="space-y-3 pt-1">
-                {/* Progress bar */}
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-muted-foreground font-medium">Milestone Progress</span>
-                    <span className="font-mono font-bold text-foreground">{project.percentComplete}%</span>
-                  </div>
-                  <Progress value={project.percentComplete} className="h-1.5" />
+              {/* Town Board of Health Inset Box (Spacious & uncluttered) */}
+              <div className="p-4 rounded-2xl bg-muted/60 border border-border text-xs space-y-1.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-bold text-foreground text-xs sm:text-sm">{project.boardOfHealth.townName}</span>
+                  <span className="text-[11px] font-semibold text-primary bg-primary-light px-2.5 py-0.5 rounded-full border border-primary/20 shrink-0">
+                    {project.boardOfHealth.status}
+                  </span>
                 </div>
-
-                {/* Town BOH Status */}
-                <div className="p-2.5 rounded-lg bg-muted border border-border text-xs space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-foreground">{project.boardOfHealth.townName}</span>
-                    <span className="text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.2 rounded">
-                      {project.boardOfHealth.status}
-                    </span>
+                {project.boardOfHealth.hearingDate && (
+                  <div className="text-[11px] text-muted-foreground flex items-center gap-1.5 pt-0.5">
+                    <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
+                    <span>Hearing: {project.boardOfHealth.hearingDate}</span>
                   </div>
-                  {project.boardOfHealth.hearingDate && (
-                    <div className="text-[10px] text-muted-foreground flex items-center gap-1">
-                      <Calendar className="w-3 h-3 text-muted-foreground" />
-                      <span>Hearing: {project.boardOfHealth.hearingDate}</span>
-                    </div>
-                  )}
-                </div>
+                )}
+              </div>
 
-                {/* Footer info: dates & action link */}
-                <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
-                  <div className="text-muted-foreground text-[10px]">
-                    Updated: <span className="font-medium text-foreground">{formatDate(project.createdAt)}</span>
-                  </div>
+              {/* Card Footer with Generous Breathing Room */}
+              <div className="pt-4 border-t border-border flex items-center justify-between text-xs">
+                <span className="text-muted-foreground text-xs">
+                  Updated: <span className="font-semibold text-foreground">{formatDate(project.createdAt)}</span>
+                </span>
 
-                  <Link to={`/project/${project.trackingNumber}`}>
-                    <Button size="sm" variant="default" className="text-xs font-bold h-8 px-2.5 flex items-center gap-1">
-                      <span>View Details</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
+                <Link to={`/project/${project.trackingNumber}`}>
+                  <Button size="sm" className="font-bold text-xs px-4 h-10 rounded-xl shadow-xs gap-1.5 cursor-pointer">
+                    <span>View Details</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Button>
+                </Link>
+              </div>
             </Card>
           ))}
         </div>

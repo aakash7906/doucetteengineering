@@ -81,49 +81,49 @@ export const HomePage: React.FC = () => {
       </div>
 
       {/* 2. DASHBOARD 4 STAT CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-        <div className="bg-card p-5 sm:p-6 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div className="flex flex-col justify-center space-y-1.5">
-            <span className="text-xs text-muted-foreground font-semibold leading-normal">Total Requests</span>
-            <span className="text-3xl font-black text-foreground tracking-tight leading-none py-0.5">{projects.length}</span>
-            <span className="text-[11px] text-muted-foreground leading-normal">All time</span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="bg-card px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center space-y-0.5">
+            <span className="text-xs text-muted-foreground font-semibold leading-tight">Total Requests</span>
+            <span className="text-2xl font-black text-foreground tracking-tight leading-tight">{projects.length}</span>
+            <span className="text-[11px] text-muted-foreground leading-tight">All time</span>
           </div>
           <div className="app-squircle-icon">
             <ClipboardList className="w-5 h-5 text-primary" />
           </div>
         </div>
 
-        <div className="bg-card p-5 sm:p-6 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div className="flex flex-col justify-center space-y-1.5">
-            <span className="text-xs text-muted-foreground font-semibold leading-normal">Active Jobs</span>
-            <span className="text-3xl font-black text-foreground tracking-tight leading-none py-0.5">
+        <div className="bg-card px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center space-y-0.5">
+            <span className="text-xs text-muted-foreground font-semibold leading-tight">Active Jobs</span>
+            <span className="text-2xl font-black text-foreground tracking-tight leading-tight">
               {projects.filter(p => p.percentComplete < 100).length}
             </span>
-            <span className="text-[11px] text-muted-foreground leading-normal">Currently ongoing</span>
+            <span className="text-[11px] text-muted-foreground leading-tight">Currently ongoing</span>
           </div>
           <div className="app-squircle-icon">
             <Wrench className="w-5 h-5 text-primary" />
           </div>
         </div>
 
-        <div className="bg-card p-5 sm:p-6 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div className="flex flex-col justify-center space-y-1.5">
-            <span className="text-xs text-muted-foreground font-semibold leading-normal">Completed Jobs</span>
-            <span className="text-3xl font-black text-foreground tracking-tight leading-none py-0.5">
+        <div className="bg-card px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center space-y-0.5">
+            <span className="text-xs text-muted-foreground font-semibold leading-tight">Completed Jobs</span>
+            <span className="text-2xl font-black text-foreground tracking-tight leading-tight">
               {projects.filter(p => p.percentComplete === 100).length}
             </span>
-            <span className="text-[11px] text-muted-foreground leading-normal">Successfully finished</span>
+            <span className="text-[11px] text-muted-foreground leading-tight">Successfully finished</span>
           </div>
           <div className="app-squircle-icon">
             <CheckCircle2 className="w-5 h-5 text-primary" />
           </div>
         </div>
 
-        <div className="bg-card p-5 sm:p-6 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div className="flex flex-col justify-center space-y-1.5">
-            <span className="text-xs text-muted-foreground font-semibold leading-normal">BOH Approvals</span>
-            <span className="text-3xl font-black text-primary tracking-tight leading-none py-0.5">100%</span>
-            <span className="text-[11px] text-muted-foreground leading-normal">Town pass rate</span>
+        <div className="bg-card px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center space-y-0.5">
+            <span className="text-xs text-muted-foreground font-semibold leading-tight">BOH Approvals</span>
+            <span className="text-2xl font-black text-primary tracking-tight leading-tight">100%</span>
+            <span className="text-[11px] text-muted-foreground leading-tight">Town pass rate</span>
           </div>
           <div className="app-squircle-icon">
             <ShieldCheck className="w-5 h-5 text-primary" />
@@ -163,9 +163,6 @@ export const HomePage: React.FC = () => {
               <h2 className="font-extrabold text-foreground text-base sm:text-lg">
                 Request Engineering & Septic Design
               </h2>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-                Get instant quotes from licensed civil P.E. & Title 5 evaluators
-              </p>
             </div>
           </div>
 
@@ -261,9 +258,6 @@ export const HomePage: React.FC = () => {
             <h2 className="text-lg sm:text-xl font-extrabold text-foreground tracking-tight">
               Engineering Services Catalog
             </h2>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-              Official Title 5 plans, perc testing and municipal submissions
-            </p>
           </div>
           <Link to="/request">
             <span className="text-xs sm:text-sm font-bold text-primary hover:underline flex items-center gap-1">

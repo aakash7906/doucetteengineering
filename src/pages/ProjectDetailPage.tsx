@@ -182,58 +182,58 @@ export const ProjectDetailPage: React.FC = () => {
 
       </div>
 
-      {/* Navigation Tabs (Floating style with icons) */}
-      <div className="bg-card border border-border rounded-2xl p-1.5 shadow-2xs flex items-center gap-1 overflow-x-auto no-scrollbar">
+      {/* Navigation Tabs (Fully Responsive Grid on Mobile) */}
+      <div className="bg-card border border-border rounded-2xl p-1.5 shadow-2xs grid grid-cols-2 sm:grid-cols-4 gap-1.5">
         <button
           type="button"
           onClick={() => setActiveTab('timeline')}
-          className={`flex-1 min-w-[95px] py-2 px-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             activeTab === 'timeline'
-              ? 'bg-primary text-primary-foreground shadow-2xs'
+              ? 'bg-primary text-primary-foreground shadow-2xs ring-1 ring-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
           }`}
         >
-          <Clock className="w-3.5 h-3.5" />
-          <span>Milestones ({project.milestones.length})</span>
+          <Clock className="w-3.5 h-3.5 shrink-0" />
+          <span className="truncate">Milestones ({project.milestones.length})</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('documents')}
-          className={`flex-1 min-w-[95px] py-2 px-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             activeTab === 'documents'
-              ? 'bg-primary text-primary-foreground shadow-2xs'
+              ? 'bg-primary text-primary-foreground shadow-2xs ring-1 ring-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
           }`}
         >
-          <FileText className="w-3.5 h-3.5" />
-          <span>Docs ({project.documents.length})</span>
+          <FileText className="w-3.5 h-3.5 shrink-0" />
+          <span className="truncate">Docs ({project.documents.length})</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('messages')}
-          className={`flex-1 min-w-[95px] py-2 px-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             activeTab === 'messages'
-              ? 'bg-primary text-primary-foreground shadow-2xs'
+              ? 'bg-primary text-primary-foreground shadow-2xs ring-1 ring-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
           }`}
         >
-          <MessageSquare className="w-3.5 h-3.5" />
-          <span>Messages ({project.messages.length})</span>
+          <MessageSquare className="w-3.5 h-3.5 shrink-0" />
+          <span className="truncate">Messages ({project.messages.length})</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('team')}
-          className={`flex-1 min-w-[95px] py-2 px-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+          className={`h-11 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             activeTab === 'team'
-              ? 'bg-primary text-primary-foreground shadow-2xs'
+              ? 'bg-primary text-primary-foreground shadow-2xs ring-1 ring-primary'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
           }`}
         >
-          <ShieldCheck className="w-3.5 h-3.5" />
-          <span>Town / P.E.</span>
+          <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+          <span className="truncate">Town / P.E.</span>
         </button>
       </div>
 

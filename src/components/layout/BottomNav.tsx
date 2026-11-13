@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { 
   LayoutGrid, 
@@ -30,6 +30,59 @@ export const BottomNav: React.FC = () => {
   const { currentRole, setCurrentRole } = useProjects()
   const { showToast } = useToast()
   const [moreDrawerOpen, setMoreDrawerOpen] = useState(false)
+
+  // Drag down gesture state for "More" bottom sheet
+  const [dragOffsetY, setDragOffsetY] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const startYRef = useRef<number | null>(null)
+
+  const handleTouchStart = (e: React.TouchEvent | React.MouseEvent) => {
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
+    startYRef.current = clientY
+    setIsDragging(true)
+  }
+
+  const handleTouchMove = useCallback((e: TouchEvent | MouseEvent) => {
+    if (startYRef.current === null) return
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
+    const deltaY = clientY - startYRef.current
+    if (deltaY > 0) {
+      setDragOffsetY(deltaY)
+    } else {
+      setDragOffsetY(0)
+    }
+  }, [])
+
+  const handleTouchEnd = useCallback(() => {
+    if (startYRef.current === null) return
+    if (dragOffsetY > 80) {
+      setMoreDrawerOpen(false)
+    }
+    setDragOffsetY(0)
+    startYRef.current = null
+    setIsDragging(false)
+  }, [dragOffsetY])
+
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleTouchMove)
+      window.addEventListener('mouseup', handleTouchEnd)
+      window.addEventListener('touchmove', handleTouchMove, { passive: true })
+      window.addEventListener('touchend', handleTouchEnd)
+    } else {
+      window.removeEventListener('mousemove', handleTouchMove)
+      window.removeEventListener('mouseup', handleTouchEnd)
+      window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('touchend', handleTouchEnd)
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleTouchMove)
+      window.removeEventListener('mouseup', handleTouchEnd)
+      window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('touchend', handleTouchEnd)
+    }
+  }, [isDragging, handleTouchMove, handleTouchEnd])
 
   const isTabActive = (tab: string) => {
     if (tab === 'dashboard' && location.pathname === '/') return true
@@ -163,15 +216,26 @@ export const BottomNav: React.FC = () => {
             onClick={() => setMoreDrawerOpen(false)}
           />
 
-          {/* Sheet Body */}
-          <div className="relative z-50 bg-card rounded-t-3xl border-t border-border max-h-[85vh] overflow-y-auto px-5 pt-3 pb-8 space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-250">
+          {/* Sheet Body with Downward Drag to Dismiss */}
+          <div 
+            style={{
+              transform: `translateY(${dragOffsetY}px)`,
+              transition: isDragging ? 'none' : 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+            className="relative z-50 bg-card rounded-t-3xl border-t border-border max-h-[85vh] overflow-y-auto px-5 pt-3 pb-8 space-y-4 shadow-2xl select-none"
+          >
             
-            {/* Top Sheet Pill Handle & Close */}
-            <div className="flex items-center justify-between pt-1">
-              <div className="w-12 h-1 rounded-full bg-muted-foreground/30 mx-auto" />
+            {/* Top Sheet Drag Pill Handle & Close */}
+            <div 
+              onMouseDown={handleTouchStart}
+              onTouchStart={handleTouchStart}
+              className="flex items-center justify-between pt-1 cursor-grab active:cursor-grabbing touch-none"
+            >
+              <div className="w-14 h-1.5 rounded-full bg-slate-300 hover:bg-slate-400 mx-auto transition-colors" />
               <button 
                 onClick={() => setMoreDrawerOpen(false)}
-                className="p-1 rounded-full text-muted-foreground hover:bg-muted"
+                className="p-1 rounded-full text-muted-foreground hover:bg-muted cursor-pointer"
+                aria-label="Close"
               >
                 <X className="w-4 h-4" />
               </button>

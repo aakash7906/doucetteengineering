@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8f9e6" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="450" rx="32" fill="url(#g1)" />
+
+  <!-- Background decorative concentric rings -->
+  <circle cx="300" cy="225" r="180" fill="none" stroke="#10bc00" stroke-width="2" stroke-dasharray="8 8" opacity="0.2" />
+  <circle cx="300" cy="225" r="120" fill="#10bc00" opacity="0.06" />
+
+  <!-- Topographic Contour Lines -->
+  <path d="M 50 350 Q 180 280 300 320 T 550 290" fill="none" stroke="#10bc00" stroke-width="3" opacity="0.35" />
+  <path d="M 50 390 Q 200 330 350 370 T 550 340" fill="none" stroke="#10bc00" stroke-width="2.5" opacity="0.25" />
+
+  <!-- Center Card Mockup: Title 5 Approval -->
+  <g transform="translate(160, 95)">
+    <rect width="280" height="230" rx="24" fill="url(#cardGrad)" stroke="#e2e8f0" stroke-width="2" filter="drop-shadow(0 15px 25px rgba(0,0,0,0.06))" />
+    
+    <!-- Header of card -->
+    <rect x="20" y="22" width="46" height="46" rx="14" fill="#e8f9e6" />
+    <path d="M 36 45 L 42 51 L 52 38" fill="none" stroke="#10bc00" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <text x="78" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="800" fill="#0f172a">PE Stamped Plan</text>
+    <text x="78" y="58" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="600" fill="#10bc00">310 CMR 15.000 (Title 5)</text>
+
+    <!-- Progress bar inside card -->
+    <rect x="20" y="90" width="240" height="8" rx="4" fill="#f1f5f9" />
+    <rect x="20" y="90" width="180" height="8" rx="4" fill="#10bc00" />
+    <text x="20" y="118" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" fill="#64748b">Board of Health Status</text>
+    <text x="260" y="118" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#10bc00" text-anchor="end">Approved</text>
+
+    <!-- Mini stats pill -->
+    <rect x="20" y="140" width="240" height="65" rx="16" fill="#f8fafc" stroke="#f1f5f9" />
+    <text x="35" y="165" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600" fill="#64748b">Perc Rate</text>
+    <text x="35" y="188" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="900" fill="#0f172a">&lt; 5 min/in</text>
+    <text x="170" y="165" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600" fill="#64748b">Sanitarian</text>
+    <text x="170" y="188" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="800" fill="#10bc00">Certified</text>
+  </g>
+</svg>

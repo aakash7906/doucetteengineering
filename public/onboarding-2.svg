@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e8f9e6" />
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="450" rx="32" fill="url(#g2)" />
+
+  <!-- Construction / Survey Illustration -->
+  <g transform="translate(150, 80)">
+    <!-- Main Card -->
+    <rect width="300" height="260" rx="28" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" filter="drop-shadow(0 15px 25px rgba(0,0,0,0.06))" />
+    
+    <!-- Top badge -->
+    <rect x="25" y="25" width="48" height="48" rx="16" fill="#334155" />
+    <path d="M 40 50 L 58 50 M 49 41 L 49 59" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+    
+    <text x="88" y="45" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="800" fill="#0f172a">Live Project Tracker</text>
+    <text x="88" y="63" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="600" fill="#64748b">Tracking ID: DE-2026-8841</text>
+
+    <!-- Milestone nodes -->
+    <g transform="translate(35, 95)">
+      <!-- Step 1 -->
+      <circle cx="15" cy="20" r="12" fill="#10bc00" />
+      <path d="M 10 20 L 14 24 L 20 16" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="38" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="700" fill="#0f172a">Soil Perc & Test Pit</text>
+
+      <!-- Connecting line -->
+      <line x1="15" y1="32" x2="15" y2="58" stroke="#10bc00" stroke-width="3" />
+
+      <!-- Step 2 -->
+      <circle cx="15" cy="70" r="12" fill="#10bc00" />
+      <path d="M 10 70 L 14 74 L 20 66" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="38" y="74" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="700" fill="#0f172a">Civil 3D CAD Design</text>
+
+      <!-- Connecting line -->
+      <line x1="15" y1="82" x2="15" y2="108" stroke="#cbd5e1" stroke-width="3" />
+
+      <!-- Step 3 (In progress) -->
+      <circle cx="15" cy="120" r="12" fill="#f1f5f9" stroke="#10bc00" stroke-width="3" />
+      <text x="38" y="124" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="700" fill="#10bc00">Town BOH Hearing</text>
+    </g>
+  </g>
+</svg>

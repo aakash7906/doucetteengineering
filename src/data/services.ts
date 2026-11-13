@@ -4,7 +4,7 @@ export const SERVICES_CATALOG: ServiceDetail[] = [
   {
     id: 'soil-perc-test',
     title: 'Soil Percolation & Deep Hole Testing',
-    tagline: 'Mandatory Board of Health witnessed testing for septic viability',
+    tagline: '',
     description: 'Complete soil testing including backhoe test pit excavation, soil horizon logging, seasonal high groundwater elevation determination, and official perc rate percolation testing witnessed by the local Board of Health agent.',
     priceStartingAt: 1250,
     typicalTimeline: '3 - 7 Business Days',
@@ -27,7 +27,7 @@ export const SERVICES_CATALOG: ServiceDetail[] = [
   {
     id: 'septic-design',
     title: 'Title 5 / Residential Septic Design',
-    tagline: 'Full PE-stamped engineering plans for new builds & replacements',
+    tagline: '',
     description: 'Comprehensive civil engineering design of modern on-site subsurface disposal systems. Tailored for difficult lots, small reserve areas, steep grades, and high water tables using state-of-the-art gravity, pressure-dosed, or alternative technology systems.',
     priceStartingAt: 2400,
     typicalTimeline: '2 - 3 Weeks',
@@ -50,7 +50,7 @@ export const SERVICES_CATALOG: ServiceDetail[] = [
   {
     id: 'site-development',
     title: 'Site Development & Civil Engineering',
-    tagline: 'Grading, utilities, driveway layout & stormwater management',
+    tagline: '',
     description: 'Turn raw land into build-ready parcels. We provide complete site civil engineering, including existing conditions mapping, cut-and-fill grading plans, utility tie-in coordination, driveway curb cuts, and DEP stormwater compliance.',
     priceStartingAt: 3200,
     typicalTimeline: '3 - 4 Weeks',
@@ -73,7 +73,7 @@ export const SERVICES_CATALOG: ServiceDetail[] = [
   {
     id: 'septic-repair',
     title: 'Septic Repair & Component Engineering',
-    tagline: 'Targeted engineering for failed D-boxes, lines & tank upgrades',
+    tagline: '',
     description: 'When the whole system does not need full replacement, we engineer component repairs, distribution box replacements, pump chamber retrofits, and tight-tank conversions that comply with municipal requirements without needless expense.',
     priceStartingAt: 950,
     typicalTimeline: '1 - 2 Weeks',
@@ -94,7 +94,7 @@ export const SERVICES_CATALOG: ServiceDetail[] = [
   {
     id: 'commercial-septic',
     title: 'Commercial & Multi-Family Wastewater',
-    tagline: 'High-flow systems, restaurant grease traps & multi-family units',
+    tagline: '',
     description: 'Specialized wastewater engineering for flows exceeding 2,000 to 10,000+ GPD. Designed for restaurants, residential subdivisions, veterinary clinics, office parks, and multi-family developments requiring advanced nitrogen reduction.',
     priceStartingAt: 4800,
     typicalTimeline: '4 - 6 Weeks',
@@ -116,7 +116,7 @@ export const SERVICES_CATALOG: ServiceDetail[] = [
   {
     id: 'wetland-conservation',
     title: 'Wetland Buffer & Conservation Permitting',
-    tagline: 'Notice of Intent (NOI) and RDA filings for Conservation Commissions',
+    tagline: '',
     description: 'Ensure your septic or site construction complies with state and local Wetlands Protection Acts. We prepare Wetland Resource Area buffer zone plans, Request for Determination of Applicability (RDA), and Notice of Intent (NOI) packages.',
     priceStartingAt: 1800,
     typicalTimeline: '2 - 4 Weeks',
