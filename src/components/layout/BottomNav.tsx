@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { 
   LayoutGrid, 
-  ClipboardList, 
   Folder, 
-  FileText, 
   MoreHorizontal,
   X,
   User,
@@ -19,7 +17,9 @@ import {
   LogOut,
   ChevronRight,
   Building2,
-  Compass
+  Compass,
+  ClipboardList,
+  FileText
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
 import { useToast } from '@/context/ToastContext'
@@ -36,36 +36,34 @@ export const BottomNav: React.FC = () => {
     if (tab === 'requests' && location.pathname === '/track') return true
     if (tab === 'jobs' && location.pathname === '/contractor') return true
     if (tab === 'quotes' && (location.pathname === '/calculator' || location.pathname === '/request')) return true
-    if (tab === 'more' && (location.pathname === '/directory' || location.pathname === '/guides')) return true
+    if (tab === 'more' && (moreDrawerOpen || location.pathname === '/directory' || location.pathname === '/guides')) return true
     return false
   }
 
   return (
     <>
-      {/* ZIPFIXER NATIVE BOTTOM NAVIGATION BAR */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border shadow-md md:hidden pb-safe">
-        <div className="flex items-center justify-around h-16 px-1 max-w-md mx-auto">
+      {/* FLOATING PILL BOTTOM NAVIGATION BAR */}
+      <div className="fixed bottom-4 left-0 right-0 z-40 flex justify-center pointer-events-none px-4 pb-[env(safe-area-inset-bottom,0px)]">
+        <nav className="pointer-events-auto bg-card/95 backdrop-blur-md border border-border/80 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-full px-2 py-1.5 flex items-center justify-between gap-1 w-full max-w-[390px] transition-all">
           
           {/* Tab 1: Dashboard */}
           <Link
             to="/"
             onClick={() => setMoreDrawerOpen(false)}
-            className="flex flex-col items-center justify-center flex-1 py-1 focus:outline-none"
+            className="flex-1 flex flex-col items-center justify-center focus:outline-none group relative py-1"
           >
-            <div className={`flex items-center justify-center transition-all ${
-              isTabActive('dashboard') 
-                ? 'h-7 w-12 rounded-full bg-primary/15 text-primary' 
-                : 'text-muted-foreground'
+            <div className={`flex flex-col items-center justify-center transition-all ${
+              isTabActive('dashboard')
+                ? 'w-16 h-12 rounded-full bg-primary-light text-primary font-bold'
+                : 'text-slate-500 hover:text-slate-800'
             }`}>
-              <LayoutGrid className="w-4 h-4 stroke-[2.2]" />
+              <LayoutGrid className="w-5 h-5 stroke-[2.2]" />
+              <span className="text-[10px] leading-tight font-bold mt-0.5">
+                Dashboard
+              </span>
             </div>
-            <span className={`text-[10px] mt-0.5 transition-colors ${
-              isTabActive('dashboard') ? 'font-bold text-primary' : 'font-medium text-muted-foreground'
-            }`}>
-              Dashboard
-            </span>
             {isTabActive('dashboard') && (
-              <span className="h-1 w-1 rounded-full bg-primary mt-0.5" />
+              <span className="absolute -bottom-1 h-1.5 w-1.5 rounded-full bg-primary" />
             )}
           </Link>
 
@@ -73,22 +71,20 @@ export const BottomNav: React.FC = () => {
           <Link
             to="/track"
             onClick={() => setMoreDrawerOpen(false)}
-            className="flex flex-col items-center justify-center flex-1 py-1 focus:outline-none"
+            className="flex-1 flex flex-col items-center justify-center focus:outline-none group relative py-1"
           >
-            <div className={`flex items-center justify-center transition-all ${
-              isTabActive('requests') 
-                ? 'h-7 w-12 rounded-full bg-primary/15 text-primary' 
-                : 'text-muted-foreground'
+            <div className={`flex flex-col items-center justify-center transition-all ${
+              isTabActive('requests')
+                ? 'w-16 h-12 rounded-full bg-primary-light text-primary font-bold'
+                : 'text-slate-500 hover:text-slate-800'
             }`}>
-              <ClipboardList className="w-4 h-4 stroke-[2.2]" />
+              <ClipboardList className="w-5 h-5 stroke-[2.2]" />
+              <span className="text-[10px] leading-tight font-medium mt-0.5">
+                Requests
+              </span>
             </div>
-            <span className={`text-[10px] mt-0.5 transition-colors ${
-              isTabActive('requests') ? 'font-bold text-primary' : 'font-medium text-muted-foreground'
-            }`}>
-              Requests
-            </span>
             {isTabActive('requests') && (
-              <span className="h-1 w-1 rounded-full bg-primary mt-0.5" />
+              <span className="absolute -bottom-1 h-1.5 w-1.5 rounded-full bg-primary" />
             )}
           </Link>
 
@@ -96,73 +92,67 @@ export const BottomNav: React.FC = () => {
           <Link
             to="/contractor"
             onClick={() => setMoreDrawerOpen(false)}
-            className="flex flex-col items-center justify-center flex-1 py-1 focus:outline-none"
+            className="flex-1 flex flex-col items-center justify-center focus:outline-none group relative py-1"
           >
-            <div className={`flex items-center justify-center transition-all ${
-              isTabActive('jobs') 
-                ? 'h-7 w-12 rounded-full bg-primary/15 text-primary' 
-                : 'text-muted-foreground'
+            <div className={`flex flex-col items-center justify-center transition-all ${
+              isTabActive('jobs')
+                ? 'w-16 h-12 rounded-full bg-primary-light text-primary font-bold'
+                : 'text-slate-500 hover:text-slate-800'
             }`}>
-              <Folder className="w-4 h-4 stroke-[2.2]" />
+              <Folder className="w-5 h-5 stroke-[2.2]" />
+              <span className="text-[10px] leading-tight font-medium mt-0.5">
+                My Jobs
+              </span>
             </div>
-            <span className={`text-[10px] mt-0.5 transition-colors ${
-              isTabActive('jobs') ? 'font-bold text-primary' : 'font-medium text-muted-foreground'
-            }`}>
-              My Jobs
-            </span>
             {isTabActive('jobs') && (
-              <span className="h-1 w-1 rounded-full bg-primary mt-0.5" />
+              <span className="absolute -bottom-1 h-1.5 w-1.5 rounded-full bg-primary" />
             )}
           </Link>
 
-          {/* Tab 4: Quotes / Cost Estimator */}
+          {/* Tab 4: Quotes */}
           <Link
             to="/calculator"
             onClick={() => setMoreDrawerOpen(false)}
-            className="flex flex-col items-center justify-center flex-1 py-1 focus:outline-none"
+            className="flex-1 flex flex-col items-center justify-center focus:outline-none group relative py-1"
           >
-            <div className={`flex items-center justify-center transition-all ${
-              isTabActive('quotes') 
-                ? 'h-7 w-12 rounded-full bg-primary/15 text-primary' 
-                : 'text-muted-foreground'
+            <div className={`flex flex-col items-center justify-center transition-all ${
+              isTabActive('quotes')
+                ? 'w-16 h-12 rounded-full bg-primary-light text-primary font-bold'
+                : 'text-slate-500 hover:text-slate-800'
             }`}>
-              <FileText className="w-4 h-4 stroke-[2.2]" />
+              <FileText className="w-5 h-5 stroke-[2.2]" />
+              <span className="text-[10px] leading-tight font-medium mt-0.5">
+                Quotes
+              </span>
             </div>
-            <span className={`text-[10px] mt-0.5 transition-colors ${
-              isTabActive('quotes') ? 'font-bold text-primary' : 'font-medium text-muted-foreground'
-            }`}>
-              Quotes
-            </span>
             {isTabActive('quotes') && (
-              <span className="h-1 w-1 rounded-full bg-primary mt-0.5" />
+              <span className="absolute -bottom-1 h-1.5 w-1.5 rounded-full bg-primary" />
             )}
           </Link>
 
-          {/* Tab 5: More (ZipFixer sheet toggle) */}
+          {/* Tab 5: More */}
           <button
             type="button"
             onClick={() => setMoreDrawerOpen(!moreDrawerOpen)}
-            className="flex flex-col items-center justify-center flex-1 py-1 focus:outline-none"
+            className="flex-1 flex flex-col items-center justify-center focus:outline-none group relative py-1 cursor-pointer"
           >
-            <div className={`flex items-center justify-center transition-all ${
-              (moreDrawerOpen || isTabActive('more')) 
-                ? 'h-7 w-12 rounded-full bg-primary/15 text-primary' 
-                : 'text-muted-foreground'
+            <div className={`flex flex-col items-center justify-center transition-all ${
+              isTabActive('more')
+                ? 'w-16 h-12 rounded-full bg-primary-light text-primary font-bold'
+                : 'text-slate-500 hover:text-slate-800'
             }`}>
-              <MoreHorizontal className="w-4 h-4 stroke-[2.2]" />
+              <MoreHorizontal className="w-5 h-5 stroke-[2.2]" />
+              <span className="text-[10px] leading-tight font-medium mt-0.5">
+                More
+              </span>
             </div>
-            <span className={`text-[10px] mt-0.5 transition-colors ${
-              (moreDrawerOpen || isTabActive('more')) ? 'font-bold text-primary' : 'font-medium text-muted-foreground'
-            }`}>
-              More
-            </span>
-            {(moreDrawerOpen || isTabActive('more')) && (
-              <span className="h-1 w-1 rounded-full bg-primary mt-0.5" />
+            {isTabActive('more') && (
+              <span className="absolute -bottom-1 h-1.5 w-1.5 rounded-full bg-primary" />
             )}
           </button>
 
-        </div>
-      </nav>
+        </nav>
+      </div>
 
       {/* ZIPFIXER "MORE" BOTTOM SHEET MODAL (Exact layout from user's screenshots 5 & 6) */}
       {moreDrawerOpen && (

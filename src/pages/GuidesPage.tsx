@@ -41,7 +41,7 @@ export const GuidesPage: React.FC = () => {
   ]
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-8 space-y-6 pb-24">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 sm:space-y-10 pb-28">
       
       {/* Header */}
       <div className="text-center space-y-2 max-w-2xl mx-auto">

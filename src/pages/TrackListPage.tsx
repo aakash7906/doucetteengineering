@@ -52,7 +52,7 @@ export const TrackListPage: React.FC = () => {
   })
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-4 pb-24">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 pb-28">
       
       {/* 1. ZIPFIXER TOP TITLE ROW (Screenshot 1 & 2) */}
       <div className="flex items-center justify-between">

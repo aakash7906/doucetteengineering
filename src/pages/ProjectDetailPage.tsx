@@ -80,127 +80,114 @@ export const ProjectDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-4 pb-24">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-5 sm:space-y-6 pb-28">
       
-      {/* Top Breadcrumb & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      {/* Top Actions Row (Cleaner app bar) */}
+      <div className="flex items-center justify-between gap-3 text-xs">
         <Link to="/track" className="text-muted-foreground hover:text-primary flex items-center gap-1 font-semibold transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back to All Projects
+          <ArrowLeft className="w-4 h-4" /> <span>All Projects</span>
         </Link>
         <div className="flex items-center gap-2">
           <Button 
             variant="outline" 
             size="sm" 
             onClick={() => setRequestExpediteOpen(true)}
-            className="text-xs font-semibold"
+            className="text-xs font-semibold h-8.5 rounded-xl"
           >
-            Request Expedited Action
+            Expedite
           </Button>
           <Button 
             variant="secondary" 
             size="sm" 
             onClick={() => setActiveTab('messages')}
-            className="text-xs font-semibold flex items-center gap-1"
+            className="text-xs font-semibold h-8.5 rounded-xl flex items-center gap-1.5"
           >
             <MessageSquare className="w-3.5 h-3.5" />
-            <span>Ask Engineer</span>
+            <span>Chat</span>
           </Button>
         </div>
       </div>
 
-      {/* Hero Project Banner */}
-      <div className="bg-card rounded-2xl p-4 sm:p-6 border border-border shadow-2xs space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-2">
-            
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={handleCopyTracking}
-                className="font-mono font-bold text-xs sm:text-sm text-primary bg-primary-light px-3 py-1 rounded-xl border border-primary/25 flex items-center gap-1.5 hover:bg-primary-light/80 transition-colors cursor-pointer"
-                title="Click to copy tracking ID"
-              >
-                <span>{project.trackingNumber}</span>
-                {copied ? <Check className="w-3.5 h-3.5 text-primary" /> : <Copy className="w-3.5 h-3.5 text-primary" />}
-              </button>
-              
-              <Badge 
-                variant={project.role === 'contractor' ? 'warning' : 'secondary'} 
-                className="text-xs font-semibold capitalize"
-              >
-                {project.role === 'contractor' ? 'Contractor Pro Account' : 'Homeowner Account'}
-              </Badge>
+      {/* Main Project Card (Matching Screenshot Hierarchy) */}
+      <div className="bg-card rounded-3xl p-5 sm:p-6 border border-border shadow-xs space-y-5">
+        
+        {/* Badges Header Row */}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={handleCopyTracking}
+            className="font-bold text-xs text-primary bg-primary-light px-3 py-1 rounded-xl border border-primary/25 flex items-center gap-1.5 hover:bg-primary-light/80 transition-colors cursor-pointer"
+            title="Click to copy tracking ID"
+          >
+            <span>{project.trackingNumber}</span>
+            {copied ? <Check className="w-3.5 h-3.5 text-primary" /> : <Copy className="w-3.5 h-3.5 text-primary" />}
+          </button>
+          
+          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted px-2.5 py-1 rounded-full border border-border">
+            {project.role === 'contractor' ? 'Contractor Pro' : 'Homeowner'}
+          </span>
 
-              <Badge 
-                variant={
-                  project.percentComplete === 100 
-                    ? 'success' 
-                    : project.urgency === 'emergency' 
-                    ? 'destructive' 
-                    : 'primary'
-                } 
-                className="text-xs"
-              >
-                {project.percentComplete === 100 ? 'Approved & Certified' : project.currentStatusLabel}
-              </Badge>
-            </div>
+          <span className="text-xs font-semibold text-primary bg-primary-light px-3 py-1 rounded-full border border-primary/25">
+            {project.percentComplete === 100 ? 'Approved & Certified' : project.currentStatusLabel}
+          </span>
+        </div>
 
-            <h1 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight leading-snug">
-              {project.title}
-            </h1>
+        {/* Title & Property Info */}
+        <div className="space-y-1.5">
+          <h1 className="text-xl sm:text-2xl font-black text-foreground tracking-tight leading-snug">
+            {project.title}
+          </h1>
 
-            <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1 font-medium text-foreground">
-                <MapPin className="w-3.5 h-3.5 text-primary" />
-                {project.propertyAddress}, {project.city}, {project.state} {project.zipCode}
-              </span>
-              {project.bedrooms && (
-                <span>• {project.bedrooms} Beds ({project.estimatedFlowGPD} GPD)</span>
-              )}
-              {project.waterSource && (
-                <span className="capitalize">• {project.waterSource} Water</span>
-              )}
-            </div>
-
-          </div>
-
-          {/* Quick Town BOH pill */}
-          <div className="bg-muted rounded-xl p-3.5 border border-border text-xs shrink-0 max-w-xs space-y-1">
-            <div className="text-[10px] uppercase font-bold text-muted-foreground">
-              Municipal Jurisdiction
-            </div>
-            <div className="font-bold text-foreground">
-              {project.boardOfHealth.townName}
-            </div>
-            <div className="text-primary font-semibold flex items-center gap-1 text-[11px]">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              Status: {project.boardOfHealth.status}
-            </div>
-            {project.boardOfHealth.hearingDate && (
-              <div className="text-[10px] text-muted-foreground pt-0.5">
-                Hearing: {project.boardOfHealth.hearingDate}
-              </div>
+          <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1 font-medium text-foreground">
+              <MapPin className="w-3.5 h-3.5 text-primary shrink-0" />
+              <span>{project.propertyAddress}, {project.city}, {project.state} {project.zipCode}</span>
+            </span>
+            {project.bedrooms && (
+              <span>• {project.bedrooms} Beds</span>
+            )}
+            {project.waterSource && (
+              <span className="capitalize">• {project.waterSource} Water</span>
             )}
           </div>
         </div>
 
-        {/* Overall Completion Progress */}
-        <div className="space-y-1.5 pt-2 border-t border-border">
+        {/* Municipal BOH Inset Box */}
+        <div className="bg-muted/70 rounded-2xl p-4 border border-border text-xs space-y-1">
+          <div className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
+            Municipal Jurisdiction
+          </div>
+          <div className="font-extrabold text-foreground text-sm">
+            {project.boardOfHealth.townName}
+          </div>
+          <div className="text-primary font-semibold flex items-center gap-1.5 text-xs pt-0.5">
+            <span className="h-2 w-2 rounded-full bg-primary" />
+            <span>Status: {project.boardOfHealth.status}</span>
+          </div>
+          {project.boardOfHealth.hearingDate && (
+            <div className="text-[11px] text-muted-foreground pt-0.5">
+              Hearing: {project.boardOfHealth.hearingDate}
+            </div>
+          )}
+        </div>
+
+        {/* Progress Bar Row */}
+        <div className="space-y-2 pt-2 border-t border-border">
           <div className="flex items-center justify-between text-xs">
             <span className="font-bold text-foreground">Engineering Completion</span>
-            <span className="font-mono font-extrabold text-primary text-sm">{project.percentComplete}% Complete</span>
+            <span className="font-extrabold text-primary text-sm">{project.percentComplete}% Complete</span>
           </div>
           <Progress value={project.percentComplete} className="h-2.5 rounded-full" />
         </div>
 
       </div>
 
-      {/* Navigation Tabs (ZipFixer styled) */}
-      <div className="flex items-center border border-border bg-card rounded-xl p-1 shadow-2xs overflow-x-auto">
+      {/* Navigation Tabs (Floating style with icons) */}
+      <div className="bg-card border border-border rounded-2xl p-1.5 shadow-2xs flex items-center gap-1 overflow-x-auto no-scrollbar">
         <button
           type="button"
           onClick={() => setActiveTab('timeline')}
-          className={`flex-1 min-w-[110px] py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`flex-1 min-w-[95px] py-2 px-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             activeTab === 'timeline'
               ? 'bg-primary text-primary-foreground shadow-2xs'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -213,20 +200,20 @@ export const ProjectDetailPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setActiveTab('documents')}
-          className={`flex-1 min-w-[110px] py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`flex-1 min-w-[95px] py-2 px-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             activeTab === 'documents'
               ? 'bg-primary text-primary-foreground shadow-2xs'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
           }`}
         >
           <FileText className="w-3.5 h-3.5" />
-          <span>Documents ({project.documents.length})</span>
+          <span>Docs ({project.documents.length})</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('messages')}
-          className={`flex-1 min-w-[110px] py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`flex-1 min-w-[95px] py-2 px-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             activeTab === 'messages'
               ? 'bg-primary text-primary-foreground shadow-2xs'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -239,37 +226,37 @@ export const ProjectDetailPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setActiveTab('team')}
-          className={`flex-1 min-w-[110px] py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`flex-1 min-w-[95px] py-2 px-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             activeTab === 'team'
               ? 'bg-primary text-primary-foreground shadow-2xs'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
           }`}
         >
           <ShieldCheck className="w-3.5 h-3.5" />
-          <span>Town & Engineer</span>
+          <span>Town / P.E.</span>
         </button>
       </div>
 
       {/* TAB CONTENT: TIMELINE / MILESTONES */}
       {activeTab === 'timeline' && (
         <div className="space-y-4 animate-in fade-in-50 duration-200">
-          <div className="bg-card rounded-2xl p-4 sm:p-6 border border-border shadow-2xs space-y-6">
+          <div className="bg-card rounded-3xl p-5 sm:p-6 border border-border shadow-xs space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-extrabold text-foreground text-base sm:text-lg">
-                  Engineering & Approval Milestones
-                </h3>
+                <h2 className="font-black text-foreground text-base sm:text-lg tracking-tight">
+                  Approval Milestones
+                </h2>
                 <p className="text-xs text-muted-foreground">
-                  Step-by-step progress through Massachusetts Title 5 design and Board of Health permits.
+                  Title 5 design & municipal permitting
                 </p>
               </div>
-              <Badge variant="primary" className="text-xs font-mono font-bold">
+              <span className="text-xs font-bold text-primary bg-primary-light px-3 py-1 rounded-full border border-primary/25">
                 Stage {project.milestones.findIndex(m => m.status === 'in_progress') + 1 || project.milestones.length} of {project.milestones.length}
-              </Badge>
+              </span>
             </div>
 
             {/* Stepper list */}
-            <div className="relative pl-6 sm:pl-8 space-y-6 border-l-2 border-border ml-3 sm:ml-4">
+            <div className="relative pl-6 sm:pl-8 space-y-5 border-l-2 border-border ml-3 sm:ml-4">
               {project.milestones.map((m, idx) => {
                 const isCompleted = m.status === 'completed'
                 const isInProgress = m.status === 'in_progress'
@@ -294,7 +281,7 @@ export const ProjectDetailPage: React.FC = () => {
                     </div>
 
                     {/* Milestone Card */}
-                    <div className={`p-4 rounded-xl border transition-all ${
+                    <div className={`p-4 rounded-2xl border transition-all ${
                       isInProgress 
                         ? 'border-primary/40 bg-primary-light/40 ring-1 ring-primary/20' 
                         : isCompleted
@@ -302,24 +289,24 @@ export const ProjectDetailPage: React.FC = () => {
                         : 'border-border bg-muted/40 opacity-80'
                     }`}>
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1.5">
-                        <h4 className="font-bold text-foreground text-sm">
+                        <h3 className="font-bold text-foreground text-sm">
                           {m.title}
-                        </h4>
+                        </h3>
                         
                         <div className="flex items-center gap-2">
                           {isCompleted && (
                             <Badge variant="success" className="text-[10px]">
-                              Completed {m.completedDate && formatDate(m.completedDate)}
+                              Done {m.completedDate && formatDate(m.completedDate)}
                             </Badge>
                           )}
                           {isInProgress && (
                             <Badge variant="primary" className="text-[10px]">
-                              Currently In Progress
+                              In Progress
                             </Badge>
                           )}
                           {!isCompleted && !isInProgress && (
                             <Badge variant="secondary" className="text-[10px]">
-                              Estimated: {m.estimatedDate && formatDate(m.estimatedDate)}
+                              Est: {m.estimatedDate && formatDate(m.estimatedDate)}
                             </Badge>
                           )}
                         </div>

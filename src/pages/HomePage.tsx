@@ -68,11 +68,11 @@ export const HomePage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 sm:space-y-8 px-4 sm:px-6 max-w-7xl mx-auto pt-4 pb-20">
+    <div className="space-y-8 sm:space-y-12 px-4 sm:px-6 max-w-7xl mx-auto pt-6 pb-28">
       
-      {/* 1. ZIPFIXER DASHBOARD GREETING HEADER (Screenshot 3) */}
-      <div className="space-y-0.5">
-        <h1 className="text-xl sm:text-2xl font-black tracking-tight text-foreground">
+      {/* 1. DASHBOARD GREETING HEADER */}
+      <div className="space-y-1.5 sm:space-y-2">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
           Welcome back, {currentRole === 'contractor' ? 'Contractor Pro' : 'Aakash'} !
         </h1>
         <p className="text-xs sm:text-sm text-muted-foreground">
@@ -80,50 +80,50 @@ export const HomePage: React.FC = () => {
         </p>
       </div>
 
-      {/* 2. ZIPFIXER 4 STAT CARDS WITH GREEN SQUIRCLE ICONS (Screenshot 3) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <div className="bg-card p-4 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div>
-            <span className="text-xs text-muted-foreground font-medium block">Total Requests</span>
-            <span className="text-2xl font-black text-foreground font-mono">{projects.length}</span>
-            <span className="text-[10px] text-muted-foreground block mt-0.5">All time</span>
+      {/* 2. DASHBOARD 4 STAT CARDS */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className="bg-card p-5 sm:p-6 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center space-y-1.5">
+            <span className="text-xs text-muted-foreground font-semibold leading-normal">Total Requests</span>
+            <span className="text-3xl font-black text-foreground tracking-tight leading-none py-0.5">{projects.length}</span>
+            <span className="text-[11px] text-muted-foreground leading-normal">All time</span>
           </div>
           <div className="app-squircle-icon">
             <ClipboardList className="w-5 h-5 text-primary" />
           </div>
         </div>
 
-        <div className="bg-card p-4 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div>
-            <span className="text-xs text-muted-foreground font-medium block">Active Jobs</span>
-            <span className="text-2xl font-black text-foreground font-mono">
+        <div className="bg-card p-5 sm:p-6 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center space-y-1.5">
+            <span className="text-xs text-muted-foreground font-semibold leading-normal">Active Jobs</span>
+            <span className="text-3xl font-black text-foreground tracking-tight leading-none py-0.5">
               {projects.filter(p => p.percentComplete < 100).length}
             </span>
-            <span className="text-[10px] text-muted-foreground block mt-0.5">Currently ongoing</span>
+            <span className="text-[11px] text-muted-foreground leading-normal">Currently ongoing</span>
           </div>
           <div className="app-squircle-icon">
             <Wrench className="w-5 h-5 text-primary" />
           </div>
         </div>
 
-        <div className="bg-card p-4 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div>
-            <span className="text-xs text-muted-foreground font-medium block">Completed Jobs</span>
-            <span className="text-2xl font-black text-foreground font-mono">
+        <div className="bg-card p-5 sm:p-6 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center space-y-1.5">
+            <span className="text-xs text-muted-foreground font-semibold leading-normal">Completed Jobs</span>
+            <span className="text-3xl font-black text-foreground tracking-tight leading-none py-0.5">
               {projects.filter(p => p.percentComplete === 100).length}
             </span>
-            <span className="text-[10px] text-muted-foreground block mt-0.5">Successfully finished</span>
+            <span className="text-[11px] text-muted-foreground leading-normal">Successfully finished</span>
           </div>
           <div className="app-squircle-icon">
             <CheckCircle2 className="w-5 h-5 text-primary" />
           </div>
         </div>
 
-        <div className="bg-card p-4 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
-          <div>
-            <span className="text-xs text-muted-foreground font-medium block">BOH Approvals</span>
-            <span className="text-2xl font-black text-primary font-mono">100%</span>
-            <span className="text-[10px] text-muted-foreground block mt-0.5">Town pass rate</span>
+        <div className="bg-card p-5 sm:p-6 rounded-2xl border border-border shadow-2xs flex items-center justify-between">
+          <div className="flex flex-col justify-center space-y-1.5">
+            <span className="text-xs text-muted-foreground font-semibold leading-normal">BOH Approvals</span>
+            <span className="text-3xl font-black text-primary tracking-tight leading-none py-0.5">100%</span>
+            <span className="text-[11px] text-muted-foreground leading-normal">Town pass rate</span>
           </div>
           <div className="app-squircle-icon">
             <ShieldCheck className="w-5 h-5 text-primary" />
@@ -131,31 +131,31 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* 3. ZIPFIXER SEARCH + GREEN FILTER BUTTON ROW (Screenshots 1, 2, 4) */}
-      <form onSubmit={handleTrackSubmit} className="flex items-center gap-2">
+      {/* 3. SEARCH + FILTER ROW */}
+      <form onSubmit={handleTrackSubmit} className="flex items-center gap-3">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-4 top-3.5" />
           <input
             type="text"
             placeholder="Search requests or enter Zip..."
             value={homeownerTrackInput}
             onChange={(e) => setHomeownerTrackInput(e.target.value)}
-            className="w-full h-10 pl-10 pr-3 rounded-xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
+            className="w-full h-11 pl-11 pr-4 rounded-xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
           />
         </div>
         <button
           type="submit"
-          className="app-btn-filter cursor-pointer"
+          className="app-btn-filter cursor-pointer shrink-0"
         >
           <Filter className="w-4 h-4" />
           <span>Filter</span>
         </button>
       </form>
 
-      {/* 4. QUICK INTAKE CARD - ZIPFIXER VIBRANT GREEN CTA */}
-      <div className="bg-card rounded-2xl p-4 sm:p-6 border border-border shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-          <div className="flex items-center gap-3">
+      {/* 4. QUICK INTAKE CARD */}
+      <div className="bg-card rounded-2xl p-5 sm:p-8 border border-border shadow-xs space-y-5 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-border/60">
+          <div className="flex items-center gap-3.5">
             <div className="app-squircle-icon">
               <ClipboardList className="w-5 h-5 text-primary" />
             </div>
@@ -163,7 +163,7 @@ export const HomePage: React.FC = () => {
               <h2 className="font-extrabold text-foreground text-base sm:text-lg">
                 Request Engineering & Septic Design
               </h2>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
                 Get instant quotes from licensed civil P.E. & Title 5 evaluators
               </p>
             </div>
@@ -191,33 +191,33 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* Quick Intake Form */}
-        <form onSubmit={handleHeroSubmit} className="space-y-3">
-          <div>
-            <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-1">
+        <form onSubmit={handleHeroSubmit} className="space-y-4 sm:space-y-5">
+          <div className="space-y-1.5">
+            <label className="block text-xs font-bold text-foreground uppercase tracking-wider">
               Property Address or Zip Code
             </label>
             <div className="relative">
-              <MapPin className="w-4 h-4 text-primary absolute left-3 top-3" />
+              <MapPin className="w-4 h-4 text-primary absolute left-3.5 top-3.5" />
               <input
                 type="text"
                 required
                 placeholder="e.g. 142 Highland Rd, Acton or 01720"
                 value={addressInput}
                 onChange={(e) => setAddressInput(e.target.value)}
-                className="w-full h-10 pl-9 pr-3 rounded-xl border border-input bg-card text-xs sm:text-sm font-medium text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
+                className="w-full h-11 pl-10 pr-3 rounded-xl border border-input bg-card text-xs sm:text-sm font-medium text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-foreground uppercase tracking-wider">
                 Service Needed
               </label>
               <select
                 value={selectedService}
                 onChange={(e) => setSelectedService(e.target.value)}
-                className="w-full h-10 px-3 rounded-xl border border-input bg-card text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full h-11 px-3.5 rounded-xl border border-input bg-card text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
               >
                 <option value="septic-design">Title 5 Septic System Design</option>
                 <option value="soil-perc-test">Soil Perc & Deep Hole Testing</option>
@@ -228,14 +228,14 @@ export const HomePage: React.FC = () => {
               </select>
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-foreground uppercase tracking-wider mb-1">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-foreground uppercase tracking-wider">
                 Timeline Urgency
               </label>
               <select
                 value={urgencyLevel}
                 onChange={(e) => setUrgencyLevel(e.target.value)}
-                className="w-full h-10 px-3 rounded-xl border border-input bg-card text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-full h-11 px-3.5 rounded-xl border border-input bg-card text-xs font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
               >
                 <option value="standard">Standard (2 - 3 Weeks)</option>
                 <option value="expedited">Expedited (1 - 2 Weeks)</option>
@@ -246,7 +246,7 @@ export const HomePage: React.FC = () => {
 
           <button 
             type="submit" 
-            className="w-full h-11 rounded-xl bg-primary text-primary-foreground font-bold text-xs sm:text-sm shadow-sm hover:bg-primary-hover active:scale-[0.99] transition-all flex items-center justify-between px-4 cursor-pointer"
+            className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-bold text-xs sm:text-sm shadow-sm hover:bg-primary-hover active:scale-[0.99] transition-all flex items-center justify-between px-5 cursor-pointer mt-2"
           >
             <span>Create Your Request & Get Free Quote</span>
             <ArrowRight className="w-4 h-4" />
@@ -255,27 +255,27 @@ export const HomePage: React.FC = () => {
       </div>
 
       {/* 5. CORE SERVICES CATALOG */}
-      <div className="space-y-3">
+      <div className="space-y-4 sm:space-y-5">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base sm:text-lg font-extrabold text-foreground tracking-tight">
+            <h2 className="text-lg sm:text-xl font-extrabold text-foreground tracking-tight">
               Engineering Services Catalog
             </h2>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
               Official Title 5 plans, perc testing and municipal submissions
             </p>
           </div>
           <Link to="/request">
-            <span className="text-xs font-bold text-primary hover:underline flex items-center gap-1">
-              View All <ChevronRight className="w-3.5 h-3.5" />
+            <span className="text-xs sm:text-sm font-bold text-primary hover:underline flex items-center gap-1">
+              View All <ChevronRight className="w-4 h-4" />
             </span>
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {SERVICES_CATALOG.map((service) => (
-            <Card key={service.id} className="hover:border-primary/50 transition-all flex flex-col justify-between">
-              <CardHeader className="space-y-2 pb-2">
+            <Card key={service.id} className="hover:border-primary/50 transition-all flex flex-col justify-between p-1">
+              <CardHeader className="space-y-3 pb-3">
                 <div className="flex items-center justify-between">
                   <div className="app-squircle-icon">
                     {iconMap[service.iconName] || <Compass className="w-5 h-5 text-primary" />}
@@ -287,21 +287,21 @@ export const HomePage: React.FC = () => {
                   )}
                 </div>
 
-                <div>
-                  <CardTitle className="text-sm sm:text-base group-hover:text-primary transition-colors">
+                <div className="space-y-1">
+                  <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="line-clamp-2 mt-0.5 text-xs">
+                  <CardDescription className="line-clamp-2 text-xs leading-relaxed">
                     {service.tagline}
                   </CardDescription>
                 </div>
               </CardHeader>
 
-              <CardContent className="space-y-3 pt-0">
-                <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
+              <CardContent className="space-y-4 pt-0">
+                <div className="pt-3 border-t border-border flex items-center justify-between text-xs">
                   <div>
                     <span className="text-muted-foreground block text-[10px] uppercase font-bold">Starting At</span>
-                    <span className="text-sm font-extrabold text-foreground font-mono">
+                    <span className="text-base font-extrabold text-foreground">
                       {formatCurrency(service.priceStartingAt)}
                     </span>
                   </div>
@@ -314,7 +314,7 @@ export const HomePage: React.FC = () => {
                 </div>
 
                 <Link to={`/request?service=${service.id}`} className="block">
-                  <Button variant="secondary" size="sm" className="w-full text-xs font-bold hover:bg-primary hover:text-primary-foreground transition-all">
+                  <Button variant="secondary" size="sm" className="w-full h-10 text-xs font-bold hover:bg-primary hover:text-primary-foreground transition-all">
                     <span>Request Details</span>
                     <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </Button>
@@ -325,30 +325,30 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* 6. ZIPFIXER DASHBOARD QUICK ACTIONS (Attached Screenshot) */}
-      <div className="bg-card rounded-2xl p-4 sm:p-6 border border-border shadow-2xs space-y-4">
-        <div className="space-y-0.5">
+      {/* 6. QUICK ACTIONS */}
+      <div className="bg-card rounded-2xl p-5 sm:p-7 border border-border shadow-2xs space-y-5">
+        <div className="space-y-1">
           <h2 className="text-base sm:text-lg font-bold text-foreground">
             Quick Actions
           </h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             What would you like to do?
           </p>
         </div>
 
-        <div className="space-y-2.5">
-          {/* Action 1: Find a Service (ZipFixer Vibrant Green) */}
+        <div className="space-y-3 sm:space-y-3.5">
+          {/* Action 1: Find a Service */}
           <Link
             to="/directory"
-            className="w-full p-4 rounded-xl bg-primary text-primary-foreground hover:bg-primary-hover active:scale-[0.99] transition-all flex items-center justify-between shadow-2xs group cursor-pointer"
+            className="w-full p-4 sm:p-5 rounded-xl bg-primary text-primary-foreground hover:bg-primary-hover active:scale-[0.99] transition-all flex items-center justify-between shadow-2xs group cursor-pointer"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3.5">
               <Search className="w-5 h-5 text-primary-foreground shrink-0 stroke-[2.2]" />
-              <div className="text-left">
-                <div className="font-bold text-sm text-primary-foreground leading-tight">
+              <div className="text-left space-y-0.5">
+                <div className="font-bold text-sm sm:text-base text-primary-foreground leading-tight">
                   Find a Service
                 </div>
-                <div className="text-xs text-primary-foreground/80 font-normal mt-0.5">
+                <div className="text-xs text-primary-foreground/80 font-normal">
                   Search for professionals
                 </div>
               </div>
@@ -356,18 +356,18 @@ export const HomePage: React.FC = () => {
             <ArrowRight className="w-4 h-4 text-primary-foreground group-hover:translate-x-0.5 transition-transform shrink-0" />
           </Link>
 
-          {/* Action 2: View All Jobs (ZipFixer Dark Slate) */}
+          {/* Action 2: View All Jobs */}
           <Link
             to="/contractor"
-            className="w-full p-4 rounded-xl bg-secondary text-secondary-foreground hover:bg-secondary/90 active:scale-[0.99] transition-all flex items-center justify-between shadow-2xs group cursor-pointer"
+            className="w-full p-4 sm:p-5 rounded-xl bg-secondary text-secondary-foreground hover:bg-secondary/90 active:scale-[0.99] transition-all flex items-center justify-between shadow-2xs group cursor-pointer"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3.5">
               <FileText className="w-5 h-5 text-secondary-foreground shrink-0 stroke-[2]" />
-              <div className="text-left">
-                <div className="font-bold text-sm text-secondary-foreground leading-tight">
+              <div className="text-left space-y-0.5">
+                <div className="font-bold text-sm sm:text-base text-secondary-foreground leading-tight">
                   View All Jobs
                 </div>
-                <div className="text-xs text-secondary-foreground/75 font-normal mt-0.5">
+                <div className="text-xs text-secondary-foreground/75 font-normal">
                   Check your job history
                 </div>
               </div>
@@ -379,15 +379,15 @@ export const HomePage: React.FC = () => {
           <button
             type="button"
             onClick={() => showToast('Review portal unlocks upon municipal permit completion.', 'info')}
-            className="w-full p-4 rounded-xl bg-secondary text-secondary-foreground hover:bg-secondary/90 active:scale-[0.99] transition-all flex items-center justify-between shadow-2xs group cursor-pointer"
+            className="w-full p-4 sm:p-5 rounded-xl bg-secondary text-secondary-foreground hover:bg-secondary/90 active:scale-[0.99] transition-all flex items-center justify-between shadow-2xs group cursor-pointer"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3.5">
               <Star className="w-5 h-5 text-secondary-foreground shrink-0 stroke-[2]" />
-              <div className="text-left">
-                <div className="font-bold text-sm text-secondary-foreground leading-tight">
+              <div className="text-left space-y-0.5">
+                <div className="font-bold text-sm sm:text-base text-secondary-foreground leading-tight">
                   Leave a Review
                 </div>
-                <div className="text-xs text-secondary-foreground/75 font-normal mt-0.5">
+                <div className="text-xs text-secondary-foreground/75 font-normal">
                   Share your experience
                 </div>
               </div>
@@ -397,19 +397,19 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* 7. ZIPFIXER NEED HELP SUPPORT CARD (Attached Screenshot) */}
-      <div className="bg-primary-light/60 rounded-2xl p-4 sm:p-5 border border-primary/25 shadow-2xs flex items-start gap-3.5">
-        <div className="h-10 w-10 rounded-xl bg-card border border-primary/25 flex items-center justify-center shrink-0 shadow-2xs">
+      {/* 7. SUPPORT CARD */}
+      <div className="bg-primary-light/60 rounded-2xl p-5 sm:p-6 border border-primary/25 shadow-2xs flex items-start gap-4">
+        <div className="h-11 w-11 rounded-xl bg-card border border-primary/25 flex items-center justify-center shrink-0 shadow-2xs">
           <MessageSquare className="w-5 h-5 text-primary" />
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5 flex-1">
           <h3 className="font-bold text-foreground text-sm sm:text-base">
             Need help?
           </h3>
-          <p className="text-xs text-muted-foreground leading-relaxed">
+          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             Our support team is available 24/7 to assist you with any questions.
           </p>
-          <div className="pt-1">
+          <div className="pt-1.5">
             <a
               href="tel:9783694200"
               className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-primary hover:underline cursor-pointer"
