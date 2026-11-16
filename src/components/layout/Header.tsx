@@ -5,23 +5,26 @@ import {
   Bell
 } from 'lucide-react'
 import { useToast } from '@/context/ToastContext'
+import { useProjects } from '@/context/ProjectContext'
 
 export const Header: React.FC = () => {
   const { showToast } = useToast()
+  const { currentRole } = useProjects()
   const location = useLocation()
   const navigate = useNavigate()
 
   const isDetailPage = location.pathname.startsWith('/project/')
-  const isFormPage = location.pathname === '/request'
+  const isFormPage = location.pathname === '/request' || location.pathname === '/profile'
 
   // Dynamic contextual title for header
   const getHeaderTitle = () => {
-    if (location.pathname === '/') return 'Home'
+    if (location.pathname === '/') return currentRole === 'contractor' ? 'Contractor Hub' : 'Home'
+    if (location.pathname === '/profile') return 'Profile'
     if (location.pathname === '/request') return 'Service Request'
     if (location.pathname === '/track') return 'My Requests'
     if (location.pathname.startsWith('/project/')) return 'Project Details'
     if (location.pathname === '/calculator') return 'Cost Estimator'
-    if (location.pathname === '/contractor') return 'Contractor Hub'
+    if (location.pathname === '/contractor') return 'Contractor Jobs'
     if (location.pathname === '/guides') return 'Title 5 Guides'
     if (location.pathname === '/directory') return 'Engineering Directory'
     return 'Doucette Engineering'
@@ -48,25 +51,43 @@ export const Header: React.FC = () => {
             </Link>
           )}
 
-          <h1 className="font-bold text-base sm:text-lg tracking-tight text-slate-800 leading-tight truncate">
-            {getHeaderTitle()}
-          </h1>
+          <div className="flex items-center gap-2 min-w-0">
+            <h1 className="font-bold text-base sm:text-lg tracking-tight text-slate-800 leading-tight truncate">
+              {getHeaderTitle()}
+            </h1>
+            {currentRole === 'contractor' && (
+              <span className="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-primary/15 text-primary border border-primary/25 tracking-wider shrink-0 uppercase">
+                PRO
+              </span>
+            )}
+          </div>
         </div>
 
         {/* RIGHT: Quick App Action Icons (Responsive & Touch-Friendly) */}
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-          
-          {/* Notifications Icon */}
-          <button
-            type="button"
-            onClick={() => showToast('All engineering records are up to date.', 'info')}
-            className="h-10 w-10 rounded-xl flex items-center justify-center text-slate-600 hover:text-foreground hover:bg-muted active:scale-95 transition-all relative cursor-pointer"
-            title="Notifications"
-            aria-label="Notifications"
-          >
-            <Bell className="w-5 h-5 stroke-[1.8]" />
-          </button>
-
+          {location.pathname === '/profile' ? (
+            <button
+              type="button"
+              onClick={() => {
+                const form = document.getElementById('profile-form') as HTMLFormElement
+                if (form) form.requestSubmit()
+              }}
+              className="text-xs font-bold text-primary hover:text-primary-hover px-2.5 py-1.5 rounded-lg active:scale-95 transition-all cursor-pointer font-sans"
+            >
+              Save
+            </button>
+          ) : (
+            /* Notifications Icon */
+            <button
+              type="button"
+              onClick={() => showToast('All engineering records are up to date.', 'info')}
+              className="h-10 w-10 rounded-xl flex items-center justify-center text-slate-600 hover:text-foreground hover:bg-muted active:scale-95 transition-all relative cursor-pointer"
+              title="Notifications"
+              aria-label="Notifications"
+            >
+              <Bell className="w-5 h-5 stroke-[1.8]" />
+            </button>
+          )}
         </div>
       </div>
     </header>

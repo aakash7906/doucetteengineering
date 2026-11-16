@@ -52,13 +52,10 @@ export const GuidesPage: React.FC = () => {
         <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
           Septic Design & Title 5 Guides
         </h1>
-        <p className="text-xs sm:text-sm text-muted-foreground">
-          Clear, jargon-free explanations of soil testing, health department permits, setbacks, and cost saving strategies.
-        </p>
       </div>
 
       {/* Guide Highlights */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="p-4 sm:p-5 rounded-2xl bg-card border border-border shadow-2xs space-y-2">
           <div className="h-10 w-10 rounded-xl bg-primary-light text-primary flex items-center justify-center">
             <Shovel className="w-5 h-5" />
@@ -101,7 +98,7 @@ export const GuidesPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="space-y-2.5 pt-1">
+        <div className="space-y-4 pt-2">
           {faqs.map((faq, idx) => {
             const isOpen = openFaq === idx
             return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSearchParams, Link } from 'react-router-dom'
+import { useSearchParams, Link, useNavigate } from 'react-router-dom'
 import confetti from 'canvas-confetti'
 import { 
   CheckCircle2, 
@@ -35,6 +35,7 @@ interface UploadedFileItem {
 }
 
 export const RequestPage: React.FC = () => {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { currentRole, setCurrentRole, addProjectRequest, setActiveTrackingId } = useProjects()
   const { showToast } = useToast()
@@ -271,21 +272,31 @@ export const RequestPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-4 space-y-6 pb-32">
+    <div className="max-w-lg mx-auto px-4 py-3 sm:py-4 space-y-5 pb-8 sm:pb-10">
       
       {/* Wizard Header & Stepper */}
-      <div className="space-y-3">
+      <div className="space-y-2.5">
         <div className="flex items-center justify-between text-xs">
-          <Link to="/" className="text-muted-foreground hover:text-primary flex items-center gap-1 font-semibold transition-colors">
+          <button
+            type="button"
+            onClick={() => {
+              if (currentStep > 1) {
+                setCurrentStep(prev => prev - 1)
+              } else {
+                navigate(-1)
+              }
+            }}
+            className="text-muted-foreground hover:text-primary flex items-center gap-1 font-semibold transition-colors cursor-pointer"
+          >
             <ArrowLeft className="w-3.5 h-3.5" /> Back
-          </Link>
-          <span className="font-mono font-bold text-primary bg-primary-light px-2.5 py-1 rounded-md border border-primary/20">
+          </button>
+          <span className="font-mono font-bold text-primary bg-primary-light px-2.5 py-0.5 rounded-full border border-primary/20 text-xs">
             Step {currentStep} of {totalSteps}
           </span>
         </div>
 
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight leading-tight">
             {currentStep === 1 && "Select Service & Role"}
             {currentStep === 2 && "Property Location & Parcel Info"}
             {currentStep === 3 && "Site Conditions & System Sizing"}
@@ -293,7 +304,7 @@ export const RequestPage: React.FC = () => {
             {currentStep === 5 && "Contact Info & Inspection Window"}
             {currentStep === 6 && "Review & Instant Engineering Estimate"}
           </h1>
-          <p className="text-xs text-muted-foreground mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5 leading-snug">
             {currentStep === 1 && "Tailored for Massachusetts Title 5 septic requirements and site engineering."}
             {currentStep === 2 && "We verify town municipal setback requirements and GIS wetland layers."}
             {currentStep === 3 && "Provide known constraints to receive accurate backhoe and engineering scopes."}
@@ -304,7 +315,7 @@ export const RequestPage: React.FC = () => {
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-muted h-2 rounded-full overflow-hidden border border-border">
+        <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden border border-border">
           <div 
             className="bg-primary h-full transition-all duration-300 ease-out"
             style={{ width: `${(currentStep / totalSteps) * 100}%` }}
@@ -314,136 +325,137 @@ export const RequestPage: React.FC = () => {
 
       {/* STEP 1: Service & Role */}
       {currentStep === 1 && (
-        <div className="space-y-5 animate-in fade-in-50 duration-200">
+        <div className="space-y-4 animate-in fade-in-50 duration-200">
           
           {/* Persona Selection */}
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
+          <div className="space-y-1.5">
+            <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider block">
               I am submitting as a:
             </label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2.5">
               <button
                 type="button"
                 onClick={() => { setRole('homeowner'); setCurrentRole('homeowner') }}
-                className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all cursor-pointer ${
+                className={`p-3 sm:p-3.5 rounded-2xl border text-left flex flex-col justify-between space-y-1.5 transition-all cursor-pointer ${
                   role === 'homeowner'
                     ? 'border-primary bg-primary-light/50 shadow-2xs ring-2 ring-primary/20'
-                    : 'border-border bg-card hover:border-border/80'
+                    : 'border-border bg-card hover:border-slate-300'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="h-9 w-9 rounded-xl bg-primary-light text-primary flex items-center justify-center">
-                    <Home className="w-5 h-5" />
+                  <div className="h-8 w-8 rounded-xl bg-primary-light text-primary flex items-center justify-center">
+                    <Home className="w-4 h-4" />
                   </div>
-                  {role === 'homeowner' && <CheckCircle2 className="w-5 h-5 text-primary" />}
+                  {role === 'homeowner' && <CheckCircle2 className="w-4 h-4 text-primary" />}
                 </div>
                 <div>
                   <div className="font-bold text-foreground text-sm">Homeowner</div>
-                  <div className="text-[11px] text-muted-foreground">For my residential property, failed septic, or addition</div>
+                  <div className="text-[10px] text-muted-foreground leading-tight">Residential property or failed septic</div>
                 </div>
               </button>
 
               <button
                 type="button"
                 onClick={() => { setRole('contractor'); setCurrentRole('contractor') }}
-                className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all cursor-pointer ${
+                className={`p-3 sm:p-3.5 rounded-2xl border text-left flex flex-col justify-between space-y-1.5 transition-all cursor-pointer ${
                   role === 'contractor'
                     ? 'border-warning bg-warning/15 shadow-2xs ring-2 ring-warning/20'
-                    : 'border-border bg-card hover:border-border/80'
+                    : 'border-border bg-card hover:border-slate-300'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="h-9 w-9 rounded-xl bg-warning/20 text-warning-foreground flex items-center justify-center">
-                    <HardHat className="w-5 h-5" />
+                  <div className="h-8 w-8 rounded-xl bg-warning/20 text-warning-foreground flex items-center justify-center">
+                    <HardHat className="w-4 h-4" />
                   </div>
-                  {role === 'contractor' && <CheckCircle2 className="w-5 h-5 text-warning" />}
+                  {role === 'contractor' && <CheckCircle2 className="w-4 h-4 text-warning" />}
                 </div>
                 <div>
-                  <div className="font-bold text-foreground text-sm">Contractor / Builder</div>
-                  <div className="text-[11px] text-muted-foreground">Trade accounts, multi-lot subdivisions, expedited CAD</div>
+                  <div className="font-bold text-foreground text-sm">Contractor / Pro</div>
+                  <div className="text-[10px] text-muted-foreground leading-tight">Trade accounts & expedited CAD</div>
                 </div>
               </button>
             </div>
           </div>
 
           {/* Service Category Picker */}
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
+          <div className="space-y-1.5">
+            <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider block">
               Required Engineering Service:
             </label>
-            <div className="space-y-3">
-              {SERVICES_CATALOG.map((s) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => setServiceCategory(s.id)}
-                  className={`p-4 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
-                    serviceCategory === s.id
-                      ? 'border-primary bg-primary-light/50 ring-2 ring-primary/20 shadow-2xs'
-                      : 'border-border bg-card hover:border-border/80'
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <span className="font-bold text-foreground text-sm">{s.title}</span>
-                    {serviceCategory === s.id && <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />}
-                  </div>
-                  <p className="text-[11px] text-muted-foreground line-clamp-2 mb-3">
-                    {s.tagline}
-                  </p>
-                  <div className="flex items-center justify-between text-xs pt-2 border-t border-border text-muted-foreground">
-                    <span className="font-mono font-bold text-foreground">
-                      {formatCurrency(s.priceStartingAt)}+
-                    </span>
-                    <span className="text-[11px] text-muted-foreground">{s.typicalTimeline}</span>
-                  </div>
-                </button>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {SERVICES_CATALOG.map((s) => {
+                const isSelected = serviceCategory === s.id
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setServiceCategory(s.id)}
+                    className={`p-3 rounded-2xl border text-left transition-all flex items-center justify-between gap-2.5 cursor-pointer ${
+                      isSelected
+                        ? 'border-primary bg-primary-light/60 ring-2 ring-primary/20 shadow-2xs'
+                        : 'border-border bg-card hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-foreground text-xs sm:text-sm tracking-tight truncate">{s.title}</span>
+                        {isSelected && <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />}
+                      </div>
+                      <div className="flex items-center gap-2 text-[11px] text-muted-foreground mt-0.5">
+                        <span className="font-mono font-bold text-slate-700">{formatCurrency(s.priceStartingAt)}+</span>
+                        <span className="text-slate-300">•</span>
+                        <span>{s.typicalTimeline}</span>
+                      </div>
+                    </div>
+                  </button>
+                )
+              })}
             </div>
           </div>
 
           {/* Urgency */}
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
+          <div className="space-y-1.5">
+            <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider block">
               Project Timeline & Urgency:
             </label>
             <div className="grid grid-cols-3 gap-2 text-xs">
               <button
                 type="button"
                 onClick={() => setUrgency('standard')}
-                className={`py-3 px-2 rounded-xl border text-center transition-all cursor-pointer ${
+                className={`py-2 px-1.5 rounded-xl border text-center transition-all cursor-pointer ${
                   urgency === 'standard'
-                    ? 'border-primary bg-primary-light text-primary font-bold'
+                    ? 'border-primary bg-primary-light text-primary font-bold shadow-2xs'
                     : 'border-border bg-card text-foreground hover:bg-muted'
                 }`}
               >
-                <div>Standard</div>
-                <div className="text-[10px] text-muted-foreground font-normal">2 - 3 Weeks</div>
+                <div className="font-bold text-xs">Standard</div>
+                <div className="text-[10px] text-muted-foreground">2 - 3 Wks</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setUrgency('expedited')}
-                className={`py-3 px-2 rounded-xl border text-center transition-all cursor-pointer ${
+                className={`py-2 px-1.5 rounded-xl border text-center transition-all cursor-pointer ${
                   urgency === 'expedited'
-                    ? 'border-primary bg-primary-light text-primary font-bold'
+                    ? 'border-primary bg-primary-light text-primary font-bold shadow-2xs'
                     : 'border-border bg-card text-foreground hover:bg-muted'
                 }`}
               >
-                <div>Expedited</div>
-                <div className="text-[10px] text-muted-foreground font-normal">1 - 2 Weeks</div>
+                <div className="font-bold text-xs">Expedited</div>
+                <div className="text-[10px] text-muted-foreground">1 - 2 Wks</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setUrgency('emergency')}
-                className={`py-3 px-2 rounded-xl border text-center transition-all cursor-pointer ${
+                className={`py-2 px-1.5 rounded-xl border text-center transition-all cursor-pointer ${
                   urgency === 'emergency'
-                    ? 'border-destructive bg-destructive/10 text-destructive font-bold'
+                    ? 'border-destructive bg-destructive/10 text-destructive font-bold shadow-2xs'
                     : 'border-border bg-card text-foreground hover:bg-muted'
                 }`}
               >
-                <div>Emergency</div>
-                <div className="text-[10px] text-muted-foreground font-normal">Closing Escrow</div>
+                <div className="font-bold text-xs">Emergency</div>
+                <div className="text-[10px] text-muted-foreground">Escrow Sale</div>
               </button>
             </div>
           </div>
@@ -966,32 +978,44 @@ export const RequestPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Final Submit Button */}
-          <Button 
-            type="submit" 
-            size="lg" 
-            className="w-full h-12 text-sm sm:text-base font-extrabold shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <Sparkles className="w-5 h-5" />
-            <span>Submit Project Details & Generate Tracking ID</span>
-          </Button>
+          {/* Final Submit and Back Buttons */}
+          <div className="flex items-center gap-3 pt-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setCurrentStep(prev => Math.max(1, prev - 1))}
+              className="h-12 px-4 rounded-2xl border-slate-200 text-slate-700 font-bold text-xs sm:text-sm cursor-pointer shrink-0"
+            >
+              <ArrowLeft className="w-4 h-4 mr-1" />
+              Previous
+            </Button>
+
+            <Button 
+              type="submit" 
+              className="flex-1 h-12 rounded-2xl bg-primary hover:bg-primary-hover active:scale-[0.99] text-white text-xs sm:text-sm font-extrabold shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Submit & Generate Tracking ID</span>
+            </Button>
+          </div>
 
         </form>
       )}
 
       {/* Navigation Buttons (Back & Next) */}
       {currentStep < 6 && (
-        <div className="flex items-center justify-between pt-5 border-t border-border mt-6">
-          <Button
-            type="button"
-            variant="outline"
-            disabled={currentStep === 1}
-            onClick={() => setCurrentStep(prev => Math.max(1, prev - 1))}
-            className="text-xs font-semibold cursor-pointer"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 mr-1" />
-            Previous
-          </Button>
+        <div className="flex items-center gap-3 pt-4 border-t border-border mt-4">
+          {currentStep > 1 && (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setCurrentStep(prev => Math.max(1, prev - 1))}
+              className="h-12 px-4 rounded-2xl border-slate-200 text-slate-700 font-bold text-xs sm:text-sm cursor-pointer shrink-0"
+            >
+              <ArrowLeft className="w-4 h-4 mr-1" />
+              Previous
+            </Button>
+          )}
 
           <Button
             type="button"
@@ -1002,10 +1026,10 @@ export const RequestPage: React.FC = () => {
               }
               setCurrentStep(prev => Math.min(totalSteps, prev + 1))
             }}
-            className="text-xs font-bold cursor-pointer"
+            className="flex-1 h-12 rounded-2xl bg-primary hover:bg-primary-hover active:scale-[0.99] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm cursor-pointer"
           >
-            Continue to Step {currentStep + 1}
-            <ArrowRight className="w-3.5 h-3.5 ml-1" />
+            <span>Continue to Step {currentStep + 1}</span>
+            <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
       )}

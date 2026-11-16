@@ -1,11 +1,28 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import type { ProjectItem, UserRole, ProjectMessage } from '@/types'
+import type { ProjectItem, UserRole, ProjectMessage, UserProfile } from '@/types'
 import { INITIAL_PROJECTS } from '@/data/mockProjects'
+
+export const DEFAULT_USER_PROFILE: UserProfile = {
+  name: 'Aakash',
+  email: 'aakash@gmail.com',
+  phone: '+1 (555) 000-0000',
+  role: 'homeowner',
+  propertyType: 'Single Family Residential',
+  companyName: 'Apex Site Contracting & Civil LLC',
+  licenseNumber: 'MA DEP SE-4912',
+  streetAddress: '142 Highland Rd',
+  city: 'Acton',
+  postalCode: '01720',
+  bohJurisdiction: 'Acton Board of Health (Middlesex County)',
+  avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80'
+}
 
 interface ProjectContextType {
   projects: ProjectItem[]
   currentRole: UserRole
   setCurrentRole: (role: UserRole) => void
+  userProfile: UserProfile
+  updateUserProfile: (profile: Partial<UserProfile>) => void
   getProjectByTrackingNumber: (trackingNumber: string) => ProjectItem | undefined
   getProjectById: (id: string) => ProjectItem | undefined
   addProjectRequest: (newProject: Omit<ProjectItem, 'id' | 'trackingNumber' | 'createdAt' | 'milestones' | 'documents' | 'messages' | 'percentComplete' | 'currentStatusStage' | 'currentStatusLabel' | 'assignedEngineer' | 'boardOfHealth'>) => ProjectItem
@@ -18,6 +35,7 @@ const ProjectContext = createContext<ProjectContextType | undefined>(undefined)
 
 const STORAGE_KEY = 'doucette_projects_v1'
 const ROLE_KEY = 'doucette_user_role'
+const PROFILE_KEY = 'doucette_user_profile_v1'
 
 export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [projects, setProjects] = useState<ProjectItem[]>(() => {
@@ -37,6 +55,18 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     return (savedRole === 'contractor' ? 'contractor' : 'homeowner') as UserRole
   })
 
+  const [userProfile, setUserProfile] = useState<UserProfile>(() => {
+    const saved = localStorage.getItem(PROFILE_KEY)
+    if (saved) {
+      try {
+        return { ...DEFAULT_USER_PROFILE, ...JSON.parse(saved) }
+      } catch {
+        return DEFAULT_USER_PROFILE
+      }
+    }
+    return DEFAULT_USER_PROFILE
+  })
+
   const [activeTrackingId, setActiveTrackingId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -46,6 +76,23 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const setCurrentRole = (role: UserRole) => {
     setCurrentRoleState(role)
     localStorage.setItem(ROLE_KEY, role)
+    setUserProfile(prev => {
+      const updated = { ...prev, role }
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(updated))
+      return updated
+    })
+  }
+
+  const updateUserProfile = (updates: Partial<UserProfile>) => {
+    setUserProfile(prev => {
+      const updated = { ...prev, ...updates }
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(updated))
+      if (updates.role && updates.role !== currentRole) {
+        setCurrentRoleState(updates.role)
+        localStorage.setItem(ROLE_KEY, updates.role)
+      }
+      return updated
+    })
   }
 
   const getProjectByTrackingNumber = (trackingNumber: string) => {
@@ -192,6 +239,8 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         projects,
         currentRole,
         setCurrentRole,
+        userProfile,
+        updateUserProfile,
         getProjectByTrackingNumber,
         getProjectById,
         addProjectRequest,

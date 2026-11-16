@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { 
-  Briefcase, 
-  RotateCcw, 
+  Briefcase,  
   Plus, 
   Search, 
-  Filter, 
-  List, 
-  LayoutGrid, 
   HardHat, 
   Layers, 
   ShieldCheck, 
@@ -17,17 +13,13 @@ import {
   ArrowRight
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
-import { useToast } from '@/context/ToastContext'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
 export const ContractorPortalPage: React.FC = () => {
   const { projects } = useProjects()
-  const { showToast } = useToast()
   const [searchQuery, setSearchQuery] = useState('')
   const [activeTab, setActiveTab] = useState<'jobs' | 'tools'>('jobs')
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid')
-  const [refreshKey, setRefreshKey] = useState(0)
 
   // Filter jobs based on search query
   const jobs = projects.filter(p => {
@@ -40,7 +32,7 @@ export const ContractorPortalPage: React.FC = () => {
   })
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-4 space-y-5 pb-32">
+    <div className="max-w-lg mx-auto px-4 py-4 space-y-5 pb-8 sm:pb-10">
       
       {/* 1. APP HEADER ROW */}
       <div className="flex items-center justify-between">
@@ -58,21 +50,8 @@ export const ContractorPortalPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Action Buttons: Refresh + Plus */}
+        {/* Action Buttons: Plus */}
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => {
-              setRefreshKey(prev => prev + 1)
-              showToast('Jobs refreshed', 'info')
-            }}
-            className="h-11 w-11 rounded-2xl border border-border bg-card text-muted-foreground hover:text-foreground flex items-center justify-center hover:bg-muted active:scale-95 transition-all shadow-2xs cursor-pointer"
-            title="Refresh jobs"
-            aria-label="Refresh"
-          >
-            <RotateCcw className="w-4 h-4" />
-          </button>
-          
           <Link to="/request">
             <button
               type="button"
@@ -106,60 +85,29 @@ export const ContractorPortalPage: React.FC = () => {
             <span>Trade Pro Tools</span>
           </button>
         </div>
-
-        {activeTab === 'jobs' && (
-          <div className="hidden sm:flex items-center border border-border rounded-xl p-1 bg-card shrink-0">
-            <button
-              type="button"
-              onClick={() => setViewMode('list')}
-              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground'}`}
-              aria-label="List view"
-            >
-              <List className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode('grid')}
-              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-muted text-foreground' : 'text-muted-foreground'}`}
-              aria-label="Grid view"
-            >
-              <LayoutGrid className="w-4 h-4" />
-            </button>
-          </div>
-        )}
       </div>
 
       {activeTab === 'jobs' && (
-        <div key={refreshKey} className="space-y-6">
-          {/* SEARCH + FILTER ROW */}
-          <div className="flex items-center gap-3">
-            <div className="relative flex-1">
-              <Search className="w-4 h-4 text-muted-foreground absolute left-4 top-3.5 pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search jobs..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-11 pl-11 pr-14 rounded-2xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-3 text-xs text-muted-foreground hover:text-foreground font-bold cursor-pointer"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-
-            <button
-              type="button"
-              className="app-btn-filter cursor-pointer shrink-0"
-            >
-              <Filter className="w-4 h-4" />
-              <span>Filter</span>
-            </button>
+        <div className="space-y-6">
+          {/* SEARCH ROW */}
+          <div className="relative">
+            <Search className="w-4 h-4 text-muted-foreground absolute left-4 top-3.5 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Search jobs..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full h-11 pl-11 pr-14 rounded-2xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3.5 top-3 text-xs text-muted-foreground hover:text-foreground font-bold cursor-pointer"
+              >
+                Clear
+              </button>
+            )}
           </div>
 
           {/* EMPTY STATE OR JOBS LIST */}
@@ -189,21 +137,9 @@ export const ContractorPortalPage: React.FC = () => {
                   key={job.id} 
                   className="rounded-3xl border border-border shadow-xs hover:border-primary/50 transition-all overflow-hidden flex flex-col justify-between p-5 sm:p-6 space-y-4"
                 >
-                  {/* Top Badges Row */}
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      {/* Tracking ID Badge */}
-                      <span className="font-bold text-xs text-primary bg-primary-light px-3 py-1 rounded-xl border border-primary/25">
-                        {job.trackingNumber}
-                      </span>
-                      {/* Role Pill */}
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground bg-muted px-2.5 py-1 rounded-full border border-border">
-                        {job.role === 'contractor' ? 'PRO' : 'OWNER'}
-                      </span>
-                    </div>
-
-                    {/* Status Pill (Clean, rounded, non-overlapping) */}
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${
+                  {/* Status Pill */}
+                  <div>
+                    <span className={`inline-flex text-xs font-semibold px-3 py-1 rounded-full border ${
                       job.percentComplete === 100 
                         ? 'bg-primary-light text-primary border-primary/25' 
                         : job.urgency === 'emergency' 

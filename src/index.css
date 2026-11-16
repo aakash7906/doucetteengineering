@@ -27,6 +27,13 @@
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
 
+  /* Contractor Persona Dedicated Theme Colors */
+  --color-contractor-primary: var(--contractor-primary);
+  --color-contractor-primary-hover: var(--contractor-primary-hover);
+  --color-contractor-primary-light: var(--contractor-primary-light);
+  --color-contractor-secondary: var(--contractor-secondary);
+  --color-contractor-secondary-foreground: var(--contractor-secondary-foreground);
+
   --radius-xs: 0.25rem;
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
@@ -82,6 +89,14 @@
     --success: #10bc00;
     --success-foreground: #ffffff;
 
+    /* Contractor Pro Mode Color Palette (Professional Engineering Steel Blue / Slate) */
+    --contractor-primary: #0284c7; /* Engineering Sky / Pro Blue */
+    --contractor-primary-hover: #0369a1;
+    --contractor-primary-light: #e0f2fe;
+    --contractor-primary-foreground: #ffffff;
+    --contractor-secondary: #0f172a; /* Deep Slate / Navy */
+    --contractor-secondary-foreground: #ffffff;
+
     /* App Dimensions & Touch Spacing */
     --app-header-h: 3.5rem; /* 56px standard mobile app bar */
     --app-header-tablet-h: 4rem; /* 64px tablet app bar */
@@ -90,17 +105,51 @@
     --app-card-radius: var(--radius-2xl);
   }
 
+  /* Contractor Dynamic Theme Mode (Active when currentRole === 'contractor') */
+  [data-role="contractor"] {
+    --primary: var(--contractor-primary);
+    --primary-hover: var(--contractor-primary-hover);
+    --primary-light: var(--contractor-primary-light);
+    --primary-foreground: var(--contractor-primary-foreground);
+
+    --secondary: var(--contractor-secondary);
+    --secondary-foreground: var(--contractor-secondary-foreground);
+
+    --ring: var(--contractor-primary);
+    --success: var(--contractor-primary);
+  }
+
   /* Mobile App Defaults */
   html,
   body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
     overscroll-behavior-y: contain;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
   }
 
-  * {
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /* Hide scrollbars globally across the entire app (Native Mobile App Behavior) */
+  *,
+  *::before,
+  *::after {
     border-color: var(--border);
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   body {

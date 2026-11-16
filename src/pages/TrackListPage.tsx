@@ -6,10 +6,7 @@ import {
   ClipboardList, 
   ArrowRight, 
   Calendar, 
-  Plus,
-  Filter,
-  List,
-  LayoutGrid
+  Plus
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
 import { Button } from '@/components/ui/button'
@@ -25,7 +22,6 @@ export const TrackListPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState(queryFromUrl)
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'permitting' | 'completed'>('all')
   const [roleFilter] = useState<'all' | 'homeowner' | 'contractor'>('all')
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid')
 
   // Filter projects
   const filteredProjects = projects.filter(p => {
@@ -51,7 +47,7 @@ export const TrackListPage: React.FC = () => {
   })
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-4 space-y-5 pb-32">
+    <div className="max-w-lg mx-auto px-4 py-4 space-y-5 pb-8 sm:pb-10">
       
       {/* 1. APP HEADER */}
       <div className="flex items-center justify-between">
@@ -84,105 +80,73 @@ export const TrackListPage: React.FC = () => {
 
       {/* 2. SEARCH & HORIZONTAL FILTER CHIPS */}
       <div className="space-y-3.5">
-        <div className="flex items-center gap-3">
-          {/* Search Input */}
-          <div className="relative flex-1">
-            <Search className="w-4 h-4 text-muted-foreground absolute left-4 top-3.5 pointer-events-none" />
-            <input
-              type="text"
-              placeholder="Search requests..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-11 pl-11 pr-14 rounded-2xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-3 text-xs text-muted-foreground hover:text-foreground font-bold cursor-pointer"
-              >
-                Clear
-              </button>
-            )}
-          </div>
-
-          <button
-            type="button"
-            className="app-btn-filter cursor-pointer shrink-0"
-          >
-            <Filter className="w-4 h-4" />
-            <span>Filter</span>
-          </button>
+        {/* Search Input */}
+        <div className="relative">
+          <Search className="w-4 h-4 text-muted-foreground absolute left-4 top-3.5 pointer-events-none" />
+          <input
+            type="text"
+            placeholder="Search requests..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full h-11 pl-11 pr-14 rounded-2xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3.5 top-3 text-xs text-muted-foreground hover:text-foreground font-bold cursor-pointer"
+            >
+              Clear
+            </button>
+          )}
         </div>
 
         {/* Horizontally Scrollable Filter Pills */}
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
-            <button
-              type="button"
-              onClick={() => setStatusFilter('all')}
-              className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-                statusFilter === 'all'
-                  ? 'bg-primary text-primary-foreground shadow-2xs'
-                  : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
-              }`}
-            >
-              All ({projects.length})
-            </button>
-            <button
-              type="button"
-              onClick={() => setStatusFilter('active')}
-              className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-                statusFilter === 'active'
-                  ? 'bg-primary text-primary-foreground shadow-2xs'
-                  : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
-              }`}
-            >
-              In Progress
-            </button>
-            <button
-              type="button"
-              onClick={() => setStatusFilter('permitting')}
-              className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-                statusFilter === 'permitting'
-                  ? 'bg-primary text-primary-foreground shadow-2xs'
-                  : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
-              }`}
-            >
-              Town Review
-            </button>
-            <button
-              type="button"
-              onClick={() => setStatusFilter('completed')}
-              className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-                statusFilter === 'completed'
-                  ? 'bg-primary text-primary-foreground shadow-2xs'
-                  : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
-              }`}
-            >
-              Completed
-            </button>
-          </div>
-
-          {/* List vs Grid icons (desktop only) */}
-          <div className="hidden sm:flex items-center border border-border rounded-xl p-1 bg-card shrink-0">
-            <button
-              type="button"
-              onClick={() => setViewMode('list')}
-              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground'}`}
-              aria-label="List view"
-            >
-              <List className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode('grid')}
-              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-muted text-foreground' : 'text-muted-foreground'}`}
-              aria-label="Grid view"
-            >
-              <LayoutGrid className="w-4 h-4" />
-            </button>
-          </div>
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+          <button
+            type="button"
+            onClick={() => setStatusFilter('all')}
+            className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+              statusFilter === 'all'
+                ? 'bg-primary text-primary-foreground shadow-2xs'
+                : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
+            }`}
+          >
+            All ({projects.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setStatusFilter('active')}
+            className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+              statusFilter === 'active'
+                ? 'bg-primary text-primary-foreground shadow-2xs'
+                : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
+            }`}
+          >
+            In Progress
+          </button>
+          <button
+            type="button"
+            onClick={() => setStatusFilter('permitting')}
+            className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+              statusFilter === 'permitting'
+                ? 'bg-primary text-primary-foreground shadow-2xs'
+                : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
+            }`}
+          >
+            Town Review
+          </button>
+          <button
+            type="button"
+            onClick={() => setStatusFilter('completed')}
+            className={`h-8.5 px-3.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+              statusFilter === 'completed'
+                ? 'bg-primary text-primary-foreground shadow-2xs'
+                : 'bg-muted text-muted-foreground hover:text-foreground border border-border'
+            }`}
+          >
+            Completed
+          </button>
         </div>
       </div>
 

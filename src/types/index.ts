@@ -116,5 +116,20 @@ export interface ServiceDetail {
   badge?: string
 }
 
+export interface UserProfile {
+  name: string
+  email: string
+  phone: string
+  role: UserRole
+  propertyType: string
+  companyName: string
+  licenseNumber: string
+  streetAddress: string
+  city: string
+  postalCode: string
+  bohJurisdiction: string
+  avatarUrl?: string
+}
+
 export const TYPES_VERSION = '1.0.0'
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom'
-import { ProjectProvider } from '@/context/ProjectContext'
+import { ProjectProvider, useProjects } from '@/context/ProjectContext'
 import { ToastProvider } from '@/context/ToastContext'
 import { Header } from '@/components/layout/Header'
 import { BottomNav } from '@/components/layout/BottomNav'
@@ -17,11 +17,13 @@ import { ContractorPortalPage } from '@/pages/ContractorPortalPage'
 import { CalculatorPage } from '@/pages/CalculatorPage'
 import { GuidesPage } from '@/pages/GuidesPage'
 import { DirectoryPage } from '@/pages/DirectoryPage'
+import { ProfilePage } from '@/pages/ProfilePage'
 
 // Main Content Layout that hides Header & BottomNav during Splash/Onboarding/Auth flow
 const AppLayout: React.FC = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { currentRole } = useProjects()
   const [hasStartedSplash, setHasStartedSplash] = useState(false)
 
   // Force splash screen on every browser refresh / initial load
@@ -34,6 +36,20 @@ const AppLayout: React.FC = () => {
     }
   }, [hasStartedSplash, location.pathname, navigate])
 
+  // Bi-directional URL synchronization with parent window when inside desktop frame
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.self !== window.top) {
+      try {
+        const fullPath = location.pathname + location.search
+        if (window.top && (window.top.location.pathname + window.top.location.search) !== fullPath) {
+          window.top.history.replaceState(null, '', fullPath)
+        }
+      } catch {
+        // safe fallback
+      }
+    }
+  }, [location.pathname, location.search])
+
   const isAuthOrSplashFlow = 
     location.pathname === '/splash' || 
     location.pathname === '/onboarding' || 
@@ -41,9 +57,9 @@ const AppLayout: React.FC = () => {
     location.pathname === '/signup'
 
   return (
-    <div className="h-full w-full min-h-screen md:min-h-0 md:h-full flex flex-col bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground relative overflow-hidden [transform:translateZ(0)]">
+    <div data-role={currentRole} className="h-screen h-[100dvh] w-full flex flex-col bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground relative overflow-hidden transition-colors duration-200">
       {!isAuthOrSplashFlow && <Header />}
-      <main className={`flex-1 overflow-y-auto overflow-x-hidden no-scrollbar relative ${!isAuthOrSplashFlow ? 'app-content-bottom-space' : ''}`}>
+      <main className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden no-scrollbar relative overscroll-contain">
         <Routes>
           {/* Mobile App Initial Flow: /splash -> /onboarding -> /login -> /home */}
           <Route path="/splash" element={<SplashScreen />} />
@@ -60,6 +76,7 @@ const AppLayout: React.FC = () => {
           <Route path="/calculator" element={<CalculatorPage />} />
           <Route path="/guides" element={<GuidesPage />} />
           <Route path="/directory" element={<DirectoryPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
 
           {/* Default redirect to splash screen */}
           <Route path="*" element={<Navigate to="/splash" replace />} />
