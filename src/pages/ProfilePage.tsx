@@ -22,8 +22,8 @@ export const ProfilePage: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [formData, setFormData] = useState({
-    name: userProfile.name || 'Aakash',
-    email: userProfile.email || 'aakash@gmail.com',
+    name: userProfile.name || 'Alice',
+    email: userProfile.email || 'alice@example.com',
     phone: userProfile.phone || '+1 (555) 000-0000',
     role: currentRole,
     propertyType: userProfile.propertyType || 'Single Family Residential',

@@ -3,8 +3,8 @@ import type { ProjectItem, UserRole, ProjectMessage, UserProfile } from '@/types
 import { INITIAL_PROJECTS } from '@/data/mockProjects'
 
 export const DEFAULT_USER_PROFILE: UserProfile = {
-  name: 'Aakash',
-  email: 'aakash@gmail.com',
+  name: 'Alice',
+  email: 'alice@example.com',
   phone: '+1 (555) 000-0000',
   role: 'homeowner',
   propertyType: 'Single Family Residential',

@@ -303,12 +303,10 @@ export const HomePage: React.FC = () => {
               <h1 className="text-2xl font-black tracking-tight text-slate-800">
                 {userProfile?.companyName || 'Apex Site Contracting'}
               </h1>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-primary/15 text-primary border border-primary/25 uppercase shrink-0">
-                PRO PORTAL
-              </span>
+    
             </div>
             <p className="text-xs text-muted-foreground font-medium">
-              Welcome back, {userProfile?.name || 'Contractor'} • Priority P.E. Engineering Dispatch
+              Welcome back, {userProfile?.name || 'Contractor'}
             </p>
           </div>
 
@@ -755,7 +753,7 @@ export const HomePage: React.FC = () => {
           {/* 1. DASHBOARD GREETING HEADER */}
           <div className="space-y-1">
             <h1 className="text-2xl font-bold tracking-tight text-slate-800">
-              Welcome back, {userProfile?.name || 'Aakash'} !
+              Welcome back, {userProfile?.name || 'Alice'} !
             </h1>
           </div>
 
