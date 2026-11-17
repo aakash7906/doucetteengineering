@@ -7,7 +7,6 @@ import {
   Lock,
   Camera,
   Check,
-  ShieldCheck,
   Home,
   HardHat,
   ChevronDown
@@ -29,7 +28,7 @@ export const ProfilePage: React.FC = () => {
     role: currentRole,
     propertyType: userProfile.propertyType || 'Single Family Residential',
     companyName: userProfile.companyName || 'Apex Site Contracting & Civil LLC',
-    licenseNumber: userProfile.licenseNumber || 'MA DEP SE-4912',
+
     streetAddress: userProfile.streetAddress || '142 Highland Rd',
     city: userProfile.city || 'Acton',
     postalCode: userProfile.postalCode || '01720',
@@ -66,7 +65,7 @@ export const ProfilePage: React.FC = () => {
       role: formData.role,
       propertyType: formData.propertyType,
       companyName: formData.companyName,
-      licenseNumber: formData.licenseNumber,
+      // licenseNumber: formData.licenseNumber,
       streetAddress: formData.streetAddress,
       city: formData.city,
       postalCode: formData.postalCode,
@@ -129,7 +128,7 @@ export const ProfilePage: React.FC = () => {
           </h2>
           <div className="flex items-center justify-center gap-1.5 mt-0.5">
             <Badge variant="success" className="text-[10px] px-2 py-0.5 font-bold uppercase tracking-wider">
-              {currentRole === 'contractor' ? 'Contractor Pro' : 'Homeowner'}
+              {currentRole === 'contractor' ? 'Contractor' : 'Homeowner'}
             </Badge>
             <span className="text-slate-400 text-xs">•</span>
             <span className="text-slate-500 text-xs font-medium">
@@ -155,7 +154,7 @@ export const ProfilePage: React.FC = () => {
               ? 'bg-primary-light text-primary border border-primary/25' 
               : 'bg-primary-light text-primary border border-primary/25'
           }`}>
-            {currentRole === 'contractor' ? 'Contractor Pro' : 'Homeowner'}
+            {currentRole === 'contractor' ? 'Contractor' : 'Homeowner'}
           </span>
         </div>
 
@@ -165,7 +164,7 @@ export const ProfilePage: React.FC = () => {
             onClick={() => {
               setCurrentRole('homeowner')
               setFormData(prev => ({ ...prev, role: 'homeowner' }))
-              showToast('Switched to Homeowner Mode (Green Theme)', 'success')
+              showToast('Switched to Homeowner', 'success')
             }}
             className={`flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               currentRole === 'homeowner'
@@ -182,7 +181,7 @@ export const ProfilePage: React.FC = () => {
             onClick={() => {
               setCurrentRole('contractor')
               setFormData(prev => ({ ...prev, role: 'contractor' }))
-              showToast('Switched to Contractor Pro Mode (Blue Theme)', 'success')
+              showToast('Switched to Contractor', 'success')
             }}
             className={`flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               currentRole === 'contractor'
@@ -327,18 +326,6 @@ export const ProfilePage: React.FC = () => {
                       value={formData.companyName}
                       onChange={e => setFormData({ ...formData, companyName: e.target.value })}
                       placeholder="Company / Trade Name"
-                      className="w-full h-11 pl-10 pr-3.5 rounded-xl bg-slate-50 border border-slate-200/90 text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
-                    />
-                  </div>
-                  <div className="relative flex items-center">
-                    <div className="absolute left-3.5 text-slate-400 pointer-events-none">
-                      <ShieldCheck className="w-4 h-4" />
-                    </div>
-                    <input
-                      type="text"
-                      value={formData.licenseNumber}
-                      onChange={e => setFormData({ ...formData, licenseNumber: e.target.value })}
-                      placeholder="MA DEP License / Title 5 Cert"
                       className="w-full h-11 pl-10 pr-3.5 rounded-xl bg-slate-50 border border-slate-200/90 text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
                     />
                   </div>

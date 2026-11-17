@@ -35,7 +35,7 @@ export const DirectoryPage: React.FC = () => {
     },
     {
       id: 'septic-design',
-      title: 'Title 5 / Residential Septic Design',
+      title: 'Residential Septic Design',
       description: 'Custom PE-stamped plans, conventional leaching trenches, Presby Enviro-Septic, and high water-table solutions.',
       icon: <Layers className="w-5 h-5 text-primary" />,
       link: '/request?service=septic-design',
@@ -93,7 +93,7 @@ export const DirectoryPage: React.FC = () => {
       badgeVariant: 'secondary' as const
     },
     {
-      title: 'Title 5 & Perc Testing 101 Guide',
+      title: 'Perc Testing 101 Guide',
       description: 'Comprehensive FAQ, municipal setback guides, and escrow closing instructions.',
       icon: <BookOpen className="w-5 h-5 text-primary" />,
       link: '/guides',

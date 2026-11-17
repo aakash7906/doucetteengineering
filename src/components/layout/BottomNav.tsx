@@ -32,7 +32,7 @@ export const BottomNav: React.FC = () => {
     <footer className="shrink-0 z-40 w-full bg-card/95 backdrop-blur-md border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.04)] px-2 pt-1 pb-[max(0.5rem,env(safe-area-inset-bottom,0.5rem))] relative">
       <nav className="flex items-center justify-between gap-1 w-full max-w-lg mx-auto relative">
 
-        {/* Tab 1: Home (or Contractor Hub) */}
+        {/* Tab 1: Home (or Contractor) */}
         <Link
           to="/"
           className="flex-1 flex flex-col items-center justify-center focus:outline-none group relative py-1"
@@ -44,7 +44,7 @@ export const BottomNav: React.FC = () => {
           }`}>
             <LayoutGrid className="w-5 h-5 stroke-[2.2]" />
             <span className="text-[10px] leading-tight font-bold mt-0.5">
-              {isContractor ? 'Pro Hub' : 'Home'}
+              {isContractor ? 'Contractor' : 'Home'}
             </span>
           </div>
         </Link>

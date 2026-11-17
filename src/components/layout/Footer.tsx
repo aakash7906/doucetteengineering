@@ -22,11 +22,11 @@ export const Footer: React.FC = () => {
               </div>
             </div>
             <p className="text-xs leading-relaxed text-slate-300">
-              Professional civil engineering, Title 5 soil evaluation, and septic design for homeowners, contractors, and developers across Massachusetts and New England.
+              Professional civil engineering, soil evaluation, and septic design for homeowners, contractors, and developers across Massachusetts and New England.
             </p>
             <div className="flex items-center gap-2 text-[11px] text-success bg-background/10 border border-success/30 p-2 rounded-lg">
               <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-              <span>MA PE License #41908 • Certified Title 5 Soil Evaluator</span>
+              <span>MA PE License #41908 • Certified Soil Evaluator</span>
             </div>
           </div>
 
@@ -89,7 +89,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/guides" className="hover:text-white transition-colors">
-                  Title 5 & Perc Testing 101 Guide
+                  Perc Testing 101 Guide
                 </Link>
               </li>
               <li>
@@ -99,7 +99,7 @@ export const Footer: React.FC = () => {
                   rel="noopener noreferrer" 
                   className="hover:text-white transition-colors flex items-center gap-1 text-slate-300"
                 >
-                  MassDEP Title 5 Sanitary Code <ExternalLink className="w-3 h-3 text-slate-400" />
+                  MassDEP Sanitary Code <ExternalLink className="w-3 h-3 text-slate-400" />
                 </a>
               </li>
             </ul>

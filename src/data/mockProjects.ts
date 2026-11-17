@@ -6,7 +6,7 @@ export const INITIAL_PROJECTS: ProjectItem[] = [
     trackingNumber: 'DE-2026-8841',
     role: 'homeowner',
     serviceCategory: 'septic-design',
-    serviceName: 'Title 5 / Residential Septic Design',
+    serviceName: 'Residential Septic Design',
     title: '4-Bedroom Septic System Replacement & Soil Perc Test',
     propertyAddress: '142 Highland Road',
     city: 'Acton',
@@ -100,7 +100,7 @@ export const INITIAL_PROJECTS: ProjectItem[] = [
         id: 'm6',
         stageKey: 'contractor_bidding',
         title: 'Contractor Bidding & Permitting to Construct',
-        description: 'Bid package release to licensed Title 5 disposal system installers.',
+        description: 'Bid package release to licensed disposal system installers.',
         status: 'pending',
         estimatedDate: '2026-11-22'
       },
@@ -177,7 +177,7 @@ export const INITIAL_PROJECTS: ProjectItem[] = [
         sender: 'town_official',
         senderName: 'Kimberly Vance',
         roleTitle: 'Acton Health Inspector',
-        content: 'Engineering submission received and placed on the Nov 18 agenda. Preliminary review looks clean with all Title 5 setbacks met.',
+        content: 'Engineering submission received and placed on the Nov 18 agenda. Preliminary review looks clean with all setbacks met.',
         timestamp: '2026-11-10 10:04 AM'
       }
     ]

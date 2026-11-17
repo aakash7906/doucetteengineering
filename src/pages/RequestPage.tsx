@@ -15,7 +15,12 @@ import {
   ShieldCheck, 
   Droplet,
   Compass,
-  FileCheck2
+  FileCheck2,
+  Shovel,
+  Layers,
+  Wrench,
+  Building2,
+  Trees
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
 import { useToast } from '@/context/ToastContext'
@@ -85,6 +90,15 @@ export const RequestPage: React.FC = () => {
 
   // Completion State
   const [submittedProject, setSubmittedProject] = useState<{ id: string; trackingNumber: string } | null>(null)
+
+  const iconMap: Record<string, React.ReactNode> = {
+    Shovel: <Shovel className="w-4 h-4" />,
+    Compass: <Compass className="w-4 h-4" />,
+    DraftingCompass: <Layers className="w-4 h-4" />,
+    Wrench: <Wrench className="w-4 h-4" />,
+    Building2: <Building2 className="w-4 h-4" />,
+    Trees: <Trees className="w-4 h-4" />
+  }
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -272,10 +286,10 @@ export const RequestPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-lg mx-auto px-4 py-3 sm:py-4 space-y-5 pb-8 sm:pb-10">
+    <div className="max-w-lg mx-auto px-4 py-3 sm:py-4 space-y-4 pb-32 sm:pb-36">
       
       {/* Wizard Header & Stepper */}
-      <div className="space-y-2.5">
+      <div className="space-y-2">
         <div className="flex items-center justify-between text-xs">
           <button
             type="button"
@@ -286,17 +300,21 @@ export const RequestPage: React.FC = () => {
                 navigate(-1)
               }
             }}
-            className="text-muted-foreground hover:text-primary flex items-center gap-1 font-semibold transition-colors cursor-pointer"
+            className="text-muted-foreground hover:text-foreground flex items-center gap-1 font-semibold transition-colors cursor-pointer py-1"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Back
           </button>
-          <span className="font-mono font-bold text-primary bg-primary-light px-2.5 py-0.5 rounded-full border border-primary/20 text-xs">
+          <span className={`font-mono font-bold px-2.5 py-0.5 rounded-full border text-[11px] ${
+            role === 'contractor'
+              ? 'text-[var(--contractor-primary)] bg-[var(--contractor-primary-light)] border-[var(--contractor-primary)]/25'
+              : 'text-primary bg-primary-light border-primary/20'
+          }`}>
             Step {currentStep} of {totalSteps}
           </span>
         </div>
 
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight leading-tight">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight leading-tight">
             {currentStep === 1 && "Select Service & Role"}
             {currentStep === 2 && "Property Location & Parcel Info"}
             {currentStep === 3 && "Site Conditions & System Sizing"}
@@ -315,9 +333,11 @@ export const RequestPage: React.FC = () => {
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden border border-border">
+        <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden border border-border/60">
           <div 
-            className="bg-primary h-full transition-all duration-300 ease-out"
+            className={`h-full transition-all duration-300 ease-out ${
+              role === 'contractor' ? 'bg-[var(--contractor-primary)]' : 'bg-primary'
+            }`}
             style={{ width: `${(currentStep / totalSteps) * 100}%` }}
           />
         </div>
@@ -327,62 +347,56 @@ export const RequestPage: React.FC = () => {
       {currentStep === 1 && (
         <div className="space-y-4 animate-in fade-in-50 duration-200">
           
-          {/* Persona Selection */}
+          {/* Persona Selection (Native App Segmented Control) */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider block">
-              I am submitting as a:
-            </label>
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="flex items-center justify-between">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">
+                I am submitting as:
+              </label>
+              <span className="text-[10px] font-semibold text-muted-foreground">
+                {role === 'contractor' ? 'Trade Pro Account' : 'Residential Property'}
+              </span>
+            </div>
+            <div className="p-1 rounded-2xl bg-slate-100 dark:bg-slate-800 grid grid-cols-2 gap-1 border border-border/60">
               <button
                 type="button"
                 onClick={() => { setRole('homeowner'); setCurrentRole('homeowner') }}
-                className={`p-3 sm:p-3.5 rounded-2xl border text-left flex flex-col justify-between space-y-1.5 transition-all cursor-pointer ${
+                className={`py-2 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   role === 'homeowner'
-                    ? 'border-primary bg-primary-light/50 shadow-2xs ring-2 ring-primary/20'
-                    : 'border-border bg-card hover:border-slate-300'
+                    ? 'bg-card text-foreground shadow-xs border border-border/50'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <div className="h-8 w-8 rounded-xl bg-primary-light text-primary flex items-center justify-center">
-                    <Home className="w-4 h-4" />
-                  </div>
-                  {role === 'homeowner' && <CheckCircle2 className="w-4 h-4 text-primary" />}
-                </div>
-                <div>
-                  <div className="font-bold text-foreground text-sm">Homeowner</div>
-                  <div className="text-[10px] text-muted-foreground leading-tight">Residential property or failed septic</div>
-                </div>
+                <Home className={`w-3.5 h-3.5 ${role === 'homeowner' ? 'text-primary' : ''}`} />
+                <span>Homeowner</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => { setRole('contractor'); setCurrentRole('contractor') }}
-                className={`p-3 sm:p-3.5 rounded-2xl border text-left flex flex-col justify-between space-y-1.5 transition-all cursor-pointer ${
+                className={`py-2 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   role === 'contractor'
-                    ? 'border-[var(--contractor-primary)] bg-[var(--contractor-primary-light)]/60 shadow-2xs ring-2 ring-[var(--contractor-primary)]/20'
-                    : 'border-border bg-card hover:border-slate-300'
+                    ? 'bg-card text-foreground shadow-xs border border-border/50'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <div className="h-8 w-8 rounded-xl bg-[var(--contractor-primary-light)] text-[var(--contractor-primary)] flex items-center justify-center">
-                    <HardHat className="w-4 h-4" />
-                  </div>
-                  {role === 'contractor' && <CheckCircle2 className="w-4 h-4 text-[var(--contractor-primary)]" />}
-                </div>
-                <div>
-                  <div className="font-bold text-foreground text-sm">Contractor / Pro</div>
-                  <div className="text-[10px] text-muted-foreground leading-tight">Trade accounts & expedited CAD</div>
-                </div>
+                <HardHat className={`w-3.5 h-3.5 ${role === 'contractor' ? 'text-[var(--contractor-primary)]' : ''}`} />
+                <span>Contractor / Pro</span>
               </button>
             </div>
           </div>
 
-          {/* Service Category Picker */}
+          {/* Service Category Picker (2-Column Mobile App Grid) */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider block">
-              Required Engineering Service:
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="flex items-center justify-between">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">
+                Required Engineering Service:
+              </label>
+              <span className={`text-[10px] font-bold ${role === 'contractor' ? 'text-[var(--contractor-primary)]' : 'text-primary'}`}>
+                Tap to select
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
               {SERVICES_CATALOG.map((s) => {
                 const isSelected = serviceCategory === s.id
                 return (
@@ -390,21 +404,43 @@ export const RequestPage: React.FC = () => {
                     key={s.id}
                     type="button"
                     onClick={() => setServiceCategory(s.id)}
-                    className={`p-3 rounded-2xl border text-left transition-all flex items-center justify-between gap-2.5 cursor-pointer ${
+                    className={`p-3 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer relative min-h-[96px] group ${
                       isSelected
-                        ? 'border-primary bg-primary-light/60 ring-2 ring-primary/20 shadow-2xs'
-                        : 'border-border bg-card hover:border-slate-300'
+                        ? role === 'contractor'
+                          ? 'border-[var(--contractor-primary)] bg-[var(--contractor-primary-light)]/50 ring-2 ring-[var(--contractor-primary)]/20 shadow-xs'
+                          : 'border-primary bg-primary-light/50 ring-2 ring-primary/20 shadow-xs'
+                        : 'border-border bg-card hover:border-slate-300 shadow-2xs'
                     }`}
                   >
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-bold text-foreground text-xs sm:text-sm tracking-tight truncate">{s.title}</span>
-                        {isSelected && <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />}
+                    <div className="flex items-start justify-between w-full">
+                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${
+                        isSelected
+                          ? role === 'contractor'
+                            ? 'bg-[var(--contractor-primary)] text-white'
+                            : 'bg-primary text-white'
+                          : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                      }`}>
+                        {iconMap[s.iconName] || <Compass className="w-4 h-4" />}
                       </div>
-                      <div className="flex items-center gap-2 text-[11px] text-muted-foreground mt-0.5">
-                        <span className="font-mono font-bold text-slate-700">{formatCurrency(s.priceStartingAt)}+</span>
-                        <span className="text-slate-300">•</span>
-                        <span>{s.typicalTimeline}</span>
+                      {isSelected && (
+                        <span className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${
+                          role === 'contractor' ? 'text-[var(--contractor-primary)]' : 'text-primary'
+                        }`}>
+                          <CheckCircle2 className="w-4 h-4 fill-current/10" />
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="mt-2.5 min-w-0">
+                      <h4 className="font-bold text-xs text-foreground leading-snug line-clamp-2">
+                        {s.title}
+                      </h4>
+                      <div className="flex items-center gap-1.5 mt-1 text-[10px] text-muted-foreground font-medium">
+                        <span className="font-mono font-bold text-foreground">
+                          {formatCurrency(s.priceStartingAt)}+
+                        </span>
+                        <span className="text-slate-300 dark:text-slate-600">•</span>
+                        <span className="truncate">{s.typicalTimeline.split(' ')[0]}-{s.typicalTimeline.split(' ')[2]} {s.typicalTimeline.split(' ')[3] || ''}</span>
                       </div>
                     </div>
                   </button>
@@ -413,49 +449,60 @@ export const RequestPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Urgency */}
+          {/* Project Timeline & Urgency */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider block">
-              Project Timeline & Urgency:
-            </label>
-            <div className="grid grid-cols-3 gap-2 text-xs">
+            <div className="flex items-center justify-between">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">
+                Project Timeline & Urgency:
+              </label>
+              <span className="text-[10px] text-muted-foreground font-medium">
+                {urgency === 'standard' && 'Standard Board Review'}
+                {urgency === 'expedited' && 'Fast-Track Dispatch'}
+                {urgency === 'emergency' && 'Real Estate Escrow Sale'}
+              </span>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => setUrgency('standard')}
-                className={`py-2 px-1.5 rounded-xl border text-center transition-all cursor-pointer ${
+                className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                   urgency === 'standard'
-                    ? 'border-primary bg-primary-light text-primary font-bold shadow-2xs'
-                    : 'border-border bg-card text-foreground hover:bg-muted'
+                    ? role === 'contractor'
+                      ? 'border-[var(--contractor-primary)] bg-[var(--contractor-primary-light)]/60 text-[var(--contractor-primary)] font-bold shadow-2xs'
+                      : 'border-primary bg-primary-light text-primary font-bold shadow-2xs'
+                    : 'border-border bg-card text-foreground hover:bg-muted/50'
                 }`}
               >
-                <div className="font-bold text-xs">Standard</div>
-                <div className="text-[10px] text-muted-foreground">2 - 3 Wks</div>
+                <div className="text-xs font-bold">Standard</div>
+                <div className="text-[10px] text-muted-foreground mt-0.5">2 - 3 Wks</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setUrgency('expedited')}
-                className={`py-2 px-1.5 rounded-xl border text-center transition-all cursor-pointer ${
+                className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                   urgency === 'expedited'
-                    ? 'border-primary bg-primary-light text-primary font-bold shadow-2xs'
-                    : 'border-border bg-card text-foreground hover:bg-muted'
+                    ? role === 'contractor'
+                      ? 'border-[var(--contractor-primary)] bg-[var(--contractor-primary-light)]/60 text-[var(--contractor-primary)] font-bold shadow-2xs'
+                      : 'border-primary bg-primary-light text-primary font-bold shadow-2xs'
+                    : 'border-border bg-card text-foreground hover:bg-muted/50'
                 }`}
               >
-                <div className="font-bold text-xs">Expedited</div>
-                <div className="text-[10px] text-muted-foreground">1 - 2 Wks</div>
+                <div className="text-xs font-bold">Expedited</div>
+                <div className="text-[10px] text-muted-foreground mt-0.5">1 - 2 Wks</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setUrgency('emergency')}
-                className={`py-2 px-1.5 rounded-xl border text-center transition-all cursor-pointer ${
+                className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                   urgency === 'emergency'
                     ? 'border-destructive bg-destructive/10 text-destructive font-bold shadow-2xs'
-                    : 'border-border bg-card text-foreground hover:bg-muted'
+                    : 'border-border bg-card text-foreground hover:bg-muted/50'
                 }`}
               >
-                <div className="font-bold text-xs">Emergency</div>
-                <div className="text-[10px] text-muted-foreground">Escrow Sale</div>
+                <div className="text-xs font-bold">Emergency</div>
+                <div className="text-[10px] text-muted-foreground mt-0.5">Escrow Sale</div>
               </button>
             </div>
           </div>
@@ -992,7 +1039,11 @@ export const RequestPage: React.FC = () => {
 
             <Button 
               type="submit" 
-              className="flex-1 h-12 rounded-2xl bg-primary hover:bg-primary-hover active:scale-[0.99] text-white text-xs sm:text-sm font-extrabold shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+              className={`flex-1 h-12 rounded-2xl text-white text-xs sm:text-sm font-extrabold shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] transition-all ${
+                role === 'contractor'
+                  ? 'bg-[var(--contractor-primary)] hover:bg-[var(--contractor-primary)]/90'
+                  : 'bg-primary hover:bg-primary-hover'
+              }`}
             >
               <Sparkles className="w-4 h-4" />
               <span>Submit & Generate Tracking ID</span>
@@ -1026,7 +1077,11 @@ export const RequestPage: React.FC = () => {
               }
               setCurrentStep(prev => Math.min(totalSteps, prev + 1))
             }}
-            className="flex-1 h-12 rounded-2xl bg-primary hover:bg-primary-hover active:scale-[0.99] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+            className={`flex-1 h-12 rounded-2xl text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs active:scale-[0.98] transition-all cursor-pointer ${
+              role === 'contractor'
+                ? 'bg-[var(--contractor-primary)] hover:bg-[var(--contractor-primary)]/90'
+                : 'bg-primary hover:bg-primary-hover'
+            }`}
           >
             <span>Continue to Step {currentStep + 1}</span>
             <ArrowRight className="w-4 h-4" />

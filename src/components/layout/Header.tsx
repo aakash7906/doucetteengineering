@@ -18,14 +18,14 @@ export const Header: React.FC = () => {
 
   // Dynamic contextual title for header
   const getHeaderTitle = () => {
-    if (location.pathname === '/') return currentRole === 'contractor' ? 'Contractor Hub' : 'Home'
+    if (location.pathname === '/') return currentRole === 'contractor' ? 'Contractor' : 'Home'
     if (location.pathname === '/profile') return 'Profile'
     if (location.pathname === '/request') return 'Service Request'
     if (location.pathname === '/track') return 'My Requests'
     if (location.pathname.startsWith('/project/')) return 'Project Details'
     if (location.pathname === '/calculator') return 'Cost Estimator'
     if (location.pathname === '/contractor') return 'Contractor Jobs'
-    if (location.pathname === '/guides') return 'Title 5 Guides'
+    if (location.pathname === '/guides') return 'Guides'
     if (location.pathname === '/directory') return 'Engineering Directory'
     return 'Doucette Engineering'
   }
@@ -55,11 +55,8 @@ export const Header: React.FC = () => {
             <h1 className="font-bold text-base sm:text-lg tracking-tight text-slate-800 leading-tight truncate">
               {getHeaderTitle()}
             </h1>
-            {currentRole === 'contractor' && (
-              <span className="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-primary/15 text-primary border border-primary/25 tracking-wider shrink-0 uppercase">
-                PRO
-              </span>
-            )}
+            {currentRole === 'contractor'
+            }
           </div>
         </div>
 

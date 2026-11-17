@@ -26,7 +26,7 @@ export const SERVICES_CATALOG: ServiceDetail[] = [
   },
   {
     id: 'septic-design',
-    title: 'Title 5 / Residential Septic Design',
+    title: 'Residential Septic Design',
     tagline: '',
     description: 'Comprehensive civil engineering design of modern on-site subsurface disposal systems. Tailored for difficult lots, small reserve areas, steep grades, and high water tables using state-of-the-art gravity, pressure-dosed, or alternative technology systems.',
     priceStartingAt: 2400,
