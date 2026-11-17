@@ -26,6 +26,7 @@ interface ProjectContextType {
   getProjectByTrackingNumber: (trackingNumber: string) => ProjectItem | undefined
   getProjectById: (id: string) => ProjectItem | undefined
   addProjectRequest: (newProject: Omit<ProjectItem, 'id' | 'trackingNumber' | 'createdAt' | 'milestones' | 'documents' | 'messages' | 'percentComplete' | 'currentStatusStage' | 'currentStatusLabel' | 'assignedEngineer' | 'boardOfHealth'>) => ProjectItem
+  deleteProject: (idOrTracking: string) => void
   addMessageToProject: (projectId: string, message: Omit<ProjectMessage, 'id' | 'timestamp'>) => void
   activeTrackingId: string | null
   setActiveTrackingId: (id: string | null) => void
@@ -42,7 +43,17 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved) {
       try {
-        return JSON.parse(saved)
+        const parsed: ProjectItem[] = JSON.parse(saved)
+        // Clean up test projects matching 'dgfdsg'
+        const cleaned = parsed.filter(p => 
+          !p.propertyAddress?.toLowerCase().includes('dgfdsg') &&
+          !p.city?.toLowerCase().includes('dgfdsg') &&
+          !p.title?.toLowerCase().includes('dgfdsg')
+        )
+        if (cleaned.length !== parsed.length) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(cleaned))
+        }
+        return cleaned
       } catch {
         return INITIAL_PROJECTS
       }
@@ -221,6 +232,14 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     return newProject
   }
 
+  const deleteProject = (idOrTracking: string) => {
+    setProjects(prev => {
+      const updated = prev.filter(p => p.id !== idOrTracking && p.trackingNumber !== idOrTracking)
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
+      return updated
+    })
+  }
+
   const addMessageToProject = (projectId: string, messageData: Omit<ProjectMessage, 'id' | 'timestamp'>) => {
     const newMessage: ProjectMessage = {
       ...messageData,
@@ -252,6 +271,7 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         getProjectByTrackingNumber,
         getProjectById,
         addProjectRequest,
+        deleteProject,
         addMessageToProject,
         activeTrackingId,
         setActiveTrackingId

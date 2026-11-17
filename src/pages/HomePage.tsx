@@ -469,7 +469,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* 5. RECENT ACTIVE CONTRACTOR JOBS */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-base font-bold text-slate-800">
                 Active Construction Sites
@@ -479,7 +479,7 @@ export const HomePage: React.FC = () => {
               </Link>
             </div>
 
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {projects.slice(0, 3).map((job) => (
                 <Link
                   key={job.id}
@@ -538,10 +538,10 @@ export const HomePage: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-xs text-slate-800 leading-snug">
-                    24-48 Hr Fast Dispatch
+                    24-48 Hr Dispatch
                   </h3>
                   <p className="text-[10px] text-muted-foreground leading-normal mt-0.5">
-                    Backhoe on standby? We prioritize contractor test-pit witnessing.
+                    Prioritize contractor test-pit witnessing.
                   </p>
                 </div>
               </div>
@@ -552,10 +552,10 @@ export const HomePage: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-xs text-slate-800 leading-snug">
-                    100% Town BOH Approval
+                    100% Approval
                   </h3>
                   <p className="text-[10px] text-muted-foreground leading-normal mt-0.5">
-                    Zero rejected Title 5 filings across Middlesex & Worcester.
+                    Zero rejected Title 5 filings.
                   </p>
                 </div>
               </div>
@@ -569,7 +569,7 @@ export const HomePage: React.FC = () => {
                     Rapid CAD Revisions
                   </h3>
                   <p className="text-[10px] text-muted-foreground leading-normal mt-0.5">
-                    Ledge or water table shifts on-site? Immediate P.E. redlines.
+                    Ledge or water table shifts on-site.
                   </p>
                 </div>
               </div>
@@ -580,10 +580,10 @@ export const HomePage: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-xs text-slate-800 leading-snug">
-                    Wholesale Trade Rates
+                    Wholesale Rates
                   </h3>
                   <p className="text-[10px] text-muted-foreground leading-normal mt-0.5">
-                    Volume partner discounts & monthly consolidated invoicing.
+                    Volume partner discounts.
                   </p>
                 </div>
               </div>
@@ -591,8 +591,8 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* 8. CONTRACTOR PRO TOOLS HUB */}
-          <div className="space-y-3">
-            <div className="space-y-0.5">
+          <div className="space-y-4">
+            <div className="space-y-2">
               <span className="text-[10px] font-bold text-primary uppercase tracking-wider block">
                 Field & Office Suite
               </span>
@@ -601,7 +601,7 @@ export const HomePage: React.FC = () => {
               </h2>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-4">
               {/* Tile 1: Priority Soil Perc Witnessing */}
               <Link
                 to="/request?service=soil-perc-test"
@@ -698,7 +698,7 @@ export const HomePage: React.FC = () => {
 
           {/* 9. CONTRACTOR EXPEDITED FIELD WORKFLOW */}
           <div className="bg-card rounded-2xl p-4 sm:p-5 border border-border shadow-xs space-y-4">
-            <div className="space-y-1">
+            <div className="space-y-3">
               <span className="text-[10px] font-bold text-primary uppercase tracking-wider block">
                 Expedited Field Protocol
               </span>
@@ -707,7 +707,7 @@ export const HomePage: React.FC = () => {
               </h2>
             </div>
 
-            <div className="space-y-3 relative before:absolute before:left-3.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-slate-200">
+            <div className="space-y-5 relative before:absolute before:left-3.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-slate-200">
               {/* Step 1 */}
               <div className="relative flex items-start gap-3">
                 <div className="w-7 h-7 rounded-full bg-primary text-primary-foreground font-black text-xs flex items-center justify-center shrink-0 z-10 shadow-xs ring-4 ring-card">
@@ -717,9 +717,7 @@ export const HomePage: React.FC = () => {
                   <h3 className="text-xs font-bold text-slate-800 leading-snug">
                     Book Witness & DigSafe Clearance
                   </h3>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">
-                    Lock in test dates; we coordinate with municipal BOH agents & DigSafe.
-                  </p>
+                  
                 </div>
               </div>
 
@@ -732,9 +730,7 @@ export const HomePage: React.FC = () => {
                   <h3 className="text-xs font-bold text-slate-800 leading-snug">
                     Witnessed Perc & Civil 3D CAD
                   </h3>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">
-                    On-site soil logging, rapid perc observation & DEP Title 5 drafting.
-                  </p>
+                
                 </div>
               </div>
 
@@ -747,9 +743,7 @@ export const HomePage: React.FC = () => {
                   <h3 className="text-xs font-bold text-slate-800 leading-snug">
                     Town Approval & As-Built Certification
                   </h3>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">
-                    BOH permit issuance, final component inspection & COC sign-off.
-                  </p>
+                 
                 </div>
               </div>
             </div>
@@ -976,7 +970,7 @@ export const HomePage: React.FC = () => {
                     48-Hr Fast Dispatch
                   </h3>
                   <p className="text-[10px] text-muted-foreground leading-normal mt-0.5">
-                    Fast-track deep hole observation & perc testing.
+                    Hole observation & perc testing.
                   </p>
                 </div>
               </div>
@@ -990,7 +984,7 @@ export const HomePage: React.FC = () => {
                     100% Town BOH Approval
                   </h3>
                   <p className="text-[10px] text-muted-foreground leading-normal mt-0.5">
-                    Guaranteed municipal Title 5 compliance across MA.
+                    Municipal Title 5 compliance.
                   </p>
                 </div>
               </div>
@@ -1004,7 +998,7 @@ export const HomePage: React.FC = () => {
                     Stamped Civil P.E.
                   </h3>
                   <p className="text-[10px] text-muted-foreground leading-normal mt-0.5">
-                    Official MA DEP licensed P.E. #41908 seal.
+                    Official MA DEP licensed P.E. 
                   </p>
                 </div>
               </div>
@@ -1018,7 +1012,7 @@ export const HomePage: React.FC = () => {
                     Live Mobile Tracking
                   </h3>
                   <p className="text-[10px] text-muted-foreground leading-normal mt-0.5">
-                    Track permits & plans in real time on your phone.
+                    Track permits & plans in real time.
                   </p>
                 </div>
               </div>
@@ -1192,11 +1186,6 @@ export const HomePage: React.FC = () => {
           <h3 className="font-bold text-foreground text-sm">
             {currentRole === 'contractor' ? 'Dedicated Pro Contractor Support' : 'Need help with your project?'}
           </h3>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            {currentRole === 'contractor'
-              ? 'Direct line to our licensed Massachusetts Civil & Septic Engineers.'
-              : 'Our engineering support team is here to assist with any Title 5 questions.'}
-          </p>
           <div className="pt-1">
             <a
               href="tel:9783694200"

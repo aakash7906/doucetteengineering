@@ -6,9 +6,11 @@ import {
   ClipboardList, 
   ArrowRight, 
   Calendar, 
-  Plus
+  Plus,
+  Trash2
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
+import { useToast } from '@/context/ToastContext'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
@@ -16,7 +18,8 @@ import { formatDate } from '@/lib/utils'
 
 export const TrackListPage: React.FC = () => {
   const [searchParams] = useSearchParams()
-  const { projects } = useProjects()
+  const { projects, deleteProject } = useProjects()
+  const { showToast } = useToast()
   
   const queryFromUrl = searchParams.get('query') || ''
   const [searchQuery, setSearchQuery] = useState(queryFromUrl)
@@ -177,8 +180,8 @@ export const TrackListPage: React.FC = () => {
               key={project.id} 
               className="rounded-3xl border border-border shadow-xs hover:border-primary/50 transition-all overflow-hidden flex flex-col justify-between p-6 sm:p-7 space-y-5 bg-card"
             >
-              {/* Header: Status Pill */}
-              <div>
+              {/* Header: Status Pill & Delete Button */}
+              <div className="flex items-center justify-between">
                 <span className={`inline-flex text-xs font-semibold px-3 py-1 rounded-full border ${
                   project.percentComplete === 100 
                     ? 'bg-primary-light text-primary border-primary/25' 
@@ -188,6 +191,18 @@ export const TrackListPage: React.FC = () => {
                 }`}>
                   {project.percentComplete === 100 ? 'Approved & Closed' : project.currentStatusLabel}
                 </span>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    deleteProject(project.id)
+                    showToast('Job removed successfully.', 'info')
+                  }}
+                  title="Remove Job"
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
 
               {/* Title & Location (Extra breathing room between title and location) */}

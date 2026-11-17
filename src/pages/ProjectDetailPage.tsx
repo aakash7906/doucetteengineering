@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
   MapPin,
@@ -15,7 +15,8 @@ import {
   Mail,
   Copy,
   Eye,
-  MessageSquare
+  MessageSquare,
+  Trash2
 } from 'lucide-react'
 import { useProjects } from '@/context/ProjectContext'
 import { useToast } from '@/context/ToastContext'
@@ -28,7 +29,8 @@ import { formatDate } from '@/lib/utils'
 
 export const ProjectDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
-  const { getProjectByTrackingNumber, getProjectById, addMessageToProject } = useProjects()
+  const navigate = useNavigate()
+  const { getProjectByTrackingNumber, getProjectById, addMessageToProject, deleteProject } = useProjects()
   const { showToast } = useToast()
 
   const project = id ? (getProjectByTrackingNumber(id) || getProjectById(id)) : undefined
@@ -92,7 +94,7 @@ export const ProjectDetailPage: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={() => setRequestExpediteOpen(true)}
-            className="text-xs font-semibold h-8.5 rounded-xl"
+            className="text-xs font-semibold h-8.5 rounded-xl cursor-pointer"
           >
             Expedite
           </Button>
@@ -100,10 +102,25 @@ export const ProjectDetailPage: React.FC = () => {
             variant="secondary"
             size="sm"
             onClick={() => setActiveTab('messages')}
-            className="text-xs font-semibold h-8.5 rounded-xl flex items-center gap-1.5"
+            className="text-xs font-semibold h-8.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
           >
             <MessageSquare className="w-3.5 h-3.5" />
             <span>Chat</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              if (window.confirm('Are you sure you want to delete this job?')) {
+                deleteProject(project.id)
+                showToast('Job removed successfully.', 'info')
+                navigate('/track')
+              }
+            }}
+            title="Delete Job"
+            className="text-xs font-semibold h-8.5 w-8.5 p-0 rounded-xl text-muted-foreground hover:text-destructive hover:bg-destructive/10 cursor-pointer"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
           </Button>
         </div>
       </div>
