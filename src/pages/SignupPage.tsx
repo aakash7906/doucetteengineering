@@ -35,13 +35,29 @@ export const SignupPage: React.FC = () => {
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground font-mono font-black text-xs flex items-center justify-center shadow-xs">
+          <div
+            className={`h-9 w-9 rounded-xl font-mono font-black text-xs flex items-center justify-center shadow-xs transition-colors duration-200 text-white ${
+              currentRole === 'contractor' ? 'bg-[var(--contractor-primary)]' : 'bg-primary'
+            }`}
+          >
             DE
           </div>
-          <span className="font-extrabold text-sm text-foreground">Doucette Engineering</span>
+          <div className="flex items-center gap-1.5">
+            <span className="font-extrabold text-sm text-foreground">Doucette Engineering</span>
+            {currentRole === 'contractor' && (
+              <span className="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-sky-100 text-[var(--contractor-primary)] border border-sky-300 tracking-wider uppercase transition-colors">
+                PRO
+              </span>
+            )}
+          </div>
         </div>
 
-        <Link to="/login" className="text-xs font-bold text-muted-foreground hover:text-primary">
+        <Link
+          to="/login"
+          className={`text-xs font-bold transition-colors duration-200 ${
+            currentRole === 'contractor' ? 'text-[var(--contractor-primary)] hover:underline' : 'text-muted-foreground hover:text-primary'
+          }`}
+        >
           Sign In →
         </Link>
       </div>
@@ -169,9 +185,13 @@ export const SignupPage: React.FC = () => {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full h-12 rounded-2xl font-bold text-sm shadow-md mt-2 flex items-center justify-center gap-2 cursor-pointer"
+            className={`w-full h-12 rounded-2xl font-bold text-sm shadow-md mt-2 flex items-center justify-center gap-2 cursor-pointer transition-colors duration-200 ${
+              currentRole === 'contractor'
+                ? 'bg-[var(--contractor-primary)] hover:bg-[var(--contractor-primary-hover)] text-white shadow-sky-600/20'
+                : 'bg-primary hover:bg-primary-hover text-primary-foreground shadow-emerald-600/20'
+            }`}
           >
-            <span>{loading ? 'Creating Account...' : 'Complete Registration'}</span>
+            <span>{loading ? 'Creating Account...' : (currentRole === 'contractor' ? 'Complete Contractor Registration' : 'Complete Registration')}</span>
             <ArrowRight className="w-4 h-4" />
           </Button>
         </form>
@@ -182,7 +202,12 @@ export const SignupPage: React.FC = () => {
       <div className="text-center text-xs text-muted-foreground space-y-1.5 max-w-sm mx-auto w-full">
         <div>
           Already have an account?{' '}
-          <Link to="/login" className="text-primary font-bold hover:underline">
+          <Link
+            to="/login"
+            className={`font-bold hover:underline transition-colors duration-200 ${
+              currentRole === 'contractor' ? 'text-[var(--contractor-primary)]' : 'text-primary'
+            }`}
+          >
             Sign In
           </Link>
         </div>

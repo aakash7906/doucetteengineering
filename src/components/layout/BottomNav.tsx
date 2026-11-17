@@ -76,7 +76,11 @@ export const BottomNav: React.FC = () => {
           className="flex-1 flex flex-col items-center justify-center focus:outline-none group relative -mt-6 z-10"
           title={isContractor ? "Book New Contractor Engineering Request" : "Request Service & Submit Details"}
         >
-          <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-[0_8px_20px_rgba(2,132,199,0.38)] transition-all transform active:scale-90 group-hover:scale-105 ${
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all transform active:scale-90 group-hover:scale-105 ${
+            isContractor
+              ? 'shadow-[0_8px_20px_rgba(2,132,199,0.38)]'
+              : 'shadow-[0_8px_20px_rgba(16,188,0,0.35)]'
+          } ${
             isTabActive('request')
               ? 'bg-primary text-primary-foreground ring-4 ring-primary/25 scale-105'
               : 'bg-primary text-primary-foreground hover:brightness-105'

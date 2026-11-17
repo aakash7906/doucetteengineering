@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/request?service=septic-design" className="hover:text-white transition-colors">
-                  Title 5 / Residential Septic Design
+                  Residential Septic Design
                 </Link>
               </li>
               <li>

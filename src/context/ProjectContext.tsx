@@ -69,6 +69,14 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const [activeTrackingId, setActiveTrackingId] = useState<string | null>(null)
 
+  // Synchronize data-role attribute on root HTML and body elements for instant theme switching
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-role', currentRole)
+      document.body.setAttribute('data-role', currentRole)
+    }
+  }, [currentRole])
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
   }, [projects])

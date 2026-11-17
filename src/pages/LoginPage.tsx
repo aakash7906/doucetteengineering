@@ -28,15 +28,29 @@ export const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-between bg-card text-foreground px-6 py-8 pb-10 overflow-y-auto select-none">
+    <div
+      data-role={currentRole}
+      className="fixed inset-0 z-50 flex flex-col justify-between bg-card text-foreground px-6 py-8 pb-10 overflow-y-auto select-none transition-colors duration-200"
+    >
 
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground font-mono font-black text-xs flex items-center justify-center shadow-xs">
+          <div
+            className={`h-9 w-9 rounded-xl font-mono font-black text-xs flex items-center justify-center shadow-xs transition-colors duration-200 text-white ${
+              currentRole === 'contractor' ? 'bg-[var(--contractor-primary)]' : 'bg-primary'
+            }`}
+          >
             DE
           </div>
-          <span className="font-extrabold text-sm text-foreground">Doucette Engineering</span>
+          <div className="flex items-center gap-1.5">
+            <span className="font-extrabold text-sm text-foreground">Doucette Engineering</span>
+            {currentRole === 'contractor' && (
+              <span className="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-sky-100 text-[var(--contractor-primary)] border border-sky-300 tracking-wider uppercase transition-colors">
+                PRO
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -48,8 +62,10 @@ export const LoginPage: React.FC = () => {
           <h1 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight">
             Sign In
           </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground">
-            Access your Title 5 permits & engineering projects
+          <p className="text-xs sm:text-sm text-muted-foreground transition-all">
+            {currentRole === 'contractor'
+              ? 'Access your commercial bids & P.E. stamped plans'
+              : 'Access your Title 5 permits & engineering projects'}
           </p>
         </div>
 
@@ -73,12 +89,12 @@ export const LoginPage: React.FC = () => {
           </button>
         </div>
 
-        {/* Form Inputs (Validation Removed) */}
+        {/* Form Inputs */}
         <form onSubmit={handleLogin} noValidate className="space-y-4">
 
           <div className="space-y-1">
             <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
-              Email Address
+              {currentRole === 'contractor' ? 'Contractor Business Email' : 'Email Address'}
             </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3.5" />
@@ -88,7 +104,9 @@ export const LoginPage: React.FC = () => {
                 placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-11 pl-10 pr-3 rounded-2xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
+                className={`w-full h-11 pl-10 pr-3 rounded-2xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 shadow-2xs transition-all ${
+                  currentRole === 'contractor' ? 'focus:ring-[var(--contractor-primary)]' : 'focus:ring-primary'
+                }`}
               />
             </div>
           </div>
@@ -101,7 +119,11 @@ export const LoginPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => showToast('Password reset link sent to registered email.', 'info')}
-                className="text-primary font-bold hover:underline"
+                className={`font-bold hover:underline transition-colors duration-200 cursor-pointer ${
+                  currentRole === 'contractor'
+                    ? 'text-[var(--contractor-primary)] hover:text-[var(--contractor-primary-hover)]'
+                    : 'text-primary hover:text-primary-hover'
+                }`}
               >
                 Forgot?
               </button>
@@ -113,12 +135,14 @@ export const LoginPage: React.FC = () => {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-11 pl-10 pr-10 rounded-2xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs"
+                className={`w-full h-11 pl-10 pr-10 rounded-2xl border border-input bg-card text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 shadow-2xs transition-all ${
+                  currentRole === 'contractor' ? 'focus:ring-[var(--contractor-primary)]' : 'focus:ring-primary'
+                }`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3.5 text-muted-foreground hover:text-foreground"
+                className="absolute right-3 top-3.5 text-muted-foreground hover:text-foreground cursor-pointer"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -128,16 +152,25 @@ export const LoginPage: React.FC = () => {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full h-12 rounded-2xl font-bold text-sm shadow-md mt-2 flex items-center justify-center gap-2 cursor-pointer"
+            className={`w-full h-12 rounded-2xl font-bold text-sm shadow-md mt-2 flex items-center justify-center gap-2 cursor-pointer transition-colors duration-200 ${
+              currentRole === 'contractor'
+                ? 'bg-[var(--contractor-primary)] hover:bg-[var(--contractor-primary-hover)] text-white shadow-sky-600/20'
+                : 'bg-primary hover:bg-primary-hover text-primary-foreground shadow-emerald-600/20'
+            }`}
           >
-            <span>{loading ? 'Signing in...' : 'Sign In to Portal'}</span>
+            <span>{loading ? 'Signing in...' : (currentRole === 'contractor' ? 'Sign In as Contractor' : 'Sign In as Homeowner')}</span>
             <ArrowRight className="w-4 h-4" />
           </Button>
         </form>
 
         {/* Quick Demo Fill button */}
         <div className="flex justify-center pt-1">
-          <Link to="/" className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors">
+          <Link
+            to="/"
+            className={`text-xs font-bold text-muted-foreground transition-colors duration-200 ${
+              currentRole === 'contractor' ? 'hover:text-[var(--contractor-primary)]' : 'hover:text-primary'
+            }`}
+          >
             Guest login →
           </Link>
         </div>
@@ -148,7 +181,12 @@ export const LoginPage: React.FC = () => {
       <div className="text-center text-xs text-muted-foreground space-y-2 max-w-sm mx-auto w-full">
         <div>
           Don't have an account?{' '}
-          <Link to="/signup" className="text-primary font-bold hover:underline">
+          <Link
+            to="/signup"
+            className={`font-bold hover:underline transition-colors duration-200 ${
+              currentRole === 'contractor' ? 'text-[var(--contractor-primary)]' : 'text-primary'
+            }`}
+          >
             Create Account
           </Link>
         </div>

@@ -359,15 +359,15 @@ export const RequestPage: React.FC = () => {
                 onClick={() => { setRole('contractor'); setCurrentRole('contractor') }}
                 className={`p-3 sm:p-3.5 rounded-2xl border text-left flex flex-col justify-between space-y-1.5 transition-all cursor-pointer ${
                   role === 'contractor'
-                    ? 'border-warning bg-warning/15 shadow-2xs ring-2 ring-warning/20'
+                    ? 'border-[var(--contractor-primary)] bg-[var(--contractor-primary-light)]/60 shadow-2xs ring-2 ring-[var(--contractor-primary)]/20'
                     : 'border-border bg-card hover:border-slate-300'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="h-8 w-8 rounded-xl bg-warning/20 text-warning-foreground flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-xl bg-[var(--contractor-primary-light)] text-[var(--contractor-primary)] flex items-center justify-center">
                     <HardHat className="w-4 h-4" />
                   </div>
-                  {role === 'contractor' && <CheckCircle2 className="w-4 h-4 text-warning" />}
+                  {role === 'contractor' && <CheckCircle2 className="w-4 h-4 text-[var(--contractor-primary)]" />}
                 </div>
                 <div>
                   <div className="font-bold text-foreground text-sm">Contractor / Pro</div>

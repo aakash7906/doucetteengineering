@@ -34,7 +34,7 @@ const HERO_SLIDES = [
   },
   {
     image: '/hero/realistic_4k_photograph_of_a_licensed_septic_contractor_in_high_visibility (1).png',
-    tag: 'Title 5 & Perc Testing',
+    tag: ' Perc Testing',
     link: '/request?service=soil-perc-test'
   },
   {
@@ -320,7 +320,7 @@ export const HomePage: React.FC = () => {
               </div>
               <div className="min-w-0">
                 <span className="text-xs font-bold text-slate-800 block truncate group-hover:text-primary transition-colors">
-                  Title 5 Guide
+                  Guide
                 </span>
                 <span className="text-[10px] text-muted-foreground block truncate">
                   Septic Manual
